@@ -10,7 +10,7 @@ import {Button} from "@/components/ui/button";
 import WhyChooseUs from "@/components/why-choose-card";
 import {catalogue, faqItems} from "@/data/static-card";
 import {useGetHomePageCourses} from "@/hooks/use-course";
-import {Course} from "@/interfaces/course.interface";
+import {CourseInterface} from "@/interfaces/course.interface";
 import {useNavigate} from "react-router";
 
 export default function Home() {
@@ -70,7 +70,7 @@ export default function Home() {
               ? [1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
                   <CourseCardSkeleton key={index} />
                 ))
-              : courses?.map((course: Course) => {
+              : courses?.map((course: CourseInterface) => {
                   return (
                     <CourseCard
                       key={course._id + course.updatedAt}
