@@ -1,6 +1,6 @@
 # React + TypeScript
 
-This ICS LMS(client) web code.
+This is ICS LMS(client) web code.
 
 ## Step-by-Step Guide
 
