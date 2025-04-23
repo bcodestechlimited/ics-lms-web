@@ -1,0 +1,12 @@
+#root {
+  max-width: 2560px;
+  margin: 0 auto;
+  font-family: geist;
+}
+.about-bg {
+  background-image: url('/assets/image/course-wave.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 500px;
+}
