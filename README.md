@@ -15,7 +15,7 @@ This template provides a minimal setup to get React working with CRA.
 
 #### Step 3: 🏃‍♂️ Running the Project
 
-- Development Mode: `bun run start`  local server @http://localhost:3000
+- Development Mode: `bun run dev`  local server @http://localhost:3000
 - Building: `bun run build`
 
 #### Step 4: 🚀 Deployment
