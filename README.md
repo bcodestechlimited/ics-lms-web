@@ -1,6 +1,6 @@
 # React + TypeScript
 
-This template provides a minimal setup to get React working with CRA.
+This BCT LMS(client) web code.
 
 ## Step-by-Step Guide
 
