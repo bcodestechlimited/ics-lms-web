@@ -1,5 +1,4 @@
-// src/lib/api-client.ts
-import { authStore, getAccessTokenFromContext } from "@/store/auth.store";
+import {authStore, getAccessTokenFromContext} from "@/store/auth.store";
 import axios, {
   AxiosError,
   AxiosInstance,
@@ -7,10 +6,10 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 
+console.log(import.meta.env.VITE_SERVER_URL);
 const apiClient: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   withCredentials: true,
-  timeout: 10000,
 });
 
 apiClient.interceptors.request.use(
