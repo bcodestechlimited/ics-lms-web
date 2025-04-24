@@ -9,33 +9,23 @@ import {authStore} from "@/store/auth.store";
 
 class AuthService {
   async register(payload: RegisterPayload) {
-    try {
-      const {data} = await apiClient.post<RegisterResponse>("/user", {
-        email: payload.email,
-        password: payload.password,
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-        telephone: payload.telephone,
-      });
-      return data;
-    } catch (error) {
-      console.error("Error logging in:", error);
-      throw error;
-    }
+    const {data} = await apiClient.post<RegisterResponse>("/user", {
+      email: payload.email,
+      password: payload.password,
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      telephone: payload.telephone,
+    });
+    return data;
   }
 
   async login(payload: LoginPayload) {
-    try {
-      const {data} = await apiClient.post<LoginResponse>("/user/login", {
-        email: payload.email,
-        password: payload.password,
-      });
-      authStore.getState().setAccessToken(data.responseObject.token);
-      return data;
-    } catch (error) {
-      console.error("Error logging in:", error);
-      throw error;
-    }
+    const {data} = await apiClient.post<LoginResponse>("/user/login", {
+      email: payload.email,
+      password: payload.password,
+    });
+    authStore.getState().setAccessToken(data.responseObject.token);
+    return data;
   }
 
   async logout() {
@@ -55,6 +45,13 @@ class AuthService {
       token: payload.token,
       password: payload.password,
       newPassword: payload.newPassword,
+    });
+    return data;
+  }
+
+  async activateUserAccount(payload: string) {
+    const {data} = await apiClient.post(`/user/activate-account`, {
+      token: payload,
     });
     return data;
   }

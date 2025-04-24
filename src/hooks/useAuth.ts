@@ -74,3 +74,9 @@ export const useStaffOnboarding = () => {
     },
   });
 };
+
+export const useActivateAccount = () => {
+  return useMutation({
+    mutationFn: (token: string) => authService.activateUserAccount(token),
+  });
+};
