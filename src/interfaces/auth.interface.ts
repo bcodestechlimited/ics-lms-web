@@ -21,3 +21,27 @@ export interface RegisterResponse {
   data: object;
 }
 
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface RegisterPayload {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  telephone: string;
+}
+
+export interface OnBoardingStaffPayload {
+  email: string;
+  password: string;
+  newPassword: string;
+  token: string;
+}
+
+export interface ResetPasswordInterface {
+  newPassword: string;
+  token: string;
+}

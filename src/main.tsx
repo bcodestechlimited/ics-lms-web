@@ -25,6 +25,7 @@ import ErrorPage from "./pages/error.tsx";
 import NotFoundPage from "./pages/not-found.tsx";
 import {ScrollToTop} from "./hooks/use-scroll-to-top.ts";
 import UserActivation from "./pages/auth/activate-user.tsx";
+import ResetPasswordPage from "./pages/auth/reset-password.tsx";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,10 @@ createRoot(document.getElementById("root")!).render(
                 <Route
                   path="/auth/user/activate"
                   element={<UserActivation />}
+                />
+                <Route
+                  path="/auth/reset-password"
+                  element={<ResetPasswordPage />}
                 />
                 <Route
                   path="/auth/staff-onboarding"

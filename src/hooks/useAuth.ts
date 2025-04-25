@@ -1,26 +1,12 @@
 import {authService} from "@/services/auth.service";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useSession} from "./useSession";
-
-export interface LoginPayload {
-  email: string;
-  password: string;
-}
-
-export interface RegisterPayload {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  telephone: string;
-}
-
-export interface OnBoardingStaffPayload {
-  email: string;
-  password: string;
-  newPassword: string;
-  token: string;
-}
+import {
+  LoginPayload,
+  OnBoardingStaffPayload,
+  RegisterPayload,
+  ResetPasswordInterface,
+} from "@/interfaces/auth.interface";
 
 export const useRegister = () => {
   const queryClient = useQueryClient();
@@ -78,5 +64,12 @@ export const useStaffOnboarding = () => {
 export const useActivateAccount = () => {
   return useMutation({
     mutationFn: (token: string) => authService.activateUserAccount(token),
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation({
+    mutationFn: (payload: ResetPasswordInterface) =>
+      authService.resetPasswordService(payload),
   });
 };

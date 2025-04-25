@@ -31,3 +31,17 @@ export const passwordSchema = z
   });
 
 export type PasswordFormValues = z.infer<typeof passwordSchema>;
+
+export const ResetPasswordSchema = z
+  .object({
+    newPassword: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Must contain at least one uppercase letter")
+      .regex(/[0-9]/, "Must contain at least one number"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });

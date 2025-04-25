@@ -1,9 +1,11 @@
 import {
   LoginPayload,
+  LoginResponse,
   OnBoardingStaffPayload,
   RegisterPayload,
-} from "@/hooks/useAuth";
-import {LoginResponse, RegisterResponse} from "@/interfaces/auth.interface";
+  RegisterResponse,
+  ResetPasswordInterface,
+} from "@/interfaces/auth.interface";
 import apiClient from "@/lib/api-client";
 import {authStore} from "@/store/auth.store";
 
@@ -52,6 +54,14 @@ class AuthService {
   async activateUserAccount(payload: string) {
     const {data} = await apiClient.post(`/user/activate-account`, {
       token: payload,
+    });
+    return data;
+  }
+
+  async resetPasswordService(payload: ResetPasswordInterface) {
+    const {data} = await apiClient.post(`/user/reset-password`, {
+      newPassword: payload.newPassword,
+      token: payload.token,
     });
     return data;
   }
