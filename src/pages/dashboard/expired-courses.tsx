@@ -12,7 +12,7 @@ const DashboardExpiredCourses = () => {
     <DashboardLayout>
       <div className="grid grid-cols-12 gap-8">
         <div className="col-start-2 col-end-12 py-16 space-y-16">
-          <h2 className="text-2xl font-bold text-[#013467]">Expired Courses</h2>
+          <h1 className="text-2xl font-bold text-[#013467]">Expired Courses</h1>
           {courses.length === 0 && (
             <div className="flex items-center justify-center h-full w-full">
               <p className="text-3xl font-medium text-gray-600">

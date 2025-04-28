@@ -31,7 +31,6 @@ export default function DashboardCourseAssessmentPage() {
   const {data, isLoading} = useGetCourseAssessments(courseId!);
   const questions: Question[] =
     !isLoading && data?.responseObject?.data ? data.responseObject.data : [];
-
   const [selectedAnswers, setSelectedAnswers] = useState<
     Record<string, number>
   >({});

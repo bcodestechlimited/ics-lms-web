@@ -22,7 +22,7 @@ export function AppSidebar() {
     },
     {
       title: "Certificates",
-      url: "#",
+      url: "/dashboard/certificates",
       icon: ShieldCheckIcon,
     },
     {
