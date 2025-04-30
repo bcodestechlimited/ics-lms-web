@@ -7,25 +7,26 @@ import App from "./App.tsx";
 import ErrorBoundary from "./components/error-boundary.tsx";
 import {Navbar} from "./components/navbar.tsx";
 import {SessionProvider} from "./context/session.tsx";
+import {ScrollToTop} from "./hooks/use-scroll-to-top.ts";
 import "./index.css";
 import {ProtectedLayout} from "./layouts/protected-layout.tsx";
 import AboutUsPage from "./pages/about-us.tsx";
+import UserActivation from "./pages/auth/activate-user.tsx";
 import LoginPage from "./pages/auth/login-page.tsx";
+import ResetPasswordPage from "./pages/auth/reset-password.tsx";
 import SignupPage from "./pages/auth/signup-page.tsx";
 import StaffOnboarding from "./pages/auth/staff-onboarding.tsx";
 import CourseCategoryPage from "./pages/course/course-category-page.tsx";
 import CourseCheckoutPage from "./pages/course/course-checkout-page.tsx";
 import CourseSlugPage from "./pages/course/course-slug-page.tsx";
 import CoursesPage from "./pages/course/courses-page.tsx";
+import DashboardCertificate from "./pages/dashboard/certificates.tsx";
 import DashboardCourseAssessmentPage from "./pages/dashboard/course/course-assessment.tsx";
 import DashboardCourseOverview from "./pages/dashboard/course/slug.tsx";
 import DashboardExpiredCourses from "./pages/dashboard/expired-courses.tsx";
 import UserDashboard from "./pages/dashboard/index.tsx";
 import ErrorPage from "./pages/error.tsx";
 import NotFoundPage from "./pages/not-found.tsx";
-import {ScrollToTop} from "./hooks/use-scroll-to-top.ts";
-import UserActivation from "./pages/auth/activate-user.tsx";
-import ResetPasswordPage from "./pages/auth/reset-password.tsx";
 
 const queryClient = new QueryClient();
 
@@ -75,8 +76,16 @@ createRoot(document.getElementById("root")!).render(
                     element={<DashboardExpiredCourses />}
                   />
                   <Route
+                    path="/dashboard/certificates"
+                    element={<DashboardCertificate />}
+                  />
+                  <Route
                     path="/course-checkout/:id"
                     element={<CourseCheckoutPage />}
+                  />
+                  <Route
+                    path="/dashboard/certificates"
+                    element={<DashboardCertificate />}
                   />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />

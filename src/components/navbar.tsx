@@ -21,8 +21,8 @@ export function Navbar() {
   const shouldHideNavbar =
     ignoreNavbarPaths.some((path) => currentPath === path) ||
     currentPath.startsWith("/dashboard/") ||
-    currentPath.startsWith("/auth/verify") ||
-    currentPath.startsWith("/course-checkout/");
+    currentPath.startsWith("/auth/verify");
+  // currentPath.startsWith("/course-checkout/");
 
   if (shouldHideNavbar) {
     return null;

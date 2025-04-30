@@ -1,4 +1,5 @@
 import {RequestForExtenstionInterface} from "@/interfaces/user.interface";
+import {certificateService} from "@/services/certificate.service";
 import userService from "@/services/user.service";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
@@ -18,5 +19,12 @@ export const useRequestForExtension = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: [""]});
     },
+  });
+};
+
+export const useGetAllMyCertificates = () => {
+  return useQuery({
+    queryFn: () => certificateService.fetchAllMyCertificatesService(),
+    queryKey: ["get-all-my-certificates"],
   });
 };

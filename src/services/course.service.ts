@@ -52,6 +52,7 @@ class CourseService {
     courseId: string,
     answers: {questionId: string; selectedOptionId: number}[]
   ) {
+    console.log({answers});
     const {data} = await apiClient.post(
       `/course/${courseId}/course-assessment/submit`,
       {answers}
