@@ -38,7 +38,7 @@ export function RegisterShell() {
     setIsLoading(true);
     try {
       const payload = {
-        email: values.email.toLowerCase(),
+        email: values.email.toLowerCase().trim(),
         firstName: values.firstName,
         lastName: values.lastName,
         password: values.password,
@@ -52,13 +52,14 @@ export function RegisterShell() {
           navigate("/auth/login");
           return "Account created successfully. Please verify your email.";
         },
-        error: () => {
+        error: (err) => {
           setIsLoading(false);
-          return "Account creation failed, Try again.";
+          return (
+            err.response.data.message || "Account creation failed, Try again."
+          );
         },
       });
-    } catch (error) {
-      console.error(error);
+    } catch {
       setIsLoading(false);
     }
   }

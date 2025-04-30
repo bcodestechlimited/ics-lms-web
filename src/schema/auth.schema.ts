@@ -6,12 +6,26 @@ export const loginSchema = z.object({
 });
 
 export const registerSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-  firstName: z.string().min(1),
-  lastName: z.string().min(1),
-  telephone: z.string().min(11),
+  email: z
+    .string({message: "Email is required"})
+    .email({message: "Invalid email format"}),
+  telephone: z
+    .string({message: "Telephone is required"})
+    // backend wants at least 10 characters (error text says “11 digits”)
+    .min(10, {message: "Telephone number must be 11 digits"}),
+  firstName: z.string().nonempty({message: "Firstname is required"}),
+  lastName: z.string().nonempty({message: "Lastname is required"}),
+  password: z
+    .string({message: "Password is required"})
+    .min(6, {message: "Password must be at least 6 characters long"})
+    .refine((val) => /[!@#$%^&*(),.?":{}|<>]/.test(val), {
+      message: "Password must contain at least one special character",
+    })
+    .refine((val) => /\d/.test(val), {
+      message: "Password must contain at least one number",
+    }),
 });
+
 
 export const passwordSchema = z
   .object({
