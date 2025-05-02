@@ -28,6 +28,7 @@ import UserDashboard from "./pages/dashboard/index.tsx";
 import ErrorPage from "./pages/error.tsx";
 import NotFoundPage from "./pages/not-found.tsx";
 import ForgotPasswordPage from "./pages/auth/forgot-password.tsx";
+import {UserProfileDashboard} from "./pages/dashboard/user-profile.tsx";
 
 const queryClient = new QueryClient();
 
@@ -91,6 +92,10 @@ createRoot(document.getElementById("root")!).render(
                   <Route
                     path="/dashboard/certificates"
                     element={<DashboardCertificate />}
+                  />
+                  <Route
+                    path="/dashboard/user-profile"
+                    element={<UserProfileDashboard />}
                   />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />

@@ -1,10 +1,20 @@
 import {useForgotPassword} from "@/hooks/useAuth";
 import {ForgotPasswordSchema} from "@/schema/auth.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {Loader2} from "lucide-react";
 import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
+import {useLocation, useNavigate} from "react-router";
 import {toast} from "sonner";
 import {z} from "zod";
+import {Button} from "./ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
 import {
   Form,
   FormControl,
@@ -14,16 +24,6 @@ import {
   FormMessage,
 } from "./ui/form";
 import {Input} from "./ui/input";
-import {Button} from "./ui/button";
-import {Loader2} from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "./ui/dialog";
-import {useLocation, useNavigate} from "react-router";
 
 export function ForgotPasswordForm() {
   const router = useNavigate();
@@ -67,7 +67,7 @@ export function ForgotPasswordForm() {
 
   const handleContinue = () => {
     setShowSuccessDialog(false);
-    router("/login");
+    router("/auth/login");
   };
 
   useEffect(() => {

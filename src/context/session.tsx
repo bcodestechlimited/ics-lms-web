@@ -53,6 +53,7 @@ export const SessionProvider = ({children}: {children: React.ReactNode}) => {
             lastName: data.lastName as string,
             _id: data._id,
             isEmailVerified: data.isEmailVerified as boolean,
+            avatar: data.avatar as string,
           },
           ""
         );

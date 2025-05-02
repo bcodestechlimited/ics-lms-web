@@ -1,9 +1,9 @@
-import { useSession } from "@/hooks/useSession";
-import { Book, Briefcase, FileText, HomeIcon } from "lucide-react";
-import { Link, useLocation } from "react-router";
-import { NavBar } from "./tubelight-navbar";
-import { Button } from "./ui/button";
-import { UserDropdown } from "./user-dropdown";
+import {useSession} from "@/hooks/useSession";
+import {Book, Briefcase, FileText, HomeIcon} from "lucide-react";
+import {Link, useLocation} from "react-router";
+import {NavBar} from "./tubelight-navbar";
+import {Button} from "./ui/button";
+import {UserDropdown} from "./user-dropdown";
 
 export function Navbar() {
   const {session} = useSession();

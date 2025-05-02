@@ -16,6 +16,30 @@ class UserService {
     );
     return data;
   }
+
+  public async updateUserProfile(payload: {
+    userId: string;
+    firstName: string;
+    lastName: string;
+    avatar?: File;
+  }) {
+    const formData = new FormData();
+    formData.append("userId", payload.userId);
+    formData.append("firstName", payload.firstName);
+    formData.append("lastName", payload.lastName);
+    if (payload.avatar instanceof File) {
+      formData.append("avatar", payload.avatar);
+    }
+
+    const {data} = await apiClient.put(
+      `${this.BASE_URL}/update-profile`,
+      formData,
+      {
+        headers: {"Content-Type": "multipart/form-data"},
+      }
+    );
+    return data;
+  }
 }
 
 export default new UserService();

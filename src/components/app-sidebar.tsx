@@ -10,7 +10,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import {Home, ShieldCheckIcon, CircleFadingArrowUpIcon} from "lucide-react";
+import {
+  Home,
+  ShieldCheckIcon,
+  CircleFadingArrowUpIcon,
+  User2Icon,
+} from "lucide-react";
 import {Link} from "react-router";
 
 export function AppSidebar() {
@@ -29,6 +34,11 @@ export function AppSidebar() {
       title: "Expired Courses",
       url: "/dashboard/expired-courses",
       icon: CircleFadingArrowUpIcon,
+    },
+    {
+      title: "User Profile",
+      url: "/dashboard/user-profile",
+      icon: User2Icon,
     },
   ];
   return (

@@ -5,6 +5,16 @@ export const loginSchema = z.object({
   password: z.string(),
 });
 
+const PasswordSchema = z
+  .string({message: "Password is required"})
+  .min(6, {message: "Password must be at least 6 characters long"})
+  .refine((val) => /[!@#$%^&*(),.?":{}|<>]/.test(val), {
+    message: "Password must contain at least one special character",
+  })
+  .refine((val) => /\d/.test(val), {
+    message: "Password must contain at least one number",
+  });
+
 export const registerSchema = z.object({
   email: z
     .string({message: "Email is required"})
@@ -60,4 +70,16 @@ export const ResetPasswordSchema = z
 
 export const ForgotPasswordSchema = z.object({
   email: z.string().nonempty({message: "Email is required"}).email(),
+});
+
+export const UpdateUserProfileSchema = z.object({
+  firstName: z.string().nonempty({message: "Firstname is required"}),
+  lastName: z.string().nonempty({message: "Lastname is required"}),
+  avatar: z.any().optional(),
+});
+
+export const UpdateUserPasswordSchema = z.object({
+  currentPassword: z.string().min(1, "Current password is required"),
+  newPassword: PasswordSchema,
+  confirmPassword: z.string(),
 });

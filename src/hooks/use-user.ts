@@ -28,3 +28,20 @@ export const useGetAllMyCertificates = () => {
     queryKey: ["get-all-my-certificates"],
   });
 };
+
+export const useUpdateUserProfile = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (payload: {
+      userId: string;
+      firstName: string;
+      lastName: string;
+      avatar?: File;
+    }) => userService.updateUserProfile(payload),
+    onSuccess: () => {
+      // e.g. refetch the session or user-details query
+      queryClient.invalidateQueries({queryKey: ["session-user"]});
+    },
+  });
+};
