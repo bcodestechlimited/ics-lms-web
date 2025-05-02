@@ -11,7 +11,6 @@ export const registerSchema = z.object({
     .email({message: "Invalid email format"}),
   telephone: z
     .string({message: "Telephone is required"})
-    // backend wants at least 10 characters (error text says “11 digits”)
     .min(10, {message: "Telephone number must be 11 digits"}),
   firstName: z.string().nonempty({message: "Firstname is required"}),
   lastName: z.string().nonempty({message: "Lastname is required"}),
@@ -25,7 +24,6 @@ export const registerSchema = z.object({
       message: "Password must contain at least one number",
     }),
 });
-
 
 export const passwordSchema = z
   .object({
@@ -59,3 +57,7 @@ export const ResetPasswordSchema = z
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
+
+export const ForgotPasswordSchema = z.object({
+  email: z.string().nonempty({message: "Email is required"}).email(),
+});

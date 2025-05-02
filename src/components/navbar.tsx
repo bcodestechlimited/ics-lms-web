@@ -16,6 +16,9 @@ export function Navbar() {
     "/dashboard",
     "/auth/staff-onboarding",
     "/course-checkout",
+    "/auth/forgot-password",
+    "/auth/reset-password",
+    "/auth/user/activate",
   ];
 
   const shouldHideNavbar =

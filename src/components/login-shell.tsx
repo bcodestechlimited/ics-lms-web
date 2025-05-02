@@ -56,7 +56,7 @@ export function LoginForm() {
       });
     } catch {
       setIsLoading(false);
-      return "Login failed, Try again.";
+      toast("Login failed, Try again.");
     }
   }
 

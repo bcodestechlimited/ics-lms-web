@@ -65,6 +65,13 @@ class AuthService {
     });
     return data;
   }
+
+  async forgotPasswordService(payload: string) {
+    const {data} = await apiClient.post(`/user/forgot-password`, {
+      email: payload,
+    });
+    return data;
+  }
 }
 
 export const authService = new AuthService();
