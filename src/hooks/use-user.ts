@@ -40,8 +40,14 @@ export const useUpdateUserProfile = () => {
       avatar?: File;
     }) => userService.updateUserProfile(payload),
     onSuccess: () => {
-      // e.g. refetch the session or user-details query
       queryClient.invalidateQueries({queryKey: ["session-user"]});
     },
+  });
+};
+
+export const useUpdatePassword = () => {
+  return useMutation({
+    mutationFn: (payload: {oldPassword: string; newPassword: string}) =>
+      userService.updatePassword(payload),
   });
 };

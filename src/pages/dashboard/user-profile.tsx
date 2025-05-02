@@ -1,9 +1,10 @@
+import PasswordInput from "@/components/password-input-field";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import {useUpdateUserProfile} from "@/hooks/use-user";
+import {useUpdatePassword, useUpdateUserProfile} from "@/hooks/use-user";
 import {useSession} from "@/hooks/useSession";
 import DashboardLayout from "@/layouts/dashboard-layout";
 import {
@@ -11,7 +12,7 @@ import {
   UpdateUserProfileSchema,
 } from "@/schema/auth.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {CameraIcon, LockIcon, UserIcon} from "lucide-react";
+import {CameraIcon, Loader2, LockIcon, UserIcon} from "lucide-react";
 import {useEffect, useRef, useState} from "react";
 import {useForm} from "react-hook-form";
 import {toast} from "sonner";
@@ -21,6 +22,7 @@ export function UserProfileDashboard() {
   const {session} = useSession();
   const fileInputRef = useRef(null);
   const updateProfile = useUpdateUserProfile();
+  const updatePassword = useUpdatePassword();
   const profileForm = useForm({
     resolver: zodResolver(UpdateUserProfileSchema),
     defaultValues: {
@@ -29,6 +31,8 @@ export function UserProfileDashboard() {
       lastName: session.user?.lastName || "",
     },
   });
+  const [isProfileLoading, setIsProfileLoading] = useState(false);
+  const [isPwdLoading, setIsPwdLoading] = useState(false);
 
   const passwordForm = useForm({
     resolver: zodResolver(UpdateUserPasswordSchema),
@@ -58,6 +62,7 @@ export function UserProfileDashboard() {
       return;
     }
 
+    setIsProfileLoading(true);
     try {
       toast.promise(
         updateProfile.mutateAsync({
@@ -70,23 +75,52 @@ export function UserProfileDashboard() {
           loading: "Updating profile…",
           success: (res) => {
             if (res.success) {
+              setIsProfileLoading(false);
               return "Profile updated!";
             }
+            setIsProfileLoading(false);
             throw new Error(res.message);
           },
-          error: (err) => err?.message || "Failed to update profile",
+          error: (err) => {
+            setIsProfileLoading(false);
+            return err?.message || "Failed to update profile";
+          },
         }
       );
     } catch {
+      setIsProfileLoading(false);
       toast.error("Error updating user profile");
-      return;
     }
   };
 
   const handlePasswordSubmit = (
     values: z.infer<typeof UpdateUserPasswordSchema>
   ) => {
-    console.log({values});
+    if (!values.currentPassword || !values.newPassword) return;
+    setIsPwdLoading(true);
+
+    toast.promise(
+      updatePassword.mutateAsync({
+        newPassword: values.newPassword,
+        oldPassword: values.currentPassword,
+      }),
+      {
+        loading: "Updating password...",
+        success: (res) => {
+          setIsPwdLoading(false);
+          if (res.success) {
+            passwordForm.reset();
+            window.location.reload();
+            return "Password updated!";
+          }
+          throw new Error(res.message);
+        },
+        error: (err) => {
+          setIsPwdLoading(false);
+          return err?.message || "Failed to update password";
+        },
+      }
+    );
   };
 
   return (
@@ -172,8 +206,16 @@ export function UserProfileDashboard() {
                         <Button
                           type="submit"
                           className="bg-[#013467] hover:bg-[#013467]/90"
+                          disabled={isProfileLoading}
                         >
-                          Save Changes
+                          {isProfileLoading ? (
+                            <div className="flex items-center gap-x-1">
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                              <span className="ml-2">Saving...</span>
+                            </div>
+                          ) : (
+                            "Save Changes"
+                          )}
                         </Button>
                       </div>
                     </div>
@@ -236,8 +278,16 @@ export function UserProfileDashboard() {
                       <Button
                         type="submit"
                         className="bg-[#013467] hover:bg-[#013467]/90"
+                        disabled={isPwdLoading}
                       >
-                        Update Password
+                        {isPwdLoading ? (
+                          <div className="flex items-center gap-x-1">
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            <span>Updating...</span>
+                          </div>
+                        ) : (
+                          "Update Password"
+                        )}
                       </Button>
                     </div>
                   </form>

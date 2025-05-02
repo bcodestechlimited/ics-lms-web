@@ -40,6 +40,17 @@ class UserService {
     );
     return data;
   }
+
+  public async updatePassword(payload: {
+    oldPassword: string;
+    newPassword: string;
+  }) {
+    const {data} = await apiClient.put(
+      `${this.BASE_URL}/update-password`,
+      payload
+    );
+    return data;
+  }
 }
 
 export default new UserService();
