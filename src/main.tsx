@@ -27,6 +27,8 @@ import DashboardExpiredCourses from "./pages/dashboard/expired-courses.tsx";
 import UserDashboard from "./pages/dashboard/index.tsx";
 import ErrorPage from "./pages/error.tsx";
 import NotFoundPage from "./pages/not-found.tsx";
+import ForgotPasswordPage from "./pages/auth/forgot-password.tsx";
+import {UserProfileDashboard} from "./pages/dashboard/user-profile.tsx";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +44,10 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="/" element={<App />} />
                 <Route path="/auth/login" element={<LoginPage />} />
                 <Route path="/auth/signup" element={<SignupPage />} />
+                <Route
+                  path="/auth/forgot-password"
+                  element={<ForgotPasswordPage />}
+                />
                 <Route
                   path="/auth/user/activate"
                   element={<UserActivation />}
@@ -86,6 +92,10 @@ createRoot(document.getElementById("root")!).render(
                   <Route
                     path="/dashboard/certificates"
                     element={<DashboardCertificate />}
+                  />
+                  <Route
+                    path="/dashboard/user-profile"
+                    element={<UserProfileDashboard />}
                   />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
