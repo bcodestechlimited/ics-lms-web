@@ -42,7 +42,11 @@ export function LoginForm() {
       toast.promise(login.mutateAsync(payload), {
         loading: "Logging in...",
         success: (res) => {
+          console.log({res});
           if (!res.success) return "Invalid credentials";
+          if (!res.responseObject.user.isActive) {
+            return "Your account is inactive";
+          }
           setIsLoading(false);
           navigate("/");
           return "Login successful";

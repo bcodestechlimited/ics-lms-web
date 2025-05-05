@@ -5,6 +5,8 @@ export interface User {
   firstName?: string;
   lastName?: string;
   isEmailVerified?: boolean;
+  avatar?: string;
+  isActive?: boolean;
 }
 
 export interface SessionState {

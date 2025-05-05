@@ -32,5 +32,7 @@
   },
   "include": [
     "src"
-  ]
+,
+"../admin/src/components/update-password-shell.jsx"
+]
 }
