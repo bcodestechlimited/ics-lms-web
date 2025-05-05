@@ -15,23 +15,24 @@ export function VerifyEmailToProceedDialog() {
           <div className="flex justify-center mb-4">
             <Mail className="h-12 w-12 text-primary" />
           </div>
-          <DialogTitle className="text-2xl">Verify Your Email</DialogTitle>
+          <DialogTitle className="text-2xl">
+            Your account is Inactive
+          </DialogTitle>
           <DialogDescription className="text-base text-center">
-            You must confirm your email address before accessing the dashboard
+            Please reach out to Admin{" "}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           <p className="text-muted-foreground">
-            We've sent a verification link to your email address. Please check
-            your inbox and follow the instructions to continue.
+            {/* We've sent a verification link to your email address. Please check
+            your inbox and follow the instructions to continue. */}
           </p>
 
           <div className="bg-muted p-4 rounded-lg">
             <p className="text-sm">
-              Didn't receive the email? Check your spam folder or
-              <br />
-              contact support at support@l&d.com
+              Contact support at{" "}
+              <span className="font-bold"> learning@icsoutsourcing.com </span>
             </p>
           </div>
         </div>
