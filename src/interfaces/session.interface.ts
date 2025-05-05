@@ -6,6 +6,7 @@ export interface User {
   lastName?: string;
   isEmailVerified?: boolean;
   avatar?: string;
+  isActive?: boolean;
 }
 
 export interface SessionState {

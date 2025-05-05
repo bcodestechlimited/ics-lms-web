@@ -26,6 +26,7 @@ class AuthService {
       email: payload.email,
       password: payload.password,
     });
+
     authStore.getState().setAccessToken(data.responseObject.token);
     return data;
   }

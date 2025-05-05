@@ -4,7 +4,7 @@ import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar";
 import {UserDropdown} from "@/components/user-dropdown";
 import {useSession} from "@/hooks/useSession";
 import {useNavigate} from "react-router";
-// import { VerifyEmailToProceedDialog } from "@/components/verify-email-to-proceed-dialog";
+import {VerifyEmailToProceedDialog} from "@/components/verify-email-to-proceed-dialog";
 
 export default function DashboardLayout({
   children,
@@ -20,6 +20,8 @@ export default function DashboardLayout({
     navigate("/auth/login");
     return;
   }
+
+  console.log("session", session.user?.isActive);
 
   return (
     <SidebarProvider>
@@ -46,6 +48,7 @@ export default function DashboardLayout({
             </div>
           </div>
         </div>
+        {!session.user?.isActive && <VerifyEmailToProceedDialog />}
 
         <div className="">{children}</div>
       </main>

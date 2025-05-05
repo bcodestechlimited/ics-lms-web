@@ -19,9 +19,9 @@ export function DisplayCourseHighlights({ content }: { content: string }) {
   // Convert HTML string to a temporary DOM element and extract <li> items
   const tempElement = document.createElement("div");
   tempElement.innerHTML = sanitizedHTML;
-  const listItems = Array.from(tempElement.querySelectorAll("li")).map(
-    (li) => li.innerHTML
-  );
+  const listItems = Array.from(tempElement.querySelectorAll("li"))
+    .map((li) => li.innerHTML)
+    .slice(0, 5);
 
   return (
     <ul className="space-y-2">

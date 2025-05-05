@@ -10,6 +10,7 @@ export interface LoginResponse {
       firstName: string;
       lastName: string;
       role: string;
+      isActive: boolean;
     };
   };
   statusCode: number;
