@@ -3,12 +3,7 @@ import {CheckoutCouponInterface} from "@/interfaces/payment.interface";
 import {courseService} from "@/services/course.service";
 import paymentService from "@/services/payment.service";
 import {useCourseFilterStore} from "@/store/course-filter.store";
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
 const params: Record<string, string | number> = {};
 
