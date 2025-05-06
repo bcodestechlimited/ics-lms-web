@@ -18,6 +18,7 @@ export default function DashboardLayout({
   const [cookies] = useCookies<"accessToken", CookieValues>(["accessToken"]);
 
   console.log({cookies});
+  console.log("from dashboard", {session});
 
   if (session.status === "pending") {
     return <PageLoader />;
