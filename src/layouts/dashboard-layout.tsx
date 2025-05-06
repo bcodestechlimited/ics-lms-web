@@ -19,6 +19,7 @@ export default function DashboardLayout({
   console.log("from dashboard", {session});
 
   if (session.status === "pending") {
+    console.log("inside the pending", {session});
     return <PageLoader />;
   } else if (session.status === "unauthenticated") {
     // navigate("/auth/login");
