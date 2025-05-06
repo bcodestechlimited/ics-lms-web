@@ -85,7 +85,8 @@ export const SessionProvider = ({children}: {children: React.ReactNode}) => {
     const checkSession = async () => {
       const isValid = await authStore.getState().validateSession();
       if (!isValid) {
-        authStore.getState().clearSession();
+        console.log("session expired");
+        // authStore.getState().clearSession();
       }
     };
 
