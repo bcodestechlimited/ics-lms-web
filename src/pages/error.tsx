@@ -20,7 +20,7 @@ export default function ErrorPage({
   useEffect(() => {
     // Log error to error reporting service
     if (error) {
-      console.error("Error occurred:", error, errorInfo);
+      // console.error("Error occurred:", error, errorInfo);
     }
   }, [error, errorInfo]);
 

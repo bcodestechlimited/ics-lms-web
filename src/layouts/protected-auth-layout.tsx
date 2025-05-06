@@ -3,8 +3,8 @@ import { Outlet, useNavigate } from "react-router";
 
 const ProtectedAuthRoute = () => {
   const navigate = useNavigate();
-  const { session } = useSession();
-  console.log(session);
+  const {session} = useSession();
+
   if (session.status === "authenticated") {
     navigate("/dashboard");
     return;

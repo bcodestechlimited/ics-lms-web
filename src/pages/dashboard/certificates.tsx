@@ -11,10 +11,7 @@ const DashboardCertificate = () => {
   const {data, isLoading} = useGetAllMyCertificates();
 
   const certificates = data?.responseObject?.data || [];
-  const meta = data?.responseObject?.meta;
-  console.log({meta});
-
-  console.log("certificates", certificates);
+  // const meta = data?.responseObject?.meta;
 
   return (
     <DashboardLayout>

@@ -67,6 +67,13 @@ export const useGetCourseModuleByModuleId = (id: string | undefined) => {
   });
 };
 
+export const useGetCourseProgress = (courseId: string) =>
+  useQuery({
+    queryKey: ["progress", courseId],
+    queryFn: () => courseService.getCourseProgress(courseId),
+    enabled: !!courseId,
+  });
+
 export const useGetAllCourseModules = (id: string | undefined) => {
   return useQuery({
     queryFn: () => courseService.getAllCourseModulesService(id),
@@ -86,9 +93,7 @@ export const useLaunchCourse = () => {
   return useMutation({
     mutationFn: (payload: LaunchCoursePayload) =>
       courseService.launchCourseService(payload.courseId),
-    onSuccess: () => {
-      console.log("course launched successfully");
-    },
+    onSuccess: () => {},
   });
 };
 

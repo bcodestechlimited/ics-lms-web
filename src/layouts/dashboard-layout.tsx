@@ -21,8 +21,6 @@ export default function DashboardLayout({
     return;
   }
 
-  console.log("session", session.user?.isActive);
-
   return (
     <SidebarProvider>
       <AppSidebar />

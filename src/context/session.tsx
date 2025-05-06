@@ -38,6 +38,8 @@ export const SessionProvider = ({children}: {children: React.ReactNode}) => {
         }
       );
 
+      
+
       if (status === 200 && data?._id) {
         // const data = await data;
         setSession({
@@ -69,7 +71,6 @@ export const SessionProvider = ({children}: {children: React.ReactNode}) => {
       }
     } catch (error) {
       if (axios.isCancel(error)) {
-        console.log("Request aborted");
         return;
       }
       // toast.error("Login to get access");

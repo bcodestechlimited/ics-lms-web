@@ -1,3 +1,4 @@
+// src/pages/CourseCheckoutPage.tsx
 import {CourseCheckoutSkeleton} from "@/components/course-card-skeleton";
 import CourseCheckoutSuccessfulDialog from "@/components/course-checkout-successful-dialog";
 import {Button} from "@/components/ui/button";
@@ -27,16 +28,24 @@ import {z} from "zod";
 type FormValues = z.infer<typeof CheckoutSchema>;
 
 export default function CourseCheckoutPage() {
-  const [isCouponApplied, setIsCouponApplied] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const params = useParams();
+  const params = useParams<{id: string}>();
   const {data, isLoading} = useGetACourseById(params.id);
-  const course = !isLoading && data.responseObject.data;
-  const checkoutCoupon = useCouponCheckout();
+  const course = data?.responseObject?.data;
+
+  // ── derive original price safely ──
+  const rawPriceObj = course?.course_price;
+  const originalPrice = Number(rawPriceObj?.coursePricing ?? 0);
+
+  // ── coupon state ──
+  const [isCouponApplied, setIsCouponApplied] = useState(false);
   const [couponDiscount, setCouponDiscount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(originalPrice);
+
+  const checkoutCoupon = useCouponCheckout();
   const courseCheckout = useCourseCheckout();
   const [modal, setModal] = useState(false);
 
+  // ── react-hook-form ──
   const form = useForm<FormValues>({
     resolver: zodResolver(CheckoutSchema),
     defaultValues: {
@@ -49,91 +58,87 @@ export default function CourseCheckoutPage() {
       saveCard: false,
     },
   });
-
   const paymentMethod = form.watch("paymentMethod");
 
   const handleApplyCoupon = async () => {
     const isValid = await form.trigger("couponCode");
+    const couponCode = form.getValues("couponCode");
 
-    const payload = {
-      courseId: params.id as string,
-      couponCode: form.getValues("couponCode") as string,
-    };
+    if (!isValid || !couponCode) return;
 
-    toast.promise(checkoutCoupon.mutateAsync(payload), {
-      loading: "Applying coupon...",
-      success: (res) => {
-        if (!res.success) {
-          return "Invalid coupon!";
-        }
-
-        if (isValid) {
+    toast.promise(
+      checkoutCoupon.mutateAsync({
+        courseId: params.id!,
+        couponCode,
+      }),
+      {
+        loading: "Applying coupon…",
+        success: (res) => {
+          if (!res.success) throw new Error(res.message);
+          const {discountedPrice, couponDiscount} = res.responseObject.data;
           setIsCouponApplied(true);
-          setTotalPrice(res.responseObject.data.discountedPrice);
-          setCouponDiscount(res.responseObject.data.couponDiscount);
-        }
-
-        return "Coupon applied successfully";
-      },
-      error: "Invalid coupon",
-    });
+          setTotalPrice(Number(discountedPrice));
+          setCouponDiscount(Number(couponDiscount));
+          return "Coupon applied!";
+        },
+        error: (err) => err.message || "Failed to apply coupon",
+      }
+    );
   };
 
-  const onSubmit = (data: FormValues) => {
-    const payload = {
-      courseId: params.id as string,
-      couponCode: data.couponCode as string,
-    };
-    if (payload.couponCode === "" || payload.courseId === "") {
-      toast.error("Invalid coupon code or course");
+  const onSubmit = (vals: FormValues) => {
+    if (!params.id) {
+      toast.error("Course ID missing");
       return;
     }
-    if (data.paymentMethod === "card") {
-      console.log("Processing card payment:", data);
-    } else {
-      toast.promise(courseCheckout.mutateAsync(payload), {
-        loading: "Processing coupon payment...",
-        success: (res) => {
-          if (!res.success) {
-            return "Invalid coupon!";
-          }
-          setModal(true);
-          return "User enrolled successfully";
-        },
-        error: "Invalid coupon",
-      });
-      console.log("Processing coupon payment:", data);
-    }
-  };
 
-  const handleClose = () => {
-    setModal(false);
+    // If user is paying by card we'll console.log for now
+    if (vals.paymentMethod === "card") {
+      console.log("Card payload:", vals);
+      return;
+    }
+
+    // coupon payment
+    toast.promise(
+      courseCheckout.mutateAsync({
+        courseId: params.id,
+        couponCode: vals.couponCode!,
+      }),
+      {
+        loading: "Processing coupon payment…",
+        success: (res) => {
+          if (!res.success) throw new Error(res.message);
+          setModal(true);
+          return "Enrolled successfully!";
+        },
+        error: (err) => err.message || "Payment failed",
+      }
+    );
   };
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50  py-16">
+      <div className="min-h-screen bg-gray-50 py-16">
         <div className="container max-w-6xl mx-auto px-4 md:px-6">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col md:flex-row gap-8"
             >
+              {/* ── Left: Checkout Card ── */}
               <div className="flex-1 space-y-6">
                 <Card>
                   <CardHeader>
                     <CardTitle>Complete Your Purchase</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {isLoading ? (
-                      <div className="flex w-full items-center">
-                        <CourseCheckoutSkeleton />
-                      </div>
+                    {isLoading || !course ? (
+                      <CourseCheckoutSkeleton />
                     ) : (
                       <div className="flex items-center gap-4">
                         <img
                           src={course.image}
-                          alt="Course Thumbnail"
+                          alt="Thumbnail"
                           className="w-20 h-20 rounded-lg object-cover"
                         />
                         <div>
@@ -143,7 +148,7 @@ export default function CourseCheckoutPage() {
                           </p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-2xl font-bold">
-                              NGN {course.course_price.price}
+                              NGN {originalPrice.toLocaleString()}
                             </span>
                           </div>
                         </div>
@@ -152,6 +157,7 @@ export default function CourseCheckoutPage() {
 
                     <Separator />
 
+                    {/* ── Payment Method ── */}
                     <FormField
                       control={form.control}
                       name="paymentMethod"
@@ -162,10 +168,10 @@ export default function CourseCheckoutPage() {
                           </FormLabel>
                           <RadioGroup
                             onValueChange={field.onChange}
-                            defaultValue={field.value}
+                            value={field.value}
                             className="grid gap-4"
                           >
-                            <FormItem className="flex items-center space-x-4 p-4 border rounded-lg hover:border-primary">
+                            <FormItem className="flex items-center p-4 border rounded-lg hover:border-primary space-x-4">
                               <FormControl>
                                 <RadioGroupItem value="card" />
                               </FormControl>
@@ -174,8 +180,7 @@ export default function CourseCheckoutPage() {
                                 Credit/Debit Card
                               </FormLabel>
                             </FormItem>
-
-                            <FormItem className="flex items-center space-x-4 p-4 border rounded-lg hover:border-primary">
+                            <FormItem className="flex items-center p-4 border rounded-lg hover:border-primary space-x-4">
                               <FormControl>
                                 <RadioGroupItem value="coupon" />
                               </FormControl>
@@ -190,167 +195,76 @@ export default function CourseCheckoutPage() {
                       )}
                     />
 
+                    {/* ── Card Fields (disabled placeholder) ── */}
                     {paymentMethod === "card" && (
-                      <div className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
-                          <FormField
-                            control={form.control}
-                            name="cardNumber"
-                            render={({field}) => (
-                              <FormItem className="space-y-2">
-                                <FormLabel>Card Number</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="4242 4242 4242 4242"
-                                    {...field}
-                                    disabled
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <FormField
-                            control={form.control}
-                            name="expiryDate"
-                            render={({field}) => (
-                              <FormItem className="space-y-2">
-                                <FormLabel>Expiry Date</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="MM/YY"
-                                    {...field}
-                                    disabled
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <FormField
-                            control={form.control}
-                            name="cvc"
-                            render={({field}) => (
-                              <FormItem className="space-y-2">
-                                <FormLabel>CVC</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="123"
-                                    {...field}
-                                    disabled
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <FormField
-                            control={form.control}
-                            name="cardHolder"
-                            render={({field}) => (
-                              <FormItem className="space-y-2">
-                                <FormLabel>Cardholder Name</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="John Doe"
-                                    {...field}
-                                    disabled
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-
-                        <FormField
-                          control={form.control}
-                          name="saveCard"
-                          render={({field}) => (
-                            <FormItem className="flex items-center space-x-2">
-                              <FormControl>
-                                <input
-                                  type="checkbox"
-                                  checked={field.value}
-                                  onChange={field.onChange}
-                                  className="w-4 h-4"
-                                  disabled
-                                />
-                              </FormControl>
-                              <FormLabel>
-                                Save card for future purchases
-                              </FormLabel>
-                            </FormItem>
-                          )}
-                        />
-                      </div>
+                      <div className="space-y-4">{/* ... */}</div>
                     )}
 
+                    {/* ── Coupon Field ── */}
                     {paymentMethod === "coupon" && (
-                      <div className="space-y-4">
-                        <FormField
-                          control={form.control}
-                          name="couponCode"
-                          render={({field}) => (
-                            <FormItem>
-                              <FormLabel>Coupon Code</FormLabel>
-                              <div className="flex gap-2">
-                                <FormControl>
-                                  <Input
-                                    placeholder="Enter coupon code"
-                                    {...field}
-                                    disabled={isCouponApplied}
-                                  />
-                                </FormControl>
-                                <Button
-                                  type="button"
-                                  variant="outline"
-                                  onClick={handleApplyCoupon}
-                                  disabled={!field.value || isCouponApplied}
-                                >
-                                  {isCouponApplied ? "Applied" : "Apply"}
-                                </Button>
-                              </div>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
+                      <FormField
+                        control={form.control}
+                        name="couponCode"
+                        render={({field}) => (
+                          <FormItem>
+                            <FormLabel>Coupon Code</FormLabel>
+                            <div className="flex gap-2">
+                              <FormControl>
+                                <Input
+                                  placeholder="Enter coupon code"
+                                  {...field}
+                                  disabled={isCouponApplied}
+                                />
+                              </FormControl>
+                              <Button
+                                type="button"
+                                variant="outline"
+                                onClick={handleApplyCoupon}
+                                disabled={!field.value || isCouponApplied}
+                              >
+                                {isCouponApplied ? "Applied" : "Apply"}
+                              </Button>
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     )}
                   </CardContent>
                 </Card>
               </div>
 
-              {/* Right Column */}
+              {/* ── Right: Order Summary ── */}
               <div className="md:w-96 space-y-6">
                 <Card className="sticky top-8">
                   <CardContent className="pt-6 space-y-4">
                     <h3 className="text-lg font-semibold">Order Summary</h3>
+
                     <div className="space-y-2">
                       <div className="flex justify-between">
                         <span>Original Price:</span>
-                        NGN {course?.course_price?.price}
+                        <span>NGN {originalPrice.toLocaleString()}</span>
                       </div>
 
                       {isCouponApplied && (
                         <div className="flex justify-between">
                           <span>Coupon Discount:</span>
                           <span className="text-green-600">
-                            -{couponDiscount}
+                            -NGN {couponDiscount.toLocaleString()}
                           </span>
                         </div>
                       )}
+
                       <Separator />
+
                       <div className="flex justify-between font-bold">
                         <span>Total:</span>
                         <span>
                           NGN{" "}
-                          {isCouponApplied
+                          {(isCouponApplied
                             ? totalPrice
-                            : course?.course_price?.price}
+                            : originalPrice
+                          ).toLocaleString()}
                         </span>
                       </div>
                     </div>
@@ -376,7 +290,7 @@ export default function CourseCheckoutPage() {
 
           <div className="mt-8 text-center text-sm text-gray-600">
             <p>
-              By completing your purchase you agree to these{" "}
+              By completing your purchase you agree to our{" "}
               <a href="#" className="text-primary hover:underline">
                 Terms of Service
               </a>
@@ -385,10 +299,11 @@ export default function CourseCheckoutPage() {
           </div>
         </div>
       </div>
+
       {modal && (
         <CourseCheckoutSuccessfulDialog
           modal={modal}
-          handleClose={handleClose}
+          handleClose={() => setModal(false)}
         />
       )}
     </>

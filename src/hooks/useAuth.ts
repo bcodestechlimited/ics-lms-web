@@ -27,9 +27,11 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: (credentials: LoginPayload) => authService.login(credentials),
     onSuccess: (data) => {
-      if (data.responseObject.user.isActive) {
+      
+      if (!data.responseObject.user.isActive) {
         return;
       }
+     
       setSession({
         accessToken: data.responseObject.token,
         status: "authenticated",

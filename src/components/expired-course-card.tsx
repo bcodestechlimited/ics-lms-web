@@ -56,7 +56,6 @@ export const ExpiredCourseCard = ({
     toast.promise(extensionRequest.mutateAsync(payload), {
       loading: "Requesting for course extension...",
       success: (res) => {
-        console.log("res", res);
         if (!res.success) {
           return "Error requesting for course extension";
         }
