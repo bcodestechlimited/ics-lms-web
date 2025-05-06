@@ -1,34 +1,30 @@
 import {AppSidebar} from "@/components/app-sidebar";
-import {PageLoader} from "@/components/loading-spinner";
-import {CookieValues} from "@/components/login-shell";
 import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar";
 import {UserDropdown} from "@/components/user-dropdown";
-import {useSession} from "@/hooks/useSession";
-import {useCookies} from "react-cookie";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const {session} = useSession();
-  // const navigate = useNavigate();
-  const [cookies] = useCookies<"accessToken", CookieValues>(["accessToken"]);
+  // const {session} = useSession();
+  // // const navigate = useNavigate();
+  // const [cookies] = useCookies<"accessToken", CookieValues>(["accessToken"]);
 
-  console.log({cookies});
-  console.log("from dashboard", {session});
+  // console.log({cookies});
+  // console.log("from dashboard", {session});
 
-  if (session.status === "pending") {
-    console.log("inside the pending", {session});
-    return <PageLoader />;
-  } else if (session.status === "unauthenticated") {
-    // navigate("/auth/login");
-    console.log(
-      {session},
-      "inside the unauthenticated, should navigate if session npt found"
-    );
-    return;
-  }
+  // if (session.status === "pending") {
+  //   console.log("inside the pending", {session});
+  //   return <PageLoader />;
+  // } else if (session.status === "unauthenticated") {
+  //   // navigate("/auth/login");
+  //   console.log(
+  //     {session},
+  //     "inside the unauthenticated, should navigate if session npt found"
+  //   );
+  //   return;
+  // }
 
   return (
     <SidebarProvider>
