@@ -1,11 +1,10 @@
-import {authStore, getAccessTokenFromContext} from "@/store/auth.store";
+import {getAccessTokenFromContext} from "@/store/auth.store";
 import axios, {
   AxiosError,
   AxiosInstance,
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
-
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
@@ -26,14 +25,14 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & {
-      _retry?: boolean;
-    };
+    // const originalRequest = error.config as InternalAxiosRequestConfig & {
+    //   _retry?: boolean;
+    // };
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      authStore.getState().clearSession();
-      window.location.href = "/auth/login";
-    }
+    // if (error.response?.status === 401 && !originalRequest._retry) {
+    //   authStore.getState().clearSession();
+    //   window.location.href = "/auth/login";
+    // }
 
     // if (error.response?.status === 401 && !originalRequest._retry) {
     //   originalRequest._retry = true;
