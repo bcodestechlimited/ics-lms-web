@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import {useEffect, useState} from "react";
+import {motion} from "framer-motion";
 
-import { LucideIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Link } from "react-router";
+import {LucideIcon} from "lucide-react";
+import {cn} from "@/lib/utils";
+import {Link} from "react-router";
 
 interface NavItem {
   name: string;
@@ -18,7 +19,7 @@ interface NavBarProps {
   className?: string;
 }
 
-export function NavBar({ items, className }: NavBarProps) {
+export function NavBar({items, className}: NavBarProps) {
   const [activeTab, setActiveTab] = useState(() => {
     const currentPath = location.pathname;
     const activeItem = items.find((item) => item.url === currentPath);
@@ -27,8 +28,7 @@ export function NavBar({ items, className }: NavBarProps) {
       : items[0].name.toLowerCase();
   });
 
-  const [isMobile, setIsMobile] = useState(false);
-  console.log("isMobile", isMobile);
+  const [_isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {

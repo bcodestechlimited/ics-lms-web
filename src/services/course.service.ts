@@ -52,11 +52,15 @@ class CourseService {
     courseId: string,
     answers: {questionId: string; selectedOptionId: number}[]
   ) {
-    console.log({answers});
     const {data} = await apiClient.post(
       `/course/${courseId}/course-assessment/submit`,
       {answers}
     );
+    return data;
+  }
+
+  public async getCourseProgress(courseId: string) {
+    const {data} = await apiClient.get(`/progress/course/${courseId}`);
     return data;
   }
 }

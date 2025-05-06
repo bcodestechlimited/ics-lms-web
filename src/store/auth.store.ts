@@ -23,16 +23,15 @@ export const useAuthStore = create<AuthState>()(
       accessToken: null,
       validateSession: async () => {
         try {
-          const { data } = await axios.get<{ valid: boolean }>(
+          const {data} = await axios.get<{valid: boolean}>(
             `http://localhost:5000/api/v1/user/validate-user`,
             {
               withCredentials: true,
             }
           );
-          set({ lastChecked: Date.now(), status: "authenticated" });
+          set({lastChecked: Date.now(), status: "authenticated"});
           return data.valid;
-        } catch (error) {
-          console.log("auth.store error", error);
+        } catch {
           get().clearSession();
           return false;
         }

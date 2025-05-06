@@ -60,8 +60,8 @@ apiClient.interceptors.response.use(
     // Handle other errors
     // Add error handling logic
     if (error.response) {
-      const {status, data} = error.response;
-      console.error("API Error:", status, data);
+      // const {status, data} = error.response;
+      // console.error("API Error:", status, data);
       // toast.error("API Error");
     }
 

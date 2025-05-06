@@ -4,6 +4,7 @@ import ModuleContentSection from "@/components/module-content-section";
 import {Button} from "@/components/ui/button";
 import {
   useGetCourseModuleByModuleId,
+  // useGetCourseProgress,
   useMarkModuleCompleted,
 } from "@/hooks/use-course";
 import DashboardLayout from "@/layouts/dashboard-layout";
@@ -23,14 +24,24 @@ export default function DashboardCourseOverview() {
   const nextModuleId = !isLoading && data?.responseObject?.data?.nextModule;
   const previousModuleId = !isLoading && data?.responseObject?.data?.prevModule;
   const markModuleCompleted = useMarkModuleCompleted();
+  // const {
+  //   data: progressRes,
+  //   isLoading: loadingProgress,
+  //   error: errorProgress,
+  // } = useGetCourseProgress(params.id as string);
 
-  console.log("next module", nextModuleId);
+  // const progress = progressRes?.responseObject?.data;
 
   useEffect(() => {
     if (params.moduleId) {
       refetch();
     }
   }, [params.moduleId, refetch]);
+
+  // const totalModules = progress?.modules?.length ?? 0;
+  // const doneModules =
+  //   progress?.modules?.filter((m: any) => m.completed).length ?? 0;
+  // const pct = Math.round(progress?.progressPercentage ?? 0);
 
   const handleContinue = (type: string) => {
     if (type === "assessment") {
@@ -64,6 +75,32 @@ export default function DashboardCourseOverview() {
         <div className="grid grid-cols-12">
           <div className="col-start-2 col-end-12 p-2 space-y-16">
             <h1 className="text-2xl font-semibold">Title: {module?.title}</h1>
+
+            {/* ── Progress Tracker ── */}
+            {/* <div className="space-y-2">
+              {loadingProgress ? (
+                <p>Loading progress...</p>
+              ) : errorProgress ? (
+                <p className="text-red-500">Failed to load progress</p>
+              ) : (
+                <>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Progress: {pct}%</span>
+                    <span className="text-sm text-gray-600">
+                      {doneModules}/{totalModules} modules
+                    </span>
+                  </div>
+                 
+                  <div className="w-full bg-gray-200 h-2 rounded-full">
+                    <div
+                      className="bg-green-600 h-2 rounded-full"
+                      style={{width: `${pct}%`}}
+                    />
+                  </div>
+                </>
+              )}
+            </div> */}
+
             {!isLoading ? (
               module?.contentSections.map((section: any) => {
                 return (
