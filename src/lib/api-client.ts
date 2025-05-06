@@ -1,10 +1,12 @@
-import {getAccessTokenFromContext} from "@/store/auth.store";
 import axios, {
   AxiosError,
   AxiosInstance,
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import {Cookies} from "react-cookie";
+
+const cookies = new Cookies();
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
@@ -13,14 +15,27 @@ const apiClient: AxiosInstance = axios.create({
 
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = getAccessTokenFromContext();
+    const token = cookies.get("accessToken");
+    console.log("token gotten from cookies in the api-client", token);
     if (token) {
+      config.headers = config.headers ?? {};
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
   (error: AxiosError) => Promise.reject(error)
 );
+
+// apiClient.interceptors.request.use(
+//   (config: InternalAxiosRequestConfig) => {
+//     const token = getAccessTokenFromContext();
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//     return config;
+//   },
+//   (error: AxiosError) => Promise.reject(error)
+// );
 
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => response,
