@@ -1,7 +1,8 @@
 import { User } from "@/interfaces/session.interface";
 import axios from "axios";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import {useCookies} from "react-cookie";
+import {create} from "zustand";
+import {persist} from "zustand/middleware";
 
 interface AuthState {
   status: "pending" | "authenticated" | "unauthenticated";
@@ -33,6 +34,7 @@ export const useAuthStore = create<AuthState>()(
           return data.valid;
         } catch {
           get().clearSession();
+          console.log("the code is here, the user session is not valid");
           return false;
         }
       },
@@ -48,7 +50,7 @@ export const useAuthStore = create<AuthState>()(
           user: null,
           accessToken: null,
         }),
-      setAccessToken: (accessToken) => set({ accessToken }),
+      setAccessToken: (accessToken) => set({accessToken}),
     }),
     {
       name: "auth-storage",

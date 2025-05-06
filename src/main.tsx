@@ -29,82 +29,85 @@ import ErrorPage from "./pages/error.tsx";
 import NotFoundPage from "./pages/not-found.tsx";
 import ForgotPasswordPage from "./pages/auth/forgot-password.tsx";
 import {UserProfileDashboard} from "./pages/dashboard/user-profile.tsx";
+import {CookiesProvider} from "react-cookie";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <SessionProvider>
-        <QueryClientProvider client={queryClient}>
-          <Navbar />
-          <ScrollToTop>
-            <ErrorBoundary fallback={<ErrorPage />}>
-              <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/auth/login" element={<LoginPage />} />
-                <Route path="/auth/signup" element={<SignupPage />} />
-                <Route
-                  path="/auth/forgot-password"
-                  element={<ForgotPasswordPage />}
-                />
-                <Route
-                  path="/auth/user/activate"
-                  element={<UserActivation />}
-                />
-                <Route
-                  path="/auth/reset-password"
-                  element={<ResetPasswordPage />}
-                />
-                <Route
-                  path="/auth/staff-onboarding"
-                  element={<StaffOnboarding />}
-                />
-                <Route path="/about" element={<AboutUsPage />} />
-                <Route path="/courses/:id" element={<CourseSlugPage />} />
-                <Route path="/courses" element={<CoursesPage />} />
-                <Route
-                  path="/courses/category"
-                  element={<CourseCategoryPage />}
-                />
-                <Route element={<ProtectedLayout />}>
-                  <Route path="/dashboard" element={<UserDashboard />} />
+      <CookiesProvider defaultSetOptions={{path: "/"}}>
+        <SessionProvider>
+          <QueryClientProvider client={queryClient}>
+            <Navbar />
+            <ScrollToTop>
+              <ErrorBoundary fallback={<ErrorPage />}>
+                <Routes>
+                  <Route path="/" element={<App />} />
+                  <Route path="/auth/login" element={<LoginPage />} />
+                  <Route path="/auth/signup" element={<SignupPage />} />
                   <Route
-                    path="/dashboard/courses/:id/modules/:moduleId/overview"
-                    element={<DashboardCourseOverview />}
+                    path="/auth/forgot-password"
+                    element={<ForgotPasswordPage />}
                   />
                   <Route
-                    path="/dashboard/courses/:id/course-assessment"
-                    element={<DashboardCourseAssessmentPage />}
+                    path="/auth/user/activate"
+                    element={<UserActivation />}
                   />
                   <Route
-                    path="/dashboard/expired-courses"
-                    element={<DashboardExpiredCourses />}
+                    path="/auth/reset-password"
+                    element={<ResetPasswordPage />}
                   />
                   <Route
-                    path="/dashboard/certificates"
-                    element={<DashboardCertificate />}
+                    path="/auth/staff-onboarding"
+                    element={<StaffOnboarding />}
                   />
+                  <Route path="/about" element={<AboutUsPage />} />
+                  <Route path="/courses/:id" element={<CourseSlugPage />} />
+                  <Route path="/courses" element={<CoursesPage />} />
                   <Route
-                    path="/course-checkout/:id"
-                    element={<CourseCheckoutPage />}
+                    path="/courses/category"
+                    element={<CourseCategoryPage />}
                   />
-                  <Route
-                    path="/dashboard/certificates"
-                    element={<DashboardCertificate />}
-                  />
-                  <Route
-                    path="/dashboard/user-profile"
-                    element={<UserProfileDashboard />}
-                  />
-                </Route>
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </ErrorBoundary>
-          </ScrollToTop>
-          <Toaster richColors={true} closeButton={true} />
-        </QueryClientProvider>
-      </SessionProvider>
+                  <Route element={<ProtectedLayout />}>
+                    <Route path="/dashboard" element={<UserDashboard />} />
+                    <Route
+                      path="/dashboard/courses/:id/modules/:moduleId/overview"
+                      element={<DashboardCourseOverview />}
+                    />
+                    <Route
+                      path="/dashboard/courses/:id/course-assessment"
+                      element={<DashboardCourseAssessmentPage />}
+                    />
+                    <Route
+                      path="/dashboard/expired-courses"
+                      element={<DashboardExpiredCourses />}
+                    />
+                    <Route
+                      path="/dashboard/certificates"
+                      element={<DashboardCertificate />}
+                    />
+                    <Route
+                      path="/course-checkout/:id"
+                      element={<CourseCheckoutPage />}
+                    />
+                    <Route
+                      path="/dashboard/certificates"
+                      element={<DashboardCertificate />}
+                    />
+                    <Route
+                      path="/dashboard/user-profile"
+                      element={<UserProfileDashboard />}
+                    />
+                  </Route>
+                  <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+              </ErrorBoundary>
+            </ScrollToTop>
+            <Toaster richColors={true} closeButton={true} />
+          </QueryClientProvider>
+        </SessionProvider>
+      </CookiesProvider>
     </BrowserRouter>
   </StrictMode>
 );

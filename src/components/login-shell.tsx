@@ -18,6 +18,11 @@ import {
   FormMessage,
 } from "./ui/form";
 import {Input} from "./ui/input";
+import {useCookies} from "react-cookie";
+
+export interface CookieValues {
+  accessToken?: string;
+}
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -30,6 +35,11 @@ export function LoginForm() {
     },
   });
   const login = useLogin();
+  const [cookies, setCookie] = useCookies<"accessToken", CookieValues>([
+    "accessToken",
+  ]);
+
+  console.log(cookies);
 
   function onSubmit(values: z.infer<typeof loginSchema>) {
     setIsLoading(true);
@@ -47,10 +57,11 @@ export function LoginForm() {
           if (!res.responseObject.user.isActive) {
             return "Your account is inactive";
           }
+          setCookie("accessToken", res.responseObject.token);
 
           setIsLoading(false);
           navigate("/dashboard");
-          
+
           return "Login successful";
         },
         error: (res) => {

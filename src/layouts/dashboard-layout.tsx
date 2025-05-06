@@ -5,6 +5,8 @@ import {UserDropdown} from "@/components/user-dropdown";
 import {useSession} from "@/hooks/useSession";
 import {useNavigate} from "react-router";
 import {VerifyEmailToProceedDialog} from "@/components/verify-email-to-proceed-dialog";
+import {useCookies} from "react-cookie";
+import {CookieValues} from "@/components/login-shell";
 
 export default function DashboardLayout({
   children,
@@ -13,6 +15,9 @@ export default function DashboardLayout({
 }) {
   const {session} = useSession();
   const navigate = useNavigate();
+  const [cookies] = useCookies<"accessToken", CookieValues>(["accessToken"]);
+
+  console.log({cookies});
 
   if (session.status === "pending") {
     return <PageLoader />;

@@ -30,6 +30,7 @@ export const useLogin = () => {
       // if (!data.responseObject.user.isActive) {
       //   return;
       // }
+      console.log("data", data);
 
       setSession({
         accessToken: data.responseObject.token,
