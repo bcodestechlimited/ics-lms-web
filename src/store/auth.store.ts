@@ -24,7 +24,7 @@ export const useAuthStore = create<AuthState>()(
       validateSession: async () => {
         try {
           const {data} = await axios.get<{valid: boolean}>(
-            `http://localhost:5000/api/v1/user/validate-user`,
+            `${import.meta.env.VITE_SERVER_URL}/user/validate-user`,
             {
               withCredentials: true,
             }

@@ -3,7 +3,12 @@ import {CheckoutCouponInterface} from "@/interfaces/payment.interface";
 import {courseService} from "@/services/course.service";
 import paymentService from "@/services/payment.service";
 import {useCourseFilterStore} from "@/store/course-filter.store";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 const params: Record<string, string | number> = {};
 
@@ -105,9 +110,14 @@ export const useCouponCheckout = () => {
 };
 
 export const useMarkModuleCompleted = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (moduleId: string) =>
       courseService.markModuleCompletedService(moduleId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ["progress"]});
+    },
   });
 };
 

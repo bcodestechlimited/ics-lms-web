@@ -46,10 +46,10 @@ export function LoginForm() {
           if (!res.responseObject.user.isActive) {
             return "Your account is inactive";
           }
-          console.log({res});
+
           setIsLoading(false);
-          navigate("/");
-          console.log("user is logged in");
+          navigate("/dashboard");
+          
           return "Login successful";
         },
         error: (res) => {
