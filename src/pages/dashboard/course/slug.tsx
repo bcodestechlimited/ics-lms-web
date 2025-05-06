@@ -4,7 +4,7 @@ import ModuleContentSection from "@/components/module-content-section";
 import {Button} from "@/components/ui/button";
 import {
   useGetCourseModuleByModuleId,
-  // useGetCourseProgress,
+  useGetCourseProgress,
   useMarkModuleCompleted,
 } from "@/hooks/use-course";
 import DashboardLayout from "@/layouts/dashboard-layout";
@@ -14,58 +14,66 @@ import {useNavigate, useParams} from "react-router";
 import {toast} from "sonner";
 
 export default function DashboardCourseOverview() {
-  const params = useParams();
+  const {id: courseId, moduleId} = useParams<{
+    id: string;
+    moduleId: string;
+  }>();
   const navigate = useNavigate();
-  const {data, isLoading, refetch} = useGetCourseModuleByModuleId(
-    params.moduleId
-  );
-  const module = !isLoading && data?.responseObject?.data?.module;
-  const hasNextModule = !isLoading && data?.responseObject?.data?.hasNextModule;
-  const nextModuleId = !isLoading && data?.responseObject?.data?.nextModule;
-  const previousModuleId = !isLoading && data?.responseObject?.data?.prevModule;
-  const markModuleCompleted = useMarkModuleCompleted();
-  // const {
-  //   data: progressRes,
-  //   isLoading: loadingProgress,
-  //   error: errorProgress,
-  // } = useGetCourseProgress(params.id as string);
 
-  // const progress = progressRes?.responseObject?.data;
+  // 1) Module data
+  const {
+    data: moduleRes,
+    isLoading: loadingModule,
+    refetch,
+  } = useGetCourseModuleByModuleId(moduleId);
+  const module = moduleRes?.responseObject?.data?.module;
+  const hasNext = moduleRes?.responseObject?.data?.hasNextModule;
+  const nextId = moduleRes?.responseObject?.data?.nextModule;
+  const prevId = moduleRes?.responseObject?.data?.prevModule;
+
+  // 2) Progress data
+  const {
+    data: progressRes,
+    isLoading: loadingProgress,
+    error: errorProgress,
+  } = useGetCourseProgress(courseId as string);
+  const progress = progressRes?.responseObject?.data;
+  const totalModules = progress?.modules?.length ?? 0;
+  const doneModules =
+    progress?.modules?.filter((m: any) => m.completed).length ?? 0;
+  const pct = Math.round(progress?.progressPercentage ?? 0);
+
+  const currentIndex =
+    progress?.modules.findIndex((m: any) => m.module._id === moduleId) ?? -1;
+
+  // 3) Mutation
+  const {mutateAsync: markCompleted} = useMarkModuleCompleted();
+
+  // Scroll to top on module change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [moduleId]);
 
   useEffect(() => {
-    if (params.moduleId) {
+    if (moduleId) {
       refetch();
     }
-  }, [params.moduleId, refetch]);
+  }, [moduleId, refetch]);
 
-  // const totalModules = progress?.modules?.length ?? 0;
-  // const doneModules =
-  //   progress?.modules?.filter((m: any) => m.completed).length ?? 0;
-  // const pct = Math.round(progress?.progressPercentage ?? 0);
-
-  const handleContinue = (type: string) => {
-    if (type === "assessment") {
-      // send to the backend that the person has completed the course lessons and that the after the assessment they would have completed the course and they should be issued a certificate
-      navigate(`/dashboard/courses/${params.id}/course-assessment`);
+  const handleContinue = () => {
+    if (hasNext) {
+      navigate(`/dashboard/courses/${courseId}/modules/${nextId}/overview`);
     } else {
-      navigate(
-        `/dashboard/courses/${params.id}/modules/${nextModuleId}/overview`
-      );
+      navigate(`/dashboard/courses/${courseId}/course-assessment`);
     }
   };
 
-  const handleMarkCompleted = () => {
-    toast.promise(markModuleCompleted.mutateAsync(module?._id), {
-      loading: "Marking module as completed...",
-      success: (res) => {
-        if (!res.success) {
-          return "Failed to mark module as completed";
-        }
-        return "Module marked as completed";
-      },
-      error: () => {
-        return "Error marking module as completed";
-      },
+  const handleMark = () => {
+    if (!module?._id) return;
+    toast.promise(markCompleted(module._id), {
+      loading: "Marking module as completed…",
+      success: () => "Module marked!",
+      error: () => "Failed to mark module",
     });
   };
 
@@ -74,12 +82,19 @@ export default function DashboardCourseOverview() {
       <div className="container mx-auto py-12 space-y-16">
         <div className="grid grid-cols-12">
           <div className="col-start-2 col-end-12 p-2 space-y-16">
-            <h1 className="text-2xl font-semibold">Title: {module?.title}</h1>
+            {!loadingModule && module && currentIndex >= 0 && (
+              <p className="text-sm text-gray-500">
+                Module {currentIndex + 1} of {totalModules}
+              </p>
+            )}
+            <h1 className="text-2xl font-semibold">
+              {loadingModule ? "Loading…" : `Title: ${module?.title}`}
+            </h1>
 
-            {/* ── Progress Tracker ── */}
-            {/* <div className="space-y-2">
+            {/* Progress Tracker */}
+            <div className="space-y-2">
               {loadingProgress ? (
-                <p>Loading progress...</p>
+                <p>Loading progress…</p>
               ) : errorProgress ? (
                 <p className="text-red-500">Failed to load progress</p>
               ) : (
@@ -90,7 +105,6 @@ export default function DashboardCourseOverview() {
                       {doneModules}/{totalModules} modules
                     </span>
                   </div>
-                 
                   <div className="w-full bg-gray-200 h-2 rounded-full">
                     <div
                       className="bg-green-600 h-2 rounded-full"
@@ -99,60 +113,53 @@ export default function DashboardCourseOverview() {
                   </div>
                 </>
               )}
-            </div> */}
+            </div>
 
-            {!isLoading ? (
-              module?.contentSections.map((section: any) => {
-                return (
-                  <ModuleContentSection section={section} key={section._id} />
-                );
-              })
+            {/* Module Content */}
+            {!loadingModule && module ? (
+              module.contentSections.map((section: any) => (
+                <ModuleContentSection section={section} key={section._id} />
+              ))
             ) : (
               <div className="w-full mx-auto space-y-8">
                 <CourseModuleSkeleton />
                 <CourseModuleSkeleton />
                 <CourseModuleSkeleton />
-                <CourseModuleSkeleton />
-                <CourseModuleSkeleton />
               </div>
             )}
-            <div className="flex items-center justify-between gap-x-8 py-16">
+
+            {/* Actions */}
+            <div className="flex items-center justify-between gap-x-4 py-16">
+              {/* Mark Complete */}
               <Button
                 className="bg-green-600 flex items-center gap-x-2"
-                onClick={handleMarkCompleted}
-                disabled={markModuleCompleted.isPending}
+                onClick={handleMark}
+                // disabled={marking || loadingModule}
               >
                 <Check />
                 Mark as completed
               </Button>
 
-              {!hasNextModule ? (
-                <div className="flex items-center gap-x-2">
+              <div className="flex gap-2">
+                {/* Go Back (only if prevId exists) */}
+                {prevId && (
                   <Button
-                    variant={"outline"}
+                    variant="outline"
                     onClick={() =>
                       navigate(
-                        `/dashboard/courses/${params.id}/modules/${previousModuleId}/overview`
+                        `/dashboard/courses/${courseId}/modules/${prevId}/overview`
                       )
                     }
                   >
                     Go back
                   </Button>
-                  <Button
-                    variant={"outline"}
-                    onClick={() => handleContinue("assessment")}
-                  >
-                    Continue to Assessment
-                  </Button>
-                </div>
-              ) : (
-                <Button
-                  variant={"outline"}
-                  onClick={() => handleContinue("nextModule")}
-                >
-                  Continue
+                )}
+
+                {/* Continue */}
+                <Button variant="outline" onClick={handleContinue}>
+                  {hasNext ? "Next Module" : "Continue to Assessment"}
                 </Button>
-              )}
+              </div>
             </div>
           </div>
         </div>
