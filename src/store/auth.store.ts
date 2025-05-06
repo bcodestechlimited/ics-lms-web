@@ -1,6 +1,5 @@
-import { User } from "@/interfaces/session.interface";
+import {User} from "@/interfaces/session.interface";
 import axios from "axios";
-import {useCookies} from "react-cookie";
 import {create} from "zustand";
 import {persist} from "zustand/middleware";
 
