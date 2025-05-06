@@ -1,12 +1,10 @@
 import {AppSidebar} from "@/components/app-sidebar";
 import {PageLoader} from "@/components/loading-spinner";
+import {CookieValues} from "@/components/login-shell";
 import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar";
 import {UserDropdown} from "@/components/user-dropdown";
 import {useSession} from "@/hooks/useSession";
-import {useNavigate} from "react-router";
-import {VerifyEmailToProceedDialog} from "@/components/verify-email-to-proceed-dialog";
 import {useCookies} from "react-cookie";
-import {CookieValues} from "@/components/login-shell";
 
 export default function DashboardLayout({
   children,
@@ -14,7 +12,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const {session} = useSession();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [cookies] = useCookies<"accessToken", CookieValues>(["accessToken"]);
 
   console.log({cookies});
@@ -23,7 +21,11 @@ export default function DashboardLayout({
   if (session.status === "pending") {
     return <PageLoader />;
   } else if (session.status === "unauthenticated") {
-    navigate("/auth/login");
+    // navigate("/auth/login");
+    console.log(
+      {session},
+      "inside the unauthenticated, should navigate if session npt found"
+    );
     return;
   }
 
@@ -52,7 +54,7 @@ export default function DashboardLayout({
             </div>
           </div>
         </div>
-        {!session.user?.isActive && <VerifyEmailToProceedDialog />}
+        {/* {!session.user?.isActive && <VerifyEmailToProceedDialog />} */}
 
         <div className="">{children}</div>
       </main>
