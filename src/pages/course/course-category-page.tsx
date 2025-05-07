@@ -17,12 +17,8 @@ export default function CourseCategoryPage() {
   const totalPages = (!isLoading && data?.responseObject?.totalPages) || 1;
 
   useEffect(() => {
-    const categoryFromUrl = searchParams.get("topic");
-    if (categoryFromUrl) {
-      setTopic(categoryFromUrl);
-    } else {
-      setTopic("");
-    }
+    const categoryFromUrl = searchParams.get("topic") || "";
+    setTopic(categoryFromUrl);
   }, [searchParams, setTopic]);
 
   return (

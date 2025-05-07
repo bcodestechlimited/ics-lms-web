@@ -43,8 +43,15 @@ export default function DashboardCourseOverview() {
     progress?.modules?.filter((m: any) => m.completed).length ?? 0;
   const pct = Math.round(progress?.progressPercentage ?? 0);
 
+  const allModulesCompleted = doneModules === totalModules;
+
   const currentIndex =
     progress?.modules.findIndex((m: any) => m.module._id === moduleId) ?? -1;
+
+  const moduleProgress = progress?.modules.find(
+    (m: any) => m.module._id === moduleId
+  );
+  const isModuleCompleted = moduleProgress?.completed === true;
 
   // 3) Mutation
   const {mutateAsync: markCompleted} = useMarkModuleCompleted();
@@ -134,10 +141,11 @@ export default function DashboardCourseOverview() {
               <Button
                 className="bg-green-600 flex items-center gap-x-2"
                 onClick={handleMark}
+                disabled={loadingModule || loadingProgress || isModuleCompleted}
                 // disabled={marking || loadingModule}
               >
                 <Check />
-                Mark as completed
+                {isModuleCompleted ? "Completed" : "Mark Complete"}
               </Button>
 
               <div className="flex gap-2">
@@ -156,7 +164,11 @@ export default function DashboardCourseOverview() {
                 )}
 
                 {/* Continue */}
-                <Button variant="outline" onClick={handleContinue}>
+                <Button
+                  variant="outline"
+                  onClick={handleContinue}
+                  disabled={!hasNext && !allModulesCompleted}
+                >
                   {hasNext ? "Next Module" : "Continue to Assessment"}
                 </Button>
               </div>

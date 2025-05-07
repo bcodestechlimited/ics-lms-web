@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {useState, useEffect} from "react";
-import {useParams} from "react-router";
-import DashboardLayout from "@/layouts/dashboard-layout";
+import Assessment, {Question} from "@/components/assessment";
 import {CourseAssessmentSkeleton} from "@/components/course-card-skeleton";
 import {Button} from "@/components/ui/button";
 import {
   useGetCourseAssessments,
+  useGetCourseProgress,
   useSubmitCourseAssessment,
 } from "@/hooks/use-course";
-import Assessment, {Question} from "@/components/assessment";
+import DashboardLayout from "@/layouts/dashboard-layout";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router";
 import {toast} from "sonner";
 
 interface SubmitResponse {
@@ -38,6 +39,16 @@ export default function DashboardCourseAssessmentPage() {
   const [result, setResult] = useState<SubmitResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const submitAssessment = useSubmitCourseAssessment();
+  const {
+    data: progressData,
+    isLoading: progressLoading,
+    error: progressError,
+  } = useGetCourseProgress(courseId as string);
+
+  const progress =
+    !progressLoading && progressData?.responseObject?.data
+      ? progressData.responseObject.data
+      : null;
 
   useEffect(() => {
     setSelectedAnswers({});
@@ -107,6 +118,72 @@ export default function DashboardCourseAssessmentPage() {
           </div>
         ) : (
           <div className="max-w-4xl space-y-8">
+            {!progressLoading && progressData && (
+              <div className="mb-8 p-4 border rounded bg-white">
+                {/* 1) Progress bar */}
+                <p className="mb-2">
+                  Course progress:{" "}
+                  <strong>
+                    {/* {progressData?.progressPercentage.toFixed(0)}% */}
+                  </strong>
+                </p>
+                <div className="w-full h-2 bg-gray-200 rounded overflow-hidden">
+                  <div
+                    className="h-full bg-green-500"
+                    style={{width: `${progress?.progressPercentage}%`}}
+                  />
+                </div>
+
+                {/* 2) Attempts summary */}
+                <p className="mt-4">
+                  Attempts used:{" "}
+                  <strong>{progress?.assessmentHistory.length}</strong> of{" "}
+                  <strong>{progress?.assessmentAttempts}</strong>
+                </p>
+
+                {/* 3) Remaining attempts or final message */}
+                {progress?.assessmentHistory.length >=
+                progress?.assessmentAttempts ? (
+                  <p className="text-red-600 font-semibold mt-2">
+                    No more retakes allowed.
+                  </p>
+                ) : (
+                  <p className="text-gray-700 mt-2">
+                    You have{" "}
+                    <strong>
+                      {progress?.assessmentAttempts -
+                        progress?.assessmentHistory.length}
+                    </strong>{" "}
+                    attempt
+                    {progress?.assessmentAttempts -
+                      progress?.assessmentHistory.length >
+                    1
+                      ? "s"
+                      : ""}{" "}
+                    remaining.
+                  </p>
+                )}
+
+                {/* 4) History list */}
+                <div className="mt-4">
+                  <h3 className="font-semibold">Past Attempts</h3>
+                  <ul className="list-disc list-inside">
+                    {progress?.assessmentHistory.map((h: any) => (
+                      <li key={h.attempt}>
+                        #{h.attempt} –{" "}
+                        {new Date(h.timestamp).toLocaleDateString()} – {h.score}
+                        % – {h.passed ? "Passed" : "Failed"}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+            {progressError && (
+              <div className="text-red-600">
+                Failed to load your progress. Please refresh.
+              </div>
+            )}
             <Assessment
               questions={questions}
               selectedAnswers={selectedAnswers}
@@ -118,7 +195,14 @@ export default function DashboardCourseAssessmentPage() {
             <div className="text-center">
               <Button
                 onClick={handleSubmit}
-                disabled={!allAnswered || submitting || !!result}
+                disabled={
+                  !allAnswered ||
+                  submitting ||
+                  !!result ||
+                  (progress &&
+                    progress.assessmentHistory.length >=
+                      progress.assessmentAttempts)
+                }
                 className="bg-green-600"
               >
                 {result

@@ -14,24 +14,55 @@ export const useGetHomePageCourses = () => {
   });
 };
 
+// export const useGetAllCourses = () => {
+//   const {search, rating, topic, page, limit} = useCourseFilterStore();
+
+//   return useQuery({
+//     queryFn: () => {
+//       if (search) params.search = search;
+//       if (rating) params.rating = rating;
+//       if (topic) params.category = topic;
+
+//       params.page = page ? page.toString() : "1";
+//       params.limit = limit ? limit.toString() : "20";
+
+//       return courseService.getAllPublishedCourses(params);
+//     },
+//     queryKey: ["courses", {search, rating, topic, page, limit}],
+//   });
+// };
+
 export const useGetAllCourses = () => {
   const {search, rating, topic, page, limit} = useCourseFilterStore();
 
   return useQuery({
+    queryKey: ["courses", {search, rating, topic, page, limit}],
     queryFn: () => {
-      if (search) params.search = search;
-      if (rating) params.rating = rating;
-      if (topic) params.category = topic;
+      // 1) Start with a brand-new params object on each call
+      const params: Record<string, string> = {};
 
-      // set pagination parameters with default limit of 20
-      params.page = page ? page.toString() : "1";
-      params.limit = limit ? limit.toString() : "20";
+      // 2) Only add filters when they’re non-empty
+      if (search) {
+        params.search = search;
+      }
+      if (rating != null) {
+        params.rating = rating.toString();
+      }
+      if (topic) {
+        // backend expects 'topic', not 'category'
+        params.topic = topic;
+      }
+
+      // 3) Always include pagination
+      params.page = page?.toString() ?? "1";
+      params.limit = limit?.toString() ?? "20";
 
       return courseService.getAllPublishedCourses(params);
     },
-    queryKey: ["courses", {search, rating, topic, page, limit}],
+    // keepPreviousData: true,
   });
 };
+
 
 export const useGetAllPublishedCourses = () => {
   const {search, rating, topic, page, limit} = useCourseFilterStore();

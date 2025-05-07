@@ -1,4 +1,4 @@
-import {useSession} from "@/hooks/useSession";
+import {useGetUserSession} from "@/hooks/use-user";
 import {Book, Briefcase, FileText, HomeIcon} from "lucide-react";
 import {Link, useLocation} from "react-router";
 import {NavBar} from "./tubelight-navbar";
@@ -6,7 +6,7 @@ import {Button} from "./ui/button";
 import {UserDropdown} from "./user-dropdown";
 
 export function Navbar() {
-  const {session} = useSession();
+  const {data: session} = useGetUserSession();
   const location = useLocation();
 
   const currentPath = location.pathname.replace(/\/+$/, "");
@@ -38,6 +38,8 @@ export function Navbar() {
     {name: "Blog", url: "#", icon: FileText},
   ];
 
+  console.log({session});
+
   return (
     <nav className="py-1 border-b">
       <div className="flex items-center justify-between container mx-auto">
@@ -47,7 +49,7 @@ export function Navbar() {
 
         <NavBar items={navItems} className="" />
 
-        {session.status === "authenticated" ? (
+        {session?._id ? (
           <div className="flex items-center gap-4">
             {/* <Link to="/dashboard">
               <Button>Dashboard</Button>

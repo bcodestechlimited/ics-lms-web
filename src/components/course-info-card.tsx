@@ -1,4 +1,4 @@
-import {useSession} from "@/hooks/useSession";
+import {useGetUserSession} from "@/hooks/use-user";
 import {AwardIcon} from "lucide-react";
 import {useNavigate} from "react-router";
 import {toast} from "sonner";
@@ -21,8 +21,8 @@ export function CourseInfoCard({
   summary,
 }: // moduleId,
 CourseCardInterface) {
-  const {session} = useSession();
-  const userId = session.user?._id;
+  const {data: session} = useGetUserSession();
+  const userId = session?._id;
   // const launch = useLaunchCourse();
   const navigate = useNavigate();
 
@@ -75,7 +75,7 @@ CourseCardInterface) {
             </div>
           </div>
 
-          {session.status === "authenticated" ? (
+          {session._id ? (
             <Button className="w-full" onClick={handleLaunchCourse}>
               Proceed to checkout
             </Button>
