@@ -36,9 +36,9 @@ export default function CourseSlugPage() {
         <div className="container mx-auto grid grid-cols-12 py-20 h-full">
           <header className="space-y-4 col-start-1 col-end-6 text-white">
             <h1 className="text-[32px] font-bold leading-normal">
-              {course.title}
+              {course?.title}
             </h1>
-            <h3 className="font-medium leading-normal">{course.summary}</h3>
+            <h3 className="font-medium leading-normal">{course?.summary}</h3>
 
             <div className="space-y-4 mt-20">
               <div>
@@ -51,7 +51,7 @@ export default function CourseSlugPage() {
                   <RefreshCwIcon className="h-5 w-5" />
                   <p>
                     Latest Update{" "}
-                    {new Date(course.updatedAt).toLocaleDateString()}
+                    {new Date(course?.updatedAt).toLocaleDateString()}
                   </p>
                 </div>
                 <div className="flex items-center gap-x-2">
@@ -66,12 +66,12 @@ export default function CourseSlugPage() {
             <div className="col-start-9 col-end-13 h-0 justify-end flex">
               <div>
                 <CourseInfoCard
-                  _id={course._id}
-                  image={course.image}
-                  title={course.title}
+                  _id={course?._id}
+                  image={course?.image}
+                  title={course?.title}
                   description=""
-                  summary={course.summary}
-                  moduleId={course.course_modules[0]}
+                  summary={course?.summary}
+                  moduleId={course?.course_modules[0]}
                 />
               </div>
             </div>
@@ -83,12 +83,12 @@ export default function CourseSlugPage() {
       {isScrolled && (
         <div className="fixed top-6 right-2.5 z-50 px-6 md:px-12 lg:px-24 xl:px-32">
           <CourseInfoCard
-            _id={course._id}
-            image={course.image}
-            title={course.title}
+            _id={course?._id}
+            image={course?.image}
+            title={course?.title}
             description=""
-            summary={course.summary}
-            moduleId={course.course_modules[0]}
+            summary={course?.summary}
+            moduleId={course?.course_modules[0]}
           />
         </div>
       )}
@@ -98,7 +98,7 @@ export default function CourseSlugPage() {
           <div className="col-start-1 col-end-7 space-y-[32px]">
             <h2 className="text-[32px] font-bold">What you will learn</h2>
             <div className="space-y-4">
-              <DisplayMarkupContent content={course.description} />
+              <DisplayMarkupContent content={course?.description} />
             </div>
           </div>
         </div>

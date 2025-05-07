@@ -4,13 +4,21 @@ import Assessment, {Question} from "@/components/assessment";
 import {CourseAssessmentSkeleton} from "@/components/course-card-skeleton";
 import {Button} from "@/components/ui/button";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   useGetCourseAssessments,
   useGetCourseProgress,
   useSubmitCourseAssessment,
 } from "@/hooks/use-course";
 import DashboardLayout from "@/layouts/dashboard-layout";
 import {useEffect, useState} from "react";
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {toast} from "sonner";
 
 interface SubmitResponse {
@@ -38,12 +46,14 @@ export default function DashboardCourseAssessmentPage() {
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<SubmitResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const submitAssessment = useSubmitCourseAssessment();
   const {
     data: progressData,
     isLoading: progressLoading,
     error: progressError,
   } = useGetCourseProgress(courseId as string);
+  const navigate = useNavigate();
 
   const progress =
     !progressLoading && progressData?.responseObject?.data
@@ -93,6 +103,10 @@ export default function DashboardCourseAssessmentPage() {
           success: (data) => {
             if (!data.success) {
               return data.message || "Submission failed";
+            }
+            console.log("passed", data.responseObject.passed);
+            if (data?.responseObject?.passed) {
+              setIsDialogOpen(true);
             }
             return "Assessment submitted!";
           },
@@ -253,6 +267,28 @@ export default function DashboardCourseAssessmentPage() {
             )}
           </div>
         )}
+
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Certificate Issued</DialogTitle>
+              <DialogDescription>
+                Your certificate has been issued! You can view it on your
+                dashboard.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button
+                onClick={() => {
+                  setIsDialogOpen(false);
+                  navigate("/dashboard");
+                }}
+              >
+                Continue
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </DashboardLayout>
   );

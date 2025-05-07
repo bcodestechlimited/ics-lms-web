@@ -34,7 +34,7 @@ export default function CourseCheckoutPage() {
 
   // ── derive original price safely ──
   const rawPriceObj = course?.course_price;
-  const originalPrice = Number(rawPriceObj?.coursePricing ?? 0);
+  const originalPrice = Number(rawPriceObj?.price.coursePricing ?? 0);
 
   // ── coupon state ──
   const [isCouponApplied, setIsCouponApplied] = useState(false);
