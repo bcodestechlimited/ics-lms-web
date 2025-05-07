@@ -1,7 +1,8 @@
 import {useRequestForExtension} from "@/hooks/use-user";
-import {useSession} from "@/hooks/useSession";
+import {useValidateUser} from "@/hooks/useAuth";
 import {extensionSchema} from "@/schema/user.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {Loader2} from "lucide-react";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {toast} from "sonner";
@@ -33,7 +34,7 @@ export const ExpiredCourseCard = ({
   id: string;
   expiresAt: Date;
 }) => {
-  const {session} = useSession();
+  const {data: user, isLoading} = useValidateUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     register,
@@ -49,7 +50,7 @@ export const ExpiredCourseCard = ({
       courseId: id,
       expiryDate: expiresAt,
       reason: data.reason,
-      userId: session.user?._id as string,
+      userId: user?._id as string,
       extensionDays: Number(data.days),
     };
 
@@ -95,7 +96,13 @@ export const ExpiredCourseCard = ({
           <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
               <DialogTrigger asChild>
-                <Button variant="outline">Ask for Extension</Button>
+                <Button variant="outline">
+                  {isLoading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    " Request Extension"
+                  )}
+                </Button>
               </DialogTrigger>
             </Dialog>
           </div>

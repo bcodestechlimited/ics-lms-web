@@ -73,6 +73,11 @@ class AuthService {
     });
     return data;
   }
+
+  public async validateUser() {
+    const {data} = await apiClient.get("/user/session");
+    return data;
+  }
 }
 
 export const authService = new AuthService();

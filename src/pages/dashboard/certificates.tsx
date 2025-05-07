@@ -1,11 +1,9 @@
-import {useGetAllMyCertificates} from "@/hooks/use-user";
-import DashboardLayout from "@/layouts/dashboard-layout";
 import {Card} from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
 import {Skeleton} from "@/components/ui/skeleton";
-import {format} from "date-fns";
-import {Link} from "react-router";
+import {useGetAllMyCertificates} from "@/hooks/use-user";
 import {CertificateInterface} from "@/interfaces/dashboard.interface";
+import DashboardLayout from "@/layouts/dashboard-layout";
+import {format} from "date-fns";
 
 const DashboardCertificate = () => {
   const {data, isLoading} = useGetAllMyCertificates();
@@ -39,13 +37,13 @@ const DashboardCertificate = () => {
                     {certificates.map((certificate: CertificateInterface) => (
                       <Card
                         key={certificate._id}
-                        className="hover:shadow-lg transition-shadow"
+                        className="hover:shadow-lg transition-shadow p-0"
                       >
                         <div className="flex flex-col h-full">
                           <img
                             src={certificate.course_image}
                             alt={certificate.course_title}
-                            className="w-full h-48 object-cover rounded-t-lg"
+                            className="w-full h-40 object-cover rounded-t-lg"
                           />
                           <div className="p-4 flex flex-col flex-grow">
                             <h3 className="font-semibold mb-2">
@@ -59,11 +57,11 @@ const DashboardCertificate = () => {
                                   "MMM dd, yyyy"
                                 )}
                               </p>
-                              <Button asChild className="w-full">
+                              {/* <Button asChild className="w-full">
                                 <Link to={`/certificates/${certificate._id}`}>
                                   View Certificate
                                 </Link>
-                              </Button>
+                              </Button> */}
                             </div>
                           </div>
                         </div>

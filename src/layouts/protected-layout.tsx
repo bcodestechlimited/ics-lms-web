@@ -1,22 +1,24 @@
 import {PageLoader} from "@/components/loading-spinner";
-import {useSession} from "@/hooks/useSession";
-import {useEffect} from "react";
-import {Outlet} from "react-router";
+import {useValidateUser} from "@/hooks/useAuth";
+import {Navigate, Outlet} from "react-router";
+import {toast} from "sonner";
 
+const token = import.meta.env.VITE_AUTH_TOKEN || "accessToken";
 export function ProtectedLayout() {
-  const {session} = useSession();
-  console.log({session});
+  const {data, isLoading, isError} = useValidateUser();
 
-  useEffect(() => {
-    console.log("session from useEffect", {session});
-  }, [session]);
+  const user = data;
 
-  // if (session.status === "unauthenticated") {
-  //   return <Navigate to="/auth/login" replace />;
-  // }
-
-  if (session.status === "pending") {
+  if (isLoading) {
     return <PageLoader />;
+  }
+
+  if (isError || !user) {
+    toast.error("Please login", {
+      id: "unique",
+    });
+    localStorage.removeItem(token);
+    return <Navigate to="/auth/login" replace />;
   }
 
   return <Outlet />;

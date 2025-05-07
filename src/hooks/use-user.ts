@@ -1,4 +1,5 @@
 import {RequestForExtenstionInterface} from "@/interfaces/user.interface";
+import {authService} from "@/services/auth.service";
 import {certificateService} from "@/services/certificate.service";
 import userService from "@/services/user.service";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
@@ -49,5 +50,12 @@ export const useUpdatePassword = () => {
   return useMutation({
     mutationFn: (payload: {oldPassword: string; newPassword: string}) =>
       userService.updatePassword(payload),
+  });
+};
+
+export const useGetUserSession = () => {
+  return useQuery({
+    queryFn: () => authService.validateUser(),
+    queryKey: ["session"],
   });
 };

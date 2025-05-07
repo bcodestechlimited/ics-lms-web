@@ -5,8 +5,9 @@ import {
   ResetPasswordInterface,
 } from "@/interfaces/auth.interface";
 import {authService} from "@/services/auth.service";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {useSession} from "./useSession";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+
+const token = import.meta.env.VITE_AUTH_TOKEN || "accessToken";
 
 export const useRegister = () => {
   const queryClient = useQueryClient();
@@ -22,7 +23,7 @@ export const useRegister = () => {
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
-  const {setSession} = useSession();
+  // const {setSession} = useSession();
 
   return useMutation({
     mutationFn: (credentials: LoginPayload) => authService.login(credentials),
@@ -30,13 +31,12 @@ export const useLogin = () => {
       // if (!data.responseObject.user.isActive) {
       //   return;
       // }
-      console.log("data", data);
-
-      setSession({
-        accessToken: data.responseObject.token,
-        status: "authenticated",
-        user: data.responseObject.user,
-      });
+      // setSession({
+      //   accessToken: data.responseObject.token,
+      //   status: "authenticated",
+      //   user: data.responseObject.user,
+      // });
+      localStorage.setItem(token, data.responseObject.token);
       queryClient.invalidateQueries({queryKey: ["user"]});
     },
   });
@@ -44,11 +44,11 @@ export const useLogin = () => {
 
 export const useLogout = () => {
   const queryClient = useQueryClient();
-  const {clearSession} = useSession();
+  // const {clearSession} = useSession();
   return useMutation({
     mutationFn: () => authService.logout(),
     onSuccess: () => {
-      clearSession();
+      localStorage.removeItem(token);
       queryClient.invalidateQueries({queryKey: ["user"]});
     },
   });
@@ -82,5 +82,12 @@ export const useResetPassword = () => {
 export const useForgotPassword = () => {
   return useMutation({
     mutationFn: (email: string) => authService.forgotPasswordService(email),
+  });
+};
+
+export const useValidateUser = () => {
+  return useQuery({
+    queryKey: ["validate-user"],
+    queryFn: () => authService.validateUser(),
   });
 };

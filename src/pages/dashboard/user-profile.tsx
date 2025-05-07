@@ -3,31 +3,42 @@ import {Button} from "@/components/ui/button";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
+import {ProfileInfoSkeleton} from "@/components/user-profile-skeleton";
 import {useUpdatePassword, useUpdateUserProfile} from "@/hooks/use-user";
-import {useSession} from "@/hooks/useSession";
+import {useValidateUser} from "@/hooks/useAuth";
 import DashboardLayout from "@/layouts/dashboard-layout";
 import {
   UpdateUserPasswordSchema,
   UpdateUserProfileSchema,
 } from "@/schema/auth.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {CameraIcon, Loader2, LockIcon, UserIcon} from "lucide-react";
+import {
+  CameraIcon,
+  Eye,
+  EyeOff,
+  Loader2,
+  LockIcon,
+  UserIcon,
+} from "lucide-react";
 import {useEffect, useRef, useState} from "react";
 import {useForm} from "react-hook-form";
 import {toast} from "sonner";
 import {z} from "zod";
 
 export function UserProfileDashboard() {
-  const {session} = useSession();
+  const {data, isLoading} = useValidateUser();
   const fileInputRef = useRef(null);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const updateProfile = useUpdateUserProfile();
   const updatePassword = useUpdatePassword();
   const profileForm = useForm({
     resolver: zodResolver(UpdateUserProfileSchema),
     defaultValues: {
-      avatar: "",
-      firstName: session.user?.firstName || "",
-      lastName: session.user?.lastName || "",
+      avatar: data?.avatar || "",
+      firstName: data?.firstName || "",
+      lastName: data?.lastName || "",
     },
   });
   const [isProfileLoading, setIsProfileLoading] = useState(false);
@@ -43,7 +54,7 @@ export function UserProfileDashboard() {
   });
 
   const avatarFile = profileForm.watch("avatar");
-  const [previewUrl, setPreviewUrl] = useState(session.user?.avatar || "");
+  const [previewUrl, setPreviewUrl] = useState(data.user?.avatar || "");
 
   useEffect(() => {
     if (avatarFile instanceof File) {
@@ -56,7 +67,7 @@ export function UserProfileDashboard() {
   const handleProfileSubmit = (
     values: z.infer<typeof UpdateUserProfileSchema>
   ) => {
-    if (!session.user?._id) {
+    if (!data?._id) {
       toast("User not found");
       return;
     }
@@ -65,7 +76,7 @@ export function UserProfileDashboard() {
     try {
       toast.promise(
         updateProfile.mutateAsync({
-          userId: session.user._id,
+          userId: data?._id,
           firstName: values.firstName,
           lastName: values.lastName,
           avatar: values.avatar instanceof File ? values.avatar : undefined,
@@ -109,7 +120,6 @@ export function UserProfileDashboard() {
           setIsPwdLoading(false);
           if (res.success) {
             passwordForm.reset();
-            window.location.reload();
             return "Password updated!";
           }
           throw new Error(res.message);
@@ -132,95 +142,99 @@ export function UserProfileDashboard() {
             {/* update user profile */}
             <section className="space-y-8">
               {/* Profile information card */}
-              <Card className="border border-gray-200 rounded-lg shadow-none">
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold">
-                    <div className="flex items-center gap-2">
-                      <UserIcon className="h-5 w-5 text-[#013467]" />
-                      <span>Profile Information</span>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <form
-                    onSubmit={profileForm.handleSubmit(handleProfileSubmit)}
-                    className="space-y-6"
-                  >
-                    <div className="flex flex-col items-center gap-4">
-                      <div className="relative">
-                        <Avatar className="h-24 w-24">
-                          <AvatarImage src={previewUrl} />
-                          <AvatarFallback>
-                            {profileForm.watch("firstName")?.[0]}
-                            {profileForm.watch("lastName")?.[0]}
-                          </AvatarFallback>
-                        </Avatar>
-                        <label
-                          htmlFor="avatarFile"
-                          className="absolute -bottom-2 -right-2 rounded-full bg-white p-1 cursor-pointer"
-                        >
-                          <CameraIcon className="h-4 w-4 text-gray-700" />
-                        </label>
-
-                        <input
-                          id="avatarFile"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          {...profileForm.register("avatar", {
-                            onChange: (e) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                profileForm.setValue("avatar", file, {
-                                  shouldValidate: true,
-                                  shouldDirty: true,
-                                });
-                              }
-                            },
-                          })}
-                          ref={fileInputRef}
-                        />
+              {isLoading ? (
+                <ProfileInfoSkeleton />
+              ) : (
+                <Card className="border border-gray-200 rounded-lg shadow-none">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-semibold">
+                      <div className="flex items-center gap-2">
+                        <UserIcon className="h-5 w-5 text-[#013467]" />
+                        <span>Profile Information</span>
                       </div>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <form
+                      onSubmit={profileForm.handleSubmit(handleProfileSubmit)}
+                      className="space-y-6"
+                    >
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="relative">
+                          <Avatar className="h-24 w-24">
+                            <AvatarImage src={previewUrl} />
+                            <AvatarFallback>
+                              {profileForm.watch("firstName")?.[0]}
+                              {profileForm.watch("lastName")?.[0]}
+                            </AvatarFallback>
+                          </Avatar>
+                          <label
+                            htmlFor="avatarFile"
+                            className="absolute -bottom-2 -right-2 rounded-full bg-white p-1 cursor-pointer"
+                          >
+                            <CameraIcon className="h-4 w-4 text-gray-700" />
+                          </label>
 
-                      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <Label htmlFor="firstName">First Name</Label>
-                          <Input
-                            id="firstName"
-                            {...profileForm.register("firstName")}
-                            className="border-gray-300 focus:border-[#013467]"
+                          <input
+                            id="avatarFile"
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            {...profileForm.register("avatar", {
+                              onChange: (e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  profileForm.setValue("avatar", file, {
+                                    shouldValidate: true,
+                                    shouldDirty: true,
+                                  });
+                                }
+                              },
+                            })}
+                            ref={fileInputRef}
                           />
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="lastName">Last Name</Label>
-                          <Input
-                            id="lastName"
-                            {...profileForm.register("lastName")}
-                            className="border-gray-300 focus:border-[#013467]"
-                          />
+
+                        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <Label htmlFor="firstName">First Name</Label>
+                            <Input
+                              id="firstName"
+                              {...profileForm.register("firstName")}
+                              className="border-gray-300 focus:border-[#013467]"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="lastName">Last Name</Label>
+                            <Input
+                              id="lastName"
+                              {...profileForm.register("lastName")}
+                              className="border-gray-300 focus:border-[#013467]"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="w-full flex justify-end pt-4">
+                          <Button
+                            type="submit"
+                            className="bg-[#013467] hover:bg-[#013467]/90"
+                            disabled={isProfileLoading}
+                          >
+                            {isProfileLoading ? (
+                              <div className="flex items-center gap-x-1">
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                <span className="ml-2">Saving...</span>
+                              </div>
+                            ) : (
+                              "Save Changes"
+                            )}
+                          </Button>
                         </div>
                       </div>
-
-                      <div className="w-full flex justify-end pt-4">
-                        <Button
-                          type="submit"
-                          className="bg-[#013467] hover:bg-[#013467]/90"
-                          disabled={isProfileLoading}
-                        >
-                          {isProfileLoading ? (
-                            <div className="flex items-center gap-x-1">
-                              <Loader2 className="h-4 w-4 animate-spin" />
-                              <span className="ml-2">Saving...</span>
-                            </div>
-                          ) : (
-                            "Save Changes"
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-                  </form>
-                </CardContent>
-              </Card>
+                    </form>
+                  </CardContent>
+                </Card>
+              )}
             </section>
 
             {/* update user password */}
@@ -244,32 +258,77 @@ export function UserProfileDashboard() {
                         <Label htmlFor="currentPassword">
                           Current Password
                         </Label>
-                        <Input
-                          id="currentPassword"
-                          type="password"
-                          {...passwordForm.register("currentPassword")}
-                          className="border-gray-300 focus:border-[#013467]"
-                        />
+                        <div className="relative">
+                          <Input
+                            id="currentPassword"
+                            type={showCurrentPassword ? "text" : "password"}
+                            {...passwordForm.register("currentPassword")}
+                            className="border-gray-300 focus:border-[#013467] pr-10"
+                          />
+                          <button
+                            type="button"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                            onClick={() =>
+                              setShowCurrentPassword(!showCurrentPassword)
+                            }
+                          >
+                            {showCurrentPassword ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
+                          </button>
+                        </div>
                       </div>
+
                       <div className="space-y-2">
                         <Label htmlFor="newPassword">New Password</Label>
-                        <Input
-                          id="newPassword"
-                          type="password"
-                          {...passwordForm.register("newPassword")}
-                          className="border-gray-300 focus:border-[#013467]"
-                        />
+                        <div className="relative">
+                          <Input
+                            id="newPassword"
+                            type={showNewPassword ? "text" : "password"}
+                            {...passwordForm.register("newPassword")}
+                            className="border-gray-300 focus:border-[#013467] pr-10"
+                          />
+                          <button
+                            type="button"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                            onClick={() => setShowNewPassword(!showNewPassword)}
+                          >
+                            {showNewPassword ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
+                          </button>
+                        </div>
                       </div>
+
                       <div className="space-y-2">
                         <Label htmlFor="confirmPassword">
                           Confirm Password
                         </Label>
-                        <Input
-                          id="confirmPassword"
-                          type="password"
-                          {...passwordForm.register("confirmPassword")}
-                          className="border-gray-300 focus:border-[#013467]"
-                        />
+                        <div className="relative">
+                          <Input
+                            id="confirmPassword"
+                            type={showConfirmPassword ? "text" : "password"}
+                            {...passwordForm.register("confirmPassword")}
+                            className="border-gray-300 focus:border-[#013467] pr-10"
+                          />
+                          <button
+                            type="button"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
+                          >
+                            {showConfirmPassword ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
+                          </button>
+                        </div>
                       </div>
                     </div>
 
