@@ -104,8 +104,8 @@ export default function DashboardCourseAssessmentPage() {
             if (!data.success) {
               return data.message || "Submission failed";
             }
-            console.log("passed", data.responseObject.passed);
-            if (data?.responseObject?.passed) {
+          
+            if (data?.responseObject?.data?.passed) {
               setIsDialogOpen(true);
             }
             return "Assessment submitted!";

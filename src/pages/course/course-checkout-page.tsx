@@ -34,7 +34,7 @@ export default function CourseCheckoutPage() {
 
   // ── derive original price safely ──
   const rawPriceObj = course?.course_price;
-  const originalPrice = Number(rawPriceObj?.price.coursePricing ?? 0);
+  const originalPrice = Number(rawPriceObj?.price?.coursePricing ?? 0);
 
   // ── coupon state ──
   const [isCouponApplied, setIsCouponApplied] = useState(false);
@@ -137,18 +137,18 @@ export default function CourseCheckoutPage() {
                     ) : (
                       <div className="flex items-center gap-4">
                         <img
-                          src={course.image}
+                          src={course?.image}
                           alt="Thumbnail"
                           className="w-20 h-20 rounded-lg object-cover"
                         />
                         <div>
-                          <h2 className="text-xl font-bold">{course.title}</h2>
+                          <h2 className="text-xl font-bold">{course?.title}</h2>
                           <p className="text-gray-600">
                             Instructor: ICS ACADEMY
                           </p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-2xl font-bold">
-                              NGN {originalPrice.toLocaleString()}
+                              NGN {originalPrice?.toLocaleString()}
                             </span>
                           </div>
                         </div>
@@ -243,14 +243,14 @@ export default function CourseCheckoutPage() {
                     <div className="space-y-2">
                       <div className="flex justify-between">
                         <span>Original Price:</span>
-                        <span>NGN {originalPrice.toLocaleString()}</span>
+                        <span>NGN {originalPrice?.toLocaleString()}</span>
                       </div>
 
                       {isCouponApplied && (
                         <div className="flex justify-between">
                           <span>Coupon Discount:</span>
                           <span className="text-green-600">
-                            -NGN {couponDiscount.toLocaleString()}
+                            -NGN {couponDiscount?.toLocaleString()}
                           </span>
                         </div>
                       )}
