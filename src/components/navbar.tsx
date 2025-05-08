@@ -1,5 +1,5 @@
 import {useGetUserSession} from "@/hooks/use-user";
-import {Book, Briefcase, FileText, HomeIcon} from "lucide-react";
+import {Book, Briefcase, HomeIcon} from "lucide-react";
 import {Link, useLocation} from "react-router";
 import {NavBar} from "./tubelight-navbar";
 import {Button} from "./ui/button";

@@ -162,7 +162,10 @@ const StaffOnboarding = () => {
         <div className="mt-6 text-center text-sm text-gray-500">
           <p>
             Need help? Contact{" "}
-            <a href="mailto:support@company.com" className="text-primary">
+            <a
+              href="mailto:learning@icsoutsourcing.com"
+              className="text-primary"
+            >
               IT Support
             </a>
           </p>

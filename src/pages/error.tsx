@@ -88,7 +88,7 @@ export default function ErrorPage({
           <p className="text-sm text-default-500">
             If the problem persists, contact our{" "}
             <a
-              href="mailto:support@example.com"
+              href="mailto:learning@icsoutsourcing.com"
               className="text-primary-500 hover:underline"
             >
               support team
