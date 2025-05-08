@@ -1,7 +1,7 @@
 import {CourseInfoCard} from "@/components/course-info-card";
 import DisplayMarkupContent from "@/components/display-markup-content";
 import Footer from "@/components/footer";
-import {PageLoader} from "@/components/loading-spinner";
+import Loader, {PageLoader} from "@/components/loading-spinner";
 import {useGetACourseById} from "@/hooks/use-course";
 import {GlobeIcon, RefreshCwIcon} from "lucide-react";
 import {useEffect, useState} from "react";
@@ -27,8 +27,8 @@ export default function CourseSlugPage() {
   if (isLoading) {
     return <PageLoader />;
   }
-  
-  const course = !isLoading && data?.responseObject.data;
+
+  const course = !isLoading && data?.responseObject?.data;
 
   return (
     <div className="relative">
@@ -65,14 +65,18 @@ export default function CourseSlugPage() {
           {!isScrolled && (
             <div className="col-start-9 col-end-13 h-0 justify-end flex">
               <div>
-                <CourseInfoCard
-                  _id={course?._id}
-                  image={course?.image}
-                  title={course?.title}
-                  description=""
-                  summary={course?.summary}
-                  moduleId={course?.course_modules[0]}
-                />
+                {isLoading ? (
+                  <Loader />
+                ) : (
+                  <CourseInfoCard
+                    _id={!isLoading && course?._id}
+                    image={!isLoading && course?.image}
+                    title={!isLoading && course?.title}
+                    description=""
+                    summary={!isLoading && course?.summary}
+                    moduleId={!isLoading && course?.course_modules[0]}
+                  />
+                )}
               </div>
             </div>
           )}

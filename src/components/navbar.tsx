@@ -35,7 +35,7 @@ export function Navbar() {
     {name: "Home", url: "/", icon: HomeIcon},
     {name: "Courses", url: "/courses", icon: Book},
     {name: "About", url: "/about", icon: Briefcase},
-    {name: "Blog", url: "#", icon: FileText},
+    // {name: "Blog", url: "#", icon: FileText},
   ];
 
   console.log({session});
