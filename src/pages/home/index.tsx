@@ -207,7 +207,7 @@ export default function Home() {
                 description="Find answers to common questions about our products. Can't find what you're looking for? Contact our support team."
                 heading="Frequently asked questions"
                 supportButtonText="Contact Support"
-                supportButtonUrl="#"
+                supportButtonUrl="mailto:learning@icsoutsourcing.com"
                 supportDescription="Our dedicated support team is here to help you with any questions or concerns. Get in touch with us for personalized assistance."
                 supportHeading="Need more support?"
                 items={faqItems}
