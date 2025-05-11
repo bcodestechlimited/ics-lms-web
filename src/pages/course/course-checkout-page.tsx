@@ -94,7 +94,7 @@ export default function CourseCheckoutPage() {
 
     // If user is paying by card we'll console.log for now
     if (vals.paymentMethod === "card") {
-      console.log("Card payload:", vals);
+      // console.log("Card payload:", vals);
       return;
     }
 

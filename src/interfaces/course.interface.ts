@@ -55,17 +55,7 @@ export interface ExpiredCoursesInterface {
   _id: string;
 }
 
-/**
- * {
-  "course": {
-    "_id": "67cee1842f8c56d684bc5469",
-    "title": "Microservices with Node JS and React",
-    "image": "https://res.cloudinary.com/di1erfrrf/image/upload/v1741611396/LMS/5bb429ccb44f0859ae91eb3bb7330c84_gsivuw.jpg"
-  },
-  "expiresAt": "2999-12-31T00:00:00.000Z",
-  "_id": "67f6a6e279c08915bc49decd"
-}
- */
+
 
 export interface CourseEnrollmentInterface {
   _id: string;
@@ -76,3 +66,36 @@ export interface CourseEnrollmentInterface {
 }
 
 export type {CourseInterface, CourseUser};
+
+export interface CourseAssessmentOption {
+  id: number;
+  text: string;
+}
+
+export interface CourseAssessment {
+  _id: string;
+  question: string;
+  type: string;
+  options: CourseAssessmentOption[];
+  courseId: string;
+  __v: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface EnrolledCourse {
+  _id: string;
+  title: string;
+  image: string;
+  summary: string;
+  course_assessment: CourseAssessment[];
+}
+
+export interface EnrolledCoursesResponse {
+  success: boolean;
+  message: string;
+  responseObject: {
+    data: EnrolledCourse[];
+  };
+  statusCode: number;
+}

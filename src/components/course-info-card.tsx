@@ -1,6 +1,6 @@
 import {useGetUserSession} from "@/hooks/use-user";
-import {AwardIcon} from "lucide-react";
-import {useNavigate} from "react-router";
+import {AwardIcon, CheckCircle} from "lucide-react";
+import {useLocation, useNavigate} from "react-router";
 import {toast} from "sonner";
 import {Button} from "./ui/button";
 import {Card, CardDescription, CardHeader} from "./ui/card";
@@ -12,6 +12,7 @@ interface CourseCardInterface {
   description?: string;
   summary: string;
   moduleId?: string;
+  isEnrolled?: boolean;
 }
 
 export function CourseInfoCard({
@@ -19,34 +20,25 @@ export function CourseInfoCard({
   image,
   title,
   summary,
-}: // moduleId,
-CourseCardInterface) {
+  isEnrolled,
+}: CourseCardInterface) {
   const {data: session} = useGetUserSession();
   const userId = session?._id;
-  // const launch = useLaunchCourse();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLaunchCourse = () => {
     if (!userId) return handleUserAuth();
-
-    // proceed to course checkout
     navigate("/course-checkout/" + _id);
-
-    // toast.promise(launch.mutateAsync({courseId: _id, userId, moduleId}), {
-    //   loading: "Launching course...",
-    //   success: (res) => {
-    //     if (res?.success) {
-    //       navigate(`/dashboard/course/${_id}/modules/${moduleId}/overview`);
-    //       return "Course launched successfully";
-    //     }
-    //   },
-    //   error: "Error launching course",
-    // });
   };
 
   const handleUserAuth = () => {
     toast.info("Login to take course");
-    navigate("/auth/login");
+    navigate("/auth/login", {state: {from: location.pathname}});
+  };
+
+  const handleGoToCourse = () => {
+    navigate(`/dashboard/`);
   };
 
   return (
@@ -75,7 +67,15 @@ CourseCardInterface) {
             </div>
           </div>
 
-          {session._id ? (
+          {isEnrolled ? (
+            <Button
+              className="w-full bg-green-600 hover:bg-green-700"
+              onClick={handleGoToCourse}
+            >
+              <CheckCircle className="mr-2 h-4 w-4" />
+              Go to Course
+            </Button>
+          ) : session?._id ? (
             <Button className="w-full" onClick={handleLaunchCourse}>
               Proceed to checkout
             </Button>

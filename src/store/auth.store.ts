@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthState>()(
           return data.valid;
         } catch {
           get().clearSession();
-          console.log("the code is here, the user session is not valid");
+
           return false;
         }
       },

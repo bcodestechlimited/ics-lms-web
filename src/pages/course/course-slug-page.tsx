@@ -3,6 +3,8 @@ import DisplayMarkupContent from "@/components/display-markup-content";
 import Footer from "@/components/footer";
 import Loader, {PageLoader} from "@/components/loading-spinner";
 import {useGetACourseById} from "@/hooks/use-course";
+import {useGetMyEnrolledCourses} from "@/hooks/use-dashboard";
+import {EnrolledCourse} from "@/interfaces/course.interface";
 import {GlobeIcon, RefreshCwIcon} from "lucide-react";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
@@ -11,6 +13,14 @@ export default function CourseSlugPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const params = useParams();
   const {data, isLoading} = useGetACourseById(params?.id);
+  const {data: enrolledCourses, isLoading: enrolledCoursesLoading} =
+    useGetMyEnrolledCourses();
+
+  const isEnrolled =
+    !enrolledCoursesLoading &&
+    enrolledCourses?.responseObject?.data?.some(
+      (course: EnrolledCourse) => course._id === params?.id
+    );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,6 +85,7 @@ export default function CourseSlugPage() {
                     description=""
                     summary={!isLoading && course?.summary}
                     moduleId={!isLoading && course?.course_modules[0]}
+                    isEnrolled={isEnrolled}
                   />
                 )}
               </div>
@@ -93,6 +104,7 @@ export default function CourseSlugPage() {
             description=""
             summary={course?.summary}
             moduleId={course?.course_modules[0]}
+            isEnrolled={isEnrolled}
           />
         </div>
       )}

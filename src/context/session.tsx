@@ -37,7 +37,6 @@ export const SessionProvider = ({children}: {children: React.ReactNode}) => {
           signal: controller.signal,
         }
       );
-      console.log("data from session", data);
 
       if (status === 200 && data?._id) {
         // const data = await data;
@@ -85,7 +84,7 @@ export const SessionProvider = ({children}: {children: React.ReactNode}) => {
     const checkSession = async () => {
       const isValid = await authStore.getState().validateSession();
       if (!isValid) {
-        console.log("session expired");
+        // console.log("session expired");
         // authStore.getState().clearSession();
       }
     };

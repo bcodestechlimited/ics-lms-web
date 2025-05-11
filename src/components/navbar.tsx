@@ -38,7 +38,6 @@ export function Navbar() {
     // {name: "Blog", url: "#", icon: FileText},
   ];
 
-  console.log({session});
 
   return (
     <nav className="py-1 border-b">

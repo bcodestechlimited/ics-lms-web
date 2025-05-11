@@ -4,7 +4,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Loader2} from "lucide-react";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {toast} from "sonner";
 import {z} from "zod";
 import PasswordInput from "./password-input-field";
@@ -19,8 +19,11 @@ import {
 } from "./ui/form";
 import {Input} from "./ui/input";
 
+const token = import.meta.env.VITE_AUTH_TOKEN || "accessToken";
+
 export function LoginForm() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -41,23 +44,26 @@ export function LoginForm() {
 
       toast.promise(login.mutateAsync(payload), {
         loading: "Logging in...",
+        id: "login",
         success: (res) => {
-          console.log({res});
-          if (!res.success) return "Invalid credentials";
+          if (!res.success) throw new Error("Invalid credentials");
+          if (!res.responseObject.user.isEmailVerified) {
+            throw new Error("Please verify your email");
+          }
           if (!res.responseObject.user.isActive) {
-            return "Your account is inactive";
+            throw new Error("Your account is inactive");
           }
 
           setIsLoading(false);
-          navigate("/dashboard");
-
+          localStorage.setItem(token, res.responseObject.token);
+          const from = location.state?.from || "/";
+          navigate(from);
+          window.location.reload();
           return "Login successful";
         },
         error: (res) => {
           setIsLoading(false);
-          return (
-            res?.response?.data?.message || "Login failed, invalid credentials."
-          );
+          return res?.message || "Login failed, invalid credentials.";
         },
       });
     } catch {

@@ -5,12 +5,6 @@ import {useGetMyEnrolledCourses} from "@/hooks/use-dashboard";
 import {CourseEnrollmentInterface} from "@/interfaces/course.interface";
 import DashboardLayout from "@/layouts/dashboard-layout";
 
-/* 
-todo: get all the courses the user is currently enrolled in,
-todo: when the user clicks on the course it should show the single course page and the course modules / materials
-todo: add a button to launch the course
-todo: 
-*/
 
 const styles = {
   container: {

@@ -1,5 +1,5 @@
-import { LoginForm } from "@/components/login-shell";
-import { Button } from "@/components/ui/button";
+import {LoginForm} from "@/components/login-shell";
+import {Button} from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,17 +7,15 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { useSession } from "@/hooks/useSession";
-import { Home } from "lucide-react";
-import { Link, Navigate } from "react-router";
+import {useGetUserSession} from "@/hooks/use-user";
+import {Home} from "lucide-react";
+import {Link, Navigate} from "react-router";
 
 export default function LoginPage() {
-  const {session} = useSession();
-
-  if (session.status === "authenticated") {
+  const {data: session} = useGetUserSession();
+  if (session?._id) {
     return <Navigate to="/dashboard" replace />;
   }
-
   return (
     <div className="w-full h-screen flex">
       <div className="w-1/2">

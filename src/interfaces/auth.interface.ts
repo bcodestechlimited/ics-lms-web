@@ -11,6 +11,7 @@ export interface LoginResponse {
       lastName: string;
       role: string;
       isActive: boolean;
+      isEmailVerified: boolean;
     };
   };
   statusCode: number;

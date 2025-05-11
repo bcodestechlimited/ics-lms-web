@@ -23,20 +23,10 @@ export const useRegister = () => {
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
-  // const {setSession} = useSession();
 
   return useMutation({
     mutationFn: (credentials: LoginPayload) => authService.login(credentials),
-    onSuccess: (data) => {
-      // if (!data.responseObject.user.isActive) {
-      //   return;
-      // }
-      // setSession({
-      //   accessToken: data.responseObject.token,
-      //   status: "authenticated",
-      //   user: data.responseObject.user,
-      // });
-      localStorage.setItem(token, data.responseObject.token);
+    onSuccess: (_data) => {
       queryClient.invalidateQueries({queryKey: ["user"]});
     },
   });
@@ -44,11 +34,12 @@ export const useLogin = () => {
 
 export const useLogout = () => {
   const queryClient = useQueryClient();
-  // const {clearSession} = useSession();
+
   return useMutation({
     mutationFn: () => authService.logout(),
     onSuccess: () => {
       localStorage.removeItem(token);
+      window.location.reload();
       queryClient.invalidateQueries({queryKey: ["user"]});
     },
   });
