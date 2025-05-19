@@ -1,12 +1,12 @@
 export const catalogue = [
-  { title: "Data Science", category: "technology" },
-  { title: "Product Design", category: "design" },
-  { title: "Digital Marketing", category: "marketing" },
-  { title: "Technology", category: "technology" },
-  { title: "Business", category: "business" },
-  { title: "Web Development", category: "web development" },
-  { title: "Mobile Engineering", category: "mobile development" },
-  { title: "Product Management", category: "product management" },
+  {title: "Data Science", category: "technology"},
+  {title: "Product Design", category: "design"},
+  {title: "Digital Marketing", category: "marketing"},
+  {title: "Technology", category: "technology"},
+  {title: "Business", category: "business"},
+  {title: "Web Development", category: "web development"},
+  {title: "Mobile Engineering", category: "mobile development"},
+  {title: "Product Management", category: "product management"},
 ];
 
 export const howItWorksData = [
@@ -45,82 +45,153 @@ export const howItWorksData = [
 export const testimonials = [
   {
     quote:
-      "The attention to detail and innovative features have completely transformed our workflow. This is exactly what we've been looking for.",
-    name: "Sarah Chen",
-    designation: "Product Manager at TechFlow",
-    src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "This LMS is a breeze to use. I found the leadership course quickly, and the clear layout helped me study after hours despite my hectic schedule. Highly recommend!.",
+    name: "Blessing O., Abuja",
+    designation: "Product Manager",
+    src: "https://i.imghippo.com/files/GDDF4649O.JPG",
+    // src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     quote:
-      "Implementation was seamless and the results exceeded our expectations. The platform's flexibility is remarkable.",
-    name: "Michael Rodriguez",
-    designation: "CTO at InnovateSphere",
-    src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "The platform’s offline feature is a game-changer with our power cuts. I studied a project management course easily, and the dashboard tracks my progress without stress.",
+    name: "Oluwaferanmi Gbolahan, Ibadan",
+    designation: "HR Manager",
+    src: "https://i.imghippo.com/files/EbT7262qo.jpg",
+    // src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     quote:
-      "This solution has significantly improved our team's productivity. The intuitive interface makes complex tasks simple.",
-    name: "Emily Watson",
-    designation: "Operations Director at CloudScale",
-    src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "I took a project management course and it helped me streamline our office processes. The videos are clear, and I could learn after work despite my tight schedule. Highly practical!",
+    name: "Oluwafunmibi Ogunyale, Port Harcourt",
+    designation: "Business Growth Hacker",
+    src: "https://i.imghippo.com/files/dGot9997HPA.JPG",
+    // src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    quote: "ICS Learning Academy’s interface is super user-friendly.",
+    name: "Damilare Ahmod, Lagos",
+    designation: "Engineering Lead",
+    src: "https://i.imghippo.com/files/hpWL9158NUA.jpg",
+    // src: "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     quote:
-      "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
-    name: "James Kim",
-    designation: "Engineering Lead at DataPro",
-    src: "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    quote:
-      "The scalability and performance have been game-changing for our organization. Highly recommend to any growing business.",
-    name: "Lisa Thompson",
-    designation: "VP of Technology at FutureNet",
-    src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "The ICS Learning Academy platform is so easy to use! I navigated courses effortlessly on my phone during breaks",
+    name: "Pelumi Falana, Lagos",
+    designation: "VP of Technology",
+    src: "https://i.imghippo.com/files/ZfEy6770nDo.jpg",
+    // src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 
 export const faqItems = [
   {
     id: "faq-1",
-    question: "What is the return policy?",
+    question: "What is Leverage by ICS?",
     answer:
-      "You can return any item within 30 days of purchase for a full refund, provided it is in its original condition.",
+      "Leverage by ICS is a modern, user-friendly Learning Management System (LMS) designed to help individuals and organisations access high-quality, interactive courses across a wide range of disciplines. Whether you're advancing your career, upskilling your team, or learning something new, Leverage offers flexible and accessible education at your fingertips.",
   },
   {
     id: "faq-2",
-    question: "How do I track my order?",
+    question: "Who can use this platform?",
     answer:
-      "Once your order is shipped, you will receive an email with a tracking number. You can use this number on our website to track your order.",
+      "Anyone! Our platform is open to learners of all levels, from beginners to professionals, students, and even corporate teams. If you're passionate about learning, you're welcome here.",
   },
   {
     id: "faq-3",
-    question: "Do you offer international shipping?",
+    question: "Are the courses self-paced or live?",
     answer:
-      "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary depending on the destination.",
+      "All our courses are self-paced. This means you can start learning at any time and progress at your own speed.",
   },
   {
     id: "faq-4",
-    question: "Can I change my order after it has been placed?",
+    question: "How do I create or log in to my account?",
     answer:
-      "You can change your order within 24 hours of placing it by contacting our customer service team.",
+      "Simply click the “Sign Up” or “Log In” button at the top right corner of the homepage. You can sign up using your email or log in using your existing credentials. You may also have the option to log in via Google or LinkedIn for quick access.",
   },
   {
     id: "faq-5",
-    question: "What payment methods do you accept?",
-    answer: "We accept all major credit cards, PayPal, and Apple Pay.",
+    question: "What types of courses do you offer?",
+    answer:
+      "We offer courses in various categories including technology, business, leadership, soft skills, project management, workplace ethics, and more. Our catalog is regularly updated with high-quality content tailored to industry demands.",
   },
   {
     id: "faq-6",
-    question: "How can I contact customer support?",
+    question: "Will I receive a certificate after completing a course?",
     answer:
-      "You can reach our customer support team via email at support@example.com or by calling 1-800-123-4567.",
+      "Yes! Upon successful completion of eligible courses, you will receive a digitally verifiable certificate that you can download, share on LinkedIn, or include in your CV/resumé.",
   },
   {
     id: "faq-7",
-    question: "Are there any discounts for bulk purchases?",
+    question: "Can I preview a course before purchasing?",
     answer:
-      "Yes, we offer discounts for bulk purchases. Please contact our sales team for more information.",
+      "Yes. Each course page includes a comprehensive summary outlining the course objectives, topics covered, and what you can expect to learn.",
+  },
+  {
+    id: "faq-8",
+    question: "How long do I have access to a course after enrolling",
+    answer:
+      "You’ll have lifetime access to most self-paced courses unless otherwise stated.",
+  },
+  {
+    id: "faq-10",
+    question: "Are there any prerequisites for taking a course?",
+    answer:
+      "Some advanced courses may have prerequisites listed on the course page (e.g., knowledge of Excel, programming basics). Most beginner or foundational courses require no prior experience.",
+  },
+  {
+    id: "faq-11",
+    question: "Is the platform free to use?",
+    answer:
+      "Creating an account is free. We offer a mix of free and paid courses; each course page will clearly state whether it is free or requires payment.",
+  },
+  {
+    id: "faq-12",
+    question: "How do I use coupons?",
+    answer:
+      "At checkout, enter your valid coupon code in the 'Apply Coupon' field. The discount will be automatically applied to your total.",
+  },
+  {
+    id: "faq-13",
+    question: "Can I change or exchange my course?",
+    answer:
+      "If you enrolled by mistake or want to switch to a different course, please contact support within 3 days of purchase. Exchanges are subject to approval and course eligibility.",
+  },
+  {
+    id: "faq-14",
+    question: "I forgot my password. How do I reset it?",
+    answer:
+      "Click “Forgot Password?” on the login page and follow the instructions. You’ll receive an email with a link to reset your password securely.",
+  },
+  {
+    id: "faq-15",
+    question: "Are there any prerequisites for taking a course?",
+    answer:
+      "Log in, go to your Dashboard or Account Settings, and select Edit Profile. You can update your name, email, bio, and preferences.",
+  },
+  {
+    id: "faq-16",
+    question: "Can I access my courses on multiple devices?",
+    answer:
+      "Yes! Your progess is synced across all your devices. Log in using your credentials from any phone, tablet, or computer and pick up where you left off.",
+  },
+  {
+    id: "faq-17",
+    question: "How can I contact customer support?",
+    answer:
+      "You can reach our support team by: Submitting a ticket through the help center. Emailing us at learning@icsoutsourcing.com",
+  },
+  {
+    id: "faq-18",
+    question: "I'm experiencing technical issues. What should I do?",
+    answer:
+      "First, try: Refreshing the page, Clearing your browser cache, Switching browsers (we recommend Chrome or Firefox). If the issues continues, contact technical support with a screenshot and a description of the problem.",
+  },
+  {
+    id: "faq-19",
+    question: "I'm having trouble with the course content or resources?",
+    answer:
+      "Please check that: Your internet connection is stable. You've downloaded any required files. If you're still having trouble, reach out to the support team for further assistance.",
   },
 ];
 

@@ -32,7 +32,7 @@ export function VerifyEmailToProceedDialog() {
           <div className="bg-muted p-4 rounded-lg">
             <p className="text-sm">
               Contact support at{" "}
-              <span className="font-bold"> learning@icsoutsourcing.com </span>
+              <span className="font-bold">learning@icsoutsourcing.com </span>
             </p>
           </div>
         </div>
