@@ -29,7 +29,7 @@ export default function Home() {
                 text="Empower Your Future with Flexible Learning"
                 className="text-[54px] font-bold"
               />
-              <p className="">
+              <p className="text-justify">
                 Our programs cater to both professional and company needs,
                 aiming to enhance careers and drive organizational success.
               </p>
@@ -119,7 +119,7 @@ export default function Home() {
               </div>
             </div>
             <div className="col-start-6 col-end-13 space-y-6">
-              <p>
+              <p className="text-justify">
                 At ICS Learning Academy, we are transforming lives through the
                 power of knowledge. As an extension of ICS Outsourcing,
                 Nigeria’s leading HR and workforce solutions provider, we are
@@ -136,30 +136,6 @@ export default function Home() {
                 learners and leaders at ICS Learning Academy. Your growth is our
                 legacy—start your journey now.
               </p>
-              {/* <div>
-                <p>
-                  Welcome to ICS Sourcing Academy where learning meets limitless
-                  possibilities. Our platform is designed to empower individuals
-                  from diverse backgrounds to pursue their educational goals
-                  with ease. It is our goal to make learning accessible,
-                  engaging, and impactful for all. We believe that education is
-                  the key to personal growth, professional success, and societal
-                  advancement.
-                </p>
-              </div>
-
-              <div className="mb-[54px]">
-                <h3 className="text-[24px] font-bold leading-normal">
-                  What We Offer
-                </h3>
-                <p>
-                  Wide Range of Subjects: Explore a rich variety of courses in
-                  Business, Management, Personal Development and more. Whether
-                  you are passionate about self development eager to learn a
-                  skill, or interested in mastering business dynamics, we have
-                  something for everyone.
-                </p>
-              </div> */}
 
               <Button
                 className="rounded-full text-white bg-[#134587]"

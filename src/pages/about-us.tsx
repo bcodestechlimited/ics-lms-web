@@ -17,7 +17,7 @@ export default function AboutUsPage() {
         <div className="space-y-[48px]">
           <h2 className={`${styles.header} text-[32px]`}>About Us</h2>
           <div className="space-y-4">
-            <p>
+            <p className="text-justify">
               At ICS Learning Academy, we are transforming lives through the
               power of knowledge. As an extension of ICS Outsourcing, Nigeria’s
               leading HR and workforce solutions provider, we are driven by a
@@ -26,7 +26,7 @@ export default function AboutUsPage() {
               world-class learning experiences that ignite potential, blending
               innovation, integrity, and accessibility.
             </p>
-            <p>
+            <p className="text-justify">
               We offer expertly crafted courses—from leadership and technology
               to personal growth and entrepreneurship—taught by industry
               trailblazers and top educators. Whether you are upskilling for a
@@ -34,7 +34,7 @@ export default function AboutUsPage() {
               flexible, on-demand platform delivers practical skills you can
               apply today, anywhere, on any device.
             </p>
-            <p>
+            <p className="text-justify">
               Join a global community of learners and leaders at ICS Learning
               Academy. Your growth is our legacy—start your journey now.
             </p>
