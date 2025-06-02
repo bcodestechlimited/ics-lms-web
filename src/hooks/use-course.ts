@@ -5,7 +5,6 @@ import paymentService from "@/services/payment.service";
 import {useCourseFilterStore} from "@/store/course-filter.store";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
-const params: Record<string, string | number> = {};
 
 export const useGetHomePageCourses = () => {
   return useQuery({
@@ -33,10 +32,10 @@ export const useGetHomePageCourses = () => {
 // };
 
 export const useGetAllCourses = () => {
-  const {search, rating, topic, page, limit} = useCourseFilterStore();
+  const {search, rating, category, page, limit} = useCourseFilterStore();
 
   return useQuery({
-    queryKey: ["courses", {search, rating, topic, page, limit}],
+    queryKey: ["courses", {search, rating, category, page, limit}],
     queryFn: () => {
       // 1) Start with a brand-new params object on each call
       const params: Record<string, string> = {};
@@ -48,9 +47,9 @@ export const useGetAllCourses = () => {
       if (rating != null) {
         params.rating = rating.toString();
       }
-      if (topic) {
-        // backend expects 'topic', not 'category'
-        params.topic = topic;
+      if (category) {
+        // backend expects 'category', not 'category'
+        params.category = category;
       }
 
       // 3) Always include pagination
@@ -63,14 +62,15 @@ export const useGetAllCourses = () => {
   });
 };
 
-
 export const useGetAllPublishedCourses = () => {
-  const {search, rating, topic, page, limit} = useCourseFilterStore();
+  const {search, rating, category, page, limit} = useCourseFilterStore();
   return useQuery({
     queryFn: () => {
+      const params: Record<string, string | number> = {};
+
       if (search) params.search = search;
       if (rating) params.rating = rating;
-      if (topic) params.category = topic;
+      if (category) params.category = category;
 
       // set pagination parameters with default limit of 20
       params.page = page ? page.toString() : "1";
@@ -78,7 +78,7 @@ export const useGetAllPublishedCourses = () => {
 
       return courseService.getAllPublishedCourses(params);
     },
-    queryKey: ["courses", {search, rating, topic, page, limit}],
+    queryKey: ["courses", {search, rating, category, page, limit}],
   });
 };
 

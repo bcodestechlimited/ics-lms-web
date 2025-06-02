@@ -1,10 +1,37 @@
-import { Link } from "react-router";
+import {useCourseFilterStore} from "@/store/course-filter.store";
+import {useEffect, useState} from "react";
+import {Link, useSearchParams} from "react-router";
 
 const styles = {
   header: `text-[14px] font-bold leading-[22px]`,
 };
 
 export default function Footer() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [localCategory, setLocalCategory] = useState(
+    searchParams.get("category") || ""
+  );
+  const setCategory = useCourseFilterStore((s) => s.setCategory);
+  const scrollToTop = () => window.scrollTo(0, 0);
+
+  useEffect(() => {
+    const params: Record<string, string> = {};
+    setCategory(localCategory);
+
+    params.category = localCategory;
+    params.page = "1";
+    setSearchParams(params, {replace: true});
+    scrollToTop();
+  }, [setSearchParams, localCategory, setLocalCategory, setCategory]);
+
+  const handleCategoryChange = (value: string) => {
+    if (value === "all") {
+      setLocalCategory("");
+    } else {
+      setLocalCategory(value);
+    }
+  };
+
   return (
     <div className="border-t mt-[150px]">
       <footer className="container mx-auto py-10 text-sm">
@@ -19,10 +46,12 @@ export default function Footer() {
             <h4 className={styles.header}>Company</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/about-us">About Us</Link>
+                <Link to="/about">About Us</Link>
               </li>
-              <li>FAQ</li>
-              <li>Terms</li>
+
+              <li>
+                <Link to={"#"}>Terms</Link>
+              </li>
             </ul>
           </div>
 
@@ -30,9 +59,36 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className={styles.header}>Product</h4>
             <ul className="space-y-2">
-              <li>Leadership</li>
-              <li>Human Resources</li>
-              <li>Leadership</li>
+              <li>
+                <button
+                  className="px-0 cursor-pointer"
+                  onClick={() => {
+                    handleCategoryChange("technology");
+                  }}
+                >
+                  Technology
+                </button>
+              </li>
+              <li>
+                <button
+                  className="px-0 cursor-pointer"
+                  onClick={() => {
+                    handleCategoryChange("web");
+                  }}
+                >
+                  Web
+                </button>
+              </li>
+              <li>
+                <button
+                  className="px-0 cursor-pointer"
+                  onClick={() => {
+                    handleCategoryChange("data science");
+                  }}
+                >
+                  Data Science
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -40,8 +96,12 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className={styles.header}>Legal</h4>
             <ul className="space-y-2">
-              <li>Terms</li>
-              <li>Privacy</li>
+              <li>
+                <Link to={"#"}>Terms</Link>
+              </li>
+              <li>
+                <Link to="/privacy-policy">Privacy Policy</Link>
+              </li>
               {/* <li>Terms</li> */}
             </ul>
           </div>

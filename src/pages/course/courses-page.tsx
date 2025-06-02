@@ -11,19 +11,19 @@ import { useSearchParams } from "react-router";
 export default function CoursesPage() {
   const [searchParams] = useSearchParams();
   const { data, isLoading } = useGetAllCourses();
-  const setTopic = useCourseFilterStore((state) => state.setTopic);
-  const { page, setPage } = useCourseFilterStore();
+  const setCategory = useCourseFilterStore((state) => state.setCategory);
+  const {page, setPage} = useCourseFilterStore();
   const courses = (!isLoading && data?.responseObject?.docs) || [];
   const totalPages = (!isLoading && data?.responseObject?.totalPages) || 1;
 
   useEffect(() => {
-    const categoryFromUrl = searchParams.get("topic");
+    const categoryFromUrl = searchParams.get("category");
     if (categoryFromUrl) {
-      setTopic(categoryFromUrl);
+      setCategory(categoryFromUrl);
     } else {
-      setTopic("");
+      setCategory("");
     }
-  }, [searchParams, setTopic]);
+  }, [searchParams, setCategory]);
 
   return (
     <div>

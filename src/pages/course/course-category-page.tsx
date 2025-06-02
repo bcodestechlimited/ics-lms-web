@@ -1,28 +1,47 @@
 import AllCoursesContent from "@/components/all-courses";
-import { FilterComponent } from "@/components/filter-component";
+import {FilterComponent} from "@/components/filter-component";
 import Footer from "@/components/footer";
 import NoCoursesFound from "@/components/no-course-found";
 import PagePagination from "@/components/pagination";
-import { useGetAllPublishedCourses } from "@/hooks/use-course";
-import { useCourseFilterStore } from "@/store/course-filter.store";
-import { useEffect } from "react";
-import { useSearchParams } from "react-router";
+import {useGetAllPublishedCourses} from "@/hooks/use-course";
+import {useCourseFilterStore} from "@/store/course-filter.store";
+import {useEffect} from "react";
+import {useSearchParams} from "react-router";
 
 export default function CourseCategoryPage() {
   const [searchParams] = useSearchParams();
-  const setTopic = useCourseFilterStore((state) => state.setTopic);
-  const { data, isLoading } = useGetAllPublishedCourses();
-  const { page, setPage } = useCourseFilterStore();
+
+  // Zustand setters
+  const setCategory = useCourseFilterStore((s) => s.setCategory);
+  const setSearch = useCourseFilterStore((s) => s.setSearch);
+  const setRating = useCourseFilterStore((s) => s.setRating);
+  const setPage = useCourseFilterStore((s) => s.setPage);
+  const page = useCourseFilterStore((s) => s.page);
+
+  // This hook now reads from `search`, `rating`, `category`, `page`, `limit`
+  const {data, isLoading} = useGetAllPublishedCourses();
   const courses = (!isLoading && data?.responseObject?.docs) || [];
   const totalPages = (!isLoading && data?.responseObject?.totalPages) || 1;
 
   useEffect(() => {
-    const categoryFromUrl = searchParams.get("topic") || "";
-    setTopic(categoryFromUrl);
-  }, [searchParams, setTopic]);
+    // On mount (or whenever the URL changes), sync URL → Zustand store:
+    const categoryFromUrl = searchParams.get("category") || "";
+    const searchFromUrl = searchParams.get("search") || "";
+    const ratingFromUrl = searchParams.get("rating")
+      ? Number(searchParams.get("rating"))
+      : null;
+    const pageFromUrl = searchParams.get("page")
+      ? Number(searchParams.get("page"))
+      : 1;
+
+    setCategory(categoryFromUrl);
+    setSearch(searchFromUrl);
+    setRating(ratingFromUrl);
+    setPage(pageFromUrl);
+  }, [searchParams, setCategory, setSearch, setRating, setPage]);
 
   return (
-    <div className="">
+    <div>
       <header className="pt-[43px]">
         <div className="container mx-auto">
           <img
@@ -42,31 +61,29 @@ export default function CourseCategoryPage() {
         </div>
 
         <div className="grid grid-cols-12">
-          {/* filter component will go here */}
+          {/* Filter Sidebar */}
           <div className="col-start-1 col-end-3 p-2 border rounded-lg">
             <FilterComponent />
           </div>
+
+          {/* Courses List */}
           <div className="col-start-4 col-end-13">
-            <div>
-              {courses.length === 0 && !isLoading ? (
-                <div className="flex items-center justify-center">
-                  <div>
-                    <NoCoursesFound />
-                  </div>
+            {courses.length === 0 && !isLoading ? (
+              <div className="flex items-center justify-center">
+                <NoCoursesFound />
+              </div>
+            ) : (
+              <>
+                <AllCoursesContent courses={courses} isLoading={isLoading} />
+                <div className="mt-8">
+                  <PagePagination
+                    page={page}
+                    setPage={setPage}
+                    totalPages={totalPages}
+                  />
                 </div>
-              ) : (
-                <div>
-                  <AllCoursesContent courses={courses} isLoading={isLoading} />
-                  <div>
-                    <PagePagination
-                      page={page}
-                      setPage={setPage}
-                      totalPages={totalPages}
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
+              </>
+            )}
           </div>
         </div>
       </main>

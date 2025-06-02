@@ -28,6 +28,7 @@ import UserDashboard from "./pages/dashboard/index.tsx";
 import {UserProfileDashboard} from "./pages/dashboard/user-profile.tsx";
 import ErrorPage from "./pages/error.tsx";
 import NotFoundPage from "./pages/not-found.tsx";
+import PrivacyPolicyPage from "./pages/privacy-policy/index.tsx";
 
 const queryClient = new QueryClient();
 
@@ -62,6 +63,7 @@ createRoot(document.getElementById("root")!).render(
                 path="/courses/category"
                 element={<CourseCategoryPage />}
               />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
               <Route element={<ProtectedLayout />}>
                 <Route path="/dashboard" element={<UserDashboard />} />
                 <Route

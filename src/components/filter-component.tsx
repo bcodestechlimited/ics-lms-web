@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router";
-import { Input } from "@/components/ui/input";
+import {useState, useEffect} from "react";
+import {useSearchParams} from "react-router";
+import {Input} from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -8,42 +8,65 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "./ui/label";
-import { useCourseFilterStore } from "@/store/course-filter.store";
+import {Checkbox} from "@/components/ui/checkbox";
+import {Label} from "./ui/label";
+import {useCourseFilterStore} from "@/store/course-filter.store";
 import useDebounce from "@/hooks/use-debounce";
 
 export function FilterComponent() {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // Local state for inputs, initialized from URL
   const [localSearch, setLocalSearch] = useState(
     searchParams.get("search") || ""
   );
   const [localRating, setLocalRating] = useState<number | null>(
     searchParams.get("rating") ? Number(searchParams.get("rating")) : null
   );
-  const [localTopic, setLocalTopic] = useState(searchParams.get("topic") || "");
+  const [localCategory, setLocalCategory] = useState(
+    searchParams.get("category") || ""
+  );
 
-  const setSearch = useCourseFilterStore((state) => state.setSearch);
-  const setRating = useCourseFilterStore((state) => state.setRating);
-  const setTopic = useCourseFilterStore((state) => state.setTopic);
+  // Zustand setters
+  const setSearch = useCourseFilterStore((s) => s.setSearch);
+  const setRating = useCourseFilterStore((s) => s.setRating);
+  const setCategory = useCourseFilterStore((s) => s.setCategory);
+  const setPage = useCourseFilterStore((s) => s.setPage);
 
-  const debouncedLocalSearch = useDebounce(localSearch, 500);
+  const debouncedSearch = useDebounce(localSearch, 500);
 
   useEffect(() => {
     const params: Record<string, string> = {};
 
-    if (debouncedLocalSearch) params.search = debouncedLocalSearch;
-    if (localRating) params.rating = localRating.toString();
-    if (localTopic) params.topic = localTopic;
+    if (debouncedSearch) {
+      params.search = debouncedSearch;
+    }
+    if (localRating !== null) {
+      params.rating = String(localRating);
+    }
+    if (localCategory) {
+      params.category = localCategory;
+    }
 
-    setSearchParams(params, { replace: true });
-    setSearch(debouncedLocalSearch);
+    // Reset to page=1 on any filter change
+    params.page = "1";
+
+    setSearchParams(params, {replace: true});
+
+    // Write into Zustand store
+    setSearch(debouncedSearch);
+    setRating(localRating);
+    setCategory(localCategory);
+    setPage(1);
   }, [
-    debouncedLocalSearch,
+    debouncedSearch,
     localRating,
-    localTopic,
+    localCategory,
     setSearchParams,
     setSearch,
+    setRating,
+    setCategory,
+    setPage,
   ]);
 
   const handleSearchChange = (value: string) => {
@@ -51,18 +74,15 @@ export function FilterComponent() {
   };
 
   const handleRatingChange = (value: number) => {
-    const newRating = localRating === value ? null : value;
-    setLocalRating(newRating);
-    setRating(newRating);
+    const toggled = localRating === value ? null : value;
+    setLocalRating(toggled);
   };
 
-  const handleTopicChange = (value: string) => {
+  const handleCategoryChange = (value: string) => {
     if (value === "all") {
-      setLocalTopic("");
-      setTopic("");
+      setLocalCategory("");
     } else {
-      setLocalTopic(value);
-      setTopic(value);
+      setLocalCategory(value);
     }
   };
 
@@ -89,16 +109,15 @@ export function FilterComponent() {
               onCheckedChange={() => handleRatingChange(star)}
             />
             <span>
-              {star} {Array.from({ length: star }, () => "⭐").join("")}
+              {star} {Array.from({length: star}, () => "⭐").join("")}
             </span>
           </label>
         ))}
       </div>
 
-      {/* Category Filter */}
       <div className="space-y-2">
         <Label className="text-sm font-medium">Category</Label>
-        <Select onValueChange={handleTopicChange}>
+        <Select onValueChange={handleCategoryChange} value={localCategory}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select a category" />
           </SelectTrigger>
