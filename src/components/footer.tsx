@@ -34,7 +34,7 @@ export default function Footer() {
 
   return (
     <div className="border-t mt-[150px]">
-      <footer className="container mx-auto py-10 text-sm">
+      <footer className="container mx-auto pt-10 text-sm">
         <div className="grid grid-cols-5 gap-12">
           {/* logo */}
           <div>
@@ -50,7 +50,7 @@ export default function Footer() {
               </li>
 
               <li>
-                <Link to={"#"}>Terms</Link>
+                <Link to={"/terms-and-condition"}>Terms</Link>
               </li>
             </ul>
           </div>
@@ -97,7 +97,7 @@ export default function Footer() {
             <h4 className={styles.header}>Legal</h4>
             <ul className="space-y-2">
               <li>
-                <Link to={"#"}>Terms</Link>
+                <Link to={"/terms-and-condition"}>Terms</Link>
               </li>
               <li>
                 <Link to="/privacy-policy">Privacy Policy</Link>
@@ -124,6 +124,17 @@ export default function Footer() {
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="mt-12">
+          <article className="flex items-center justify-center gap-x-1 text-[12px] font-medium">
+            <p>
+              Copyright © {new Date().getUTCFullYear()} ICS L&D. All rights
+              reserved.
+            </p>
+            <p>|</p>
+            <p>Developed and Managed by BCT Limited</p>
+          </article>
         </div>
       </footer>
     </div>

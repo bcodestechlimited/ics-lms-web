@@ -1,13 +1,12 @@
 import React from "react";
 import {Card, CardContent} from "@/components/ui/card";
-// import {Separator} from "@/components/ui/separator";
 import Footer from "@/components/footer";
 
 const PrivacyPolicyPage: React.FC = () => {
   return (
     <div>
       <div className="container mx-auto max-w-6xl px-4 py-8">
-        <h1 className="text-4xl text-center font-bold mb-6">
+        <h1 className="text-4xl text-left font-bold mb-6">
           ICS Academy Privacy Policy
         </h1>
         <p className="text-base leading-relaxed mb-8 text-justify">
@@ -200,8 +199,6 @@ const PrivacyPolicyPage: React.FC = () => {
             </p>
           </CardContent>
         </Card>
-
-        {/* <Separator className="my-8" /> */}
       </div>
       <Footer />
     </div>
