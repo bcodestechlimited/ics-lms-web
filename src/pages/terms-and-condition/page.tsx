@@ -7,8 +7,7 @@ const TermsAndConditionsPage: React.FC = () => {
       <div className="container mx-auto max-w-6xl px-4 py-8">
         {/* Title and Dates */}
         <h1 className="text-4xl font-bold mb-4">
-          {import.meta.env.VITE_APP_NAME} Sourcing Academy – Terms and
-          Conditions
+          {import.meta.env.VITE_APP_NAME} Sourcing LMS – Terms and Conditions
         </h1>
         <p className="text-base leading-relaxed mb-8 text-justify">
           Effective Date: 09-06-2025 <br />
@@ -19,17 +18,17 @@ const TermsAndConditionsPage: React.FC = () => {
         <Card className="mb-6 border-0 shadow-none">
           <CardContent className="px-0">
             <p className="text-justify">
-              Welcome to {import.meta.env.VITE_APP_NAME} Sourcing Academy, the
+              Welcome to {import.meta.env.VITE_APP_NAME} Sourcing LMS, the
               official Learning Management System (LMS) developed and managed by
               the Learning and Development Strategic Business Unit (SBU) of ICS
               Outsourcing Limited. {import.meta.env.VITE_APP_NAME}
-              Sourcing Academy is designed to deliver structured, high-quality
+              Sourcing LMS is designed to deliver structured, high-quality
               training programs for individuals seeking to develop personal and
               professional competencies across various domains.
             </p>
             <p className="mt-4 text-justify">
               By accessing or using {import.meta.env.VITE_APP_NAME} Sourcing
-              Academy, you agree to abide by the following Terms and Conditions.
+              LMS, you agree to abide by the following Terms and Conditions.
               Please read them carefully before using the platform. If you do
               not agree to these terms, you should not use the platform.
             </p>
@@ -42,8 +41,7 @@ const TermsAndConditionsPage: React.FC = () => {
             <h2 className="text-2xl font-semibold mb-3">1. Definitions</h2>
             <p className="mb-3 text-justify">
               <strong>
-                “{import.meta.env.VITE_APP_NAME} Sourcing Academy” or “The
-                Platform”:
+                “{import.meta.env.VITE_APP_NAME} Sourcing LMS or “The Platform”:
               </strong>{" "}
               The LMS created and managed by the Learning and Development SBU of{" "}
               {import.meta.env.VITE_APP_NAME}
@@ -54,7 +52,7 @@ const TermsAndConditionsPage: React.FC = () => {
                 {import.meta.env.VITE_APP_NAME} Outsourcing Limited:
               </strong>{" "}
               The parent organization and owner of{" "}
-              {import.meta.env.VITE_APP_NAME} Sourcing Academy.
+              {import.meta.env.VITE_APP_NAME} Sourcing LMS.
             </p>
             <p className="mb-3 text-justify">
               <strong>“User”, “You”, or “Learner”:</strong> Any individual
@@ -80,7 +78,7 @@ const TermsAndConditionsPage: React.FC = () => {
               2. Purpose of the Platform
             </h2>
             <p className="text-justify mb-2">
-              {import.meta.env.VITE_APP_NAME} Sourcing Academy is intended to:
+              {import.meta.env.VITE_APP_NAME} Sourcing LMS is intended to:
             </p>
             <ul className="list-disc list-inside text-justify mb-2">
               <li>Deliver professional and personal development training.</li>
@@ -105,8 +103,7 @@ const TermsAndConditionsPage: React.FC = () => {
               3. Eligibility for Use
             </h2>
             <p className="text-justify mb-2">
-              Access to {import.meta.env.VITE_APP_NAME} Sourcing Academy is open
-              to:
+              Access to {import.meta.env.VITE_APP_NAME} Sourcing LMS is open to:
             </p>
             <ul className="list-disc list-inside text-justify mb-2">
               <li>
@@ -157,7 +154,7 @@ const TermsAndConditionsPage: React.FC = () => {
           <CardContent className="px-0">
             <h2 className="text-2xl font-semibold mb-3">5. Permitted Use</h2>
             <p className="text-justify mb-2">
-              You agree to use {import.meta.env.VITE_APP_NAME} Sourcing Academy:
+              You agree to use {import.meta.env.VITE_APP_NAME} Sourcing LMS:
             </p>
             <ul className="list-disc list-inside text-justify mb-2">
               <li>For educational and training purposes only.</li>
@@ -188,9 +185,8 @@ const TermsAndConditionsPage: React.FC = () => {
             </h2>
             <p className="text-justify mb-2">
               All materials made available on {import.meta.env.VITE_APP_NAME}{" "}
-              Sourcing Academy are the property of{" "}
-              {import.meta.env.VITE_APP_NAME} Outsourcing Limited or are
-              provided under license. This includes:
+              Sourcing LMS are the property of {import.meta.env.VITE_APP_NAME}{" "}
+              Outsourcing Limited or are provided under license. This includes:
             </p>
             <ul className="list-disc list-inside text-justify mb-2">
               <li>
@@ -220,7 +216,7 @@ const TermsAndConditionsPage: React.FC = () => {
             </h2>
             <p className="text-justify">
               Your privacy is important to us. By using{" "}
-              {import.meta.env.VITE_APP_NAME} Sourcing Academy, you agree to the
+              {import.meta.env.VITE_APP_NAME} Sourcing LMS, you agree to the
               collection and use of your personal information in accordance with
               our Privacy Policy (link to be inserted). This includes:
             </p>
@@ -243,9 +239,9 @@ const TermsAndConditionsPage: React.FC = () => {
               8. Course Completion and Certification
             </h2>
             <p className="text-justify mb-2">
-              {import.meta.env.VITE_APP_NAME} Sourcing Academy offers
-              certificates for selected training programs. Issuance of
-              certificates is subject to:
+              {import.meta.env.VITE_APP_NAME} Sourcing LMS offers certificates
+              for selected training programs. Issuance of certificates is
+              subject to:
             </p>
             <ul className="list-disc list-inside text-justify mb-2">
               <li>Full participation in the course.</li>
@@ -321,8 +317,8 @@ const TermsAndConditionsPage: React.FC = () => {
               11. Disclaimers and Limitation of Liability
             </h2>
             <p className="text-justify mb-2">
-              {import.meta.env.VITE_APP_NAME} Sourcing Academy is provided “as
-              is” without warranties of any kind.
+              {import.meta.env.VITE_APP_NAME} Sourcing LMS is provided “as is”
+              without warranties of any kind.
             </p>
             <p className="text-justify mb-2">
               We do not guarantee that every course will meet your expectations
@@ -364,7 +360,7 @@ const TermsAndConditionsPage: React.FC = () => {
             </h2>
             <p className="text-justify">
               For support, questions, or concerns related to{" "}
-              {import.meta.env.VITE_APP_NAME} Sourcing Academy, please contact:
+              {import.meta.env.VITE_APP_NAME} Sourcing LMS, please contact:
               <br />
               {import.meta.env.VITE_APP_NAME} Outsourcing Limited – Learning and
               Development SBU

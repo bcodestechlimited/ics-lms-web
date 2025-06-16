@@ -7,10 +7,10 @@ const PrivacyPolicyPage: React.FC = () => {
     <div>
       <div className="container mx-auto max-w-6xl px-4 py-8">
         <h1 className="text-4xl text-left font-bold mb-6">
-          {import.meta.env.VITE_APP_NAME} Academy Privacy Policy
+          {import.meta.env.VITE_APP_NAME} LMS Privacy Policy
         </h1>
         <p className="text-base leading-relaxed mb-8 text-justify">
-          At {import.meta.env.VITE_APP_NAME} Academy, we are committed to
+          At {import.meta.env.VITE_APP_NAME} LMS, we are committed to
           protecting your privacy and ensuring the responsible handling of your
           personal information. This Privacy Policy outlines how we collect,
           use, and manage your Personal Data when you engage with our learning
@@ -24,15 +24,15 @@ const PrivacyPolicyPage: React.FC = () => {
             <p className="mb-3 text-justify">
               Unless otherwise specified (e.g., where you are enrolled in a
               degree or certification program administered by a partnering
-              institution), {import.meta.env.VITE_APP_NAME} Academy is the data
+              institution), {import.meta.env.VITE_APP_NAME} LMS is the data
               controller of the Personal Data collected through our platform.
-              This means {import.meta.env.VITE_APP_NAME} Academy determines the
+              This means {import.meta.env.VITE_APP_NAME} LMS determines the
               purposes and means of processing your data.
             </p>
             <p className="text-justify">
               In certain cases - such as when you enroll in a program managed
               directly by an academic or professional institution,{" "}
-              {import.meta.env.VITE_APP_NAME} Academy may act as a data
+              {import.meta.env.VITE_APP_NAME} LMS may act as a data
               processor, processing your information on behalf of that
               institution in accordance with their instructions.
             </p>

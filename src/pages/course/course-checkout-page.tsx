@@ -144,7 +144,7 @@ export default function CourseCheckoutPage() {
                         <div>
                           <h2 className="text-xl font-bold">{course?.title}</h2>
                           <p className="text-gray-600">
-                            Instructor: {import.meta.env.VITE_APP_NAME} ACADEMY
+                            Instructor: {import.meta.env.VITE_APP_NAME} LMS
                           </p>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-2xl font-bold">

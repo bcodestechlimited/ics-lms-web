@@ -81,9 +81,7 @@ const StaffOnboarding = () => {
             className="h-[70px] mb-4"
             alt="Company Logo"
           />
-          <h1 className="text-2xl font-semibold mb-2">
-            Welcome to L&D Academy
-          </h1>
+          <h1 className="text-2xl font-semibold mb-2">Welcome to Logira LMS</h1>
           <p className="text-gray-600 text-center">
             Please update your password to complete your account setup
           </p>

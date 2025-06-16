@@ -126,24 +126,22 @@ export default function Home() {
               </div>
               <div className="col-start-6 col-end-13 space-y-6">
                 <p className="text-justify">
-                  At {import.meta.env.VITE_APP_NAME} Learning Academy, we are
-                  transforming lives through the power of knowledge. As an
-                  extension of ICS Outsourcing, Nigeria’s leading HR and
-                  workforce solutions provider, we are driven by a vision to
-                  create sustainable opportunities and empower individuals to
-                  thrive in a dynamic world. Our mission is to deliver
-                  world-class learning experiences that ignite potential,
-                  blending innovation, integrity, and accessibility. We offer
-                  expertly crafted courses—from leadership and technology to
-                  personal growth and entrepreneurship—taught by industry
-                  trailblazers and top educators. Whether you are upskilling for
-                  a career pivot, launching a business, or chasing a passion,
-                  our flexible, on-demand platform delivers practical skills you
-                  can apply today, anywhere, on any device. Join a global
-                  community of learners and leaders at{" "}
-                  {import.meta.env.VITE_APP_NAME}
-                  Learning Academy. Your growth is our legacy—start your journey
-                  now.
+                  At {import.meta.env.VITE_APP_NAME} LMS, we are transforming
+                  lives through the power of knowledge. As an extension of ICS
+                  Outsourcing, Nigeria’s leading HR and workforce solutions
+                  provider, we are driven by a vision to create sustainable
+                  opportunities and empower individuals to thrive in a dynamic
+                  world. Our mission is to deliver world-class learning
+                  experiences that ignite potential, blending innovation,
+                  integrity, and accessibility. We offer expertly crafted
+                  courses—from leadership and technology to personal growth and
+                  entrepreneurship—taught by industry trailblazers and top
+                  educators. Whether you are upskilling for a career pivot,
+                  launching a business, or chasing a passion, our flexible,
+                  on-demand platform delivers practical skills you can apply
+                  today, anywhere, on any device. Join a global community of
+                  learners and leaders at {import.meta.env.VITE_APP_NAME}
+                  LMS. Your growth is our legacy—start your journey now.
                 </p>
 
                 <Button

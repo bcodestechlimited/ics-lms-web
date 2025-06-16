@@ -68,7 +68,7 @@ export const testimonials = [
     // src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    quote: "Logira LMS Learning Academy’s interface is super userdly.",
+    quote: "Logira LMS Learning interface is super userdly.",
     name: "Damilare Ahmod, Lagos",
     designation: "Engineering Lead",
     src: "https://i.imghippo.com/files/hpWL9158NUA.jpg",
@@ -76,7 +76,7 @@ export const testimonials = [
   },
   {
     quote:
-      "The Logira LMS Learning Academy platform is so easy to use! Igated courses effortlessly on my phone during breaks",
+      "The Logira LMS Learning platform is so easy to use! Igated courses effortlessly on my phone during breaks",
     name: "Pelumi Falana, Lagos",
     designation: "VP of Technology",
     src: "https://i.imghippo.com/files/ZfEy6770nDo.jpg",
