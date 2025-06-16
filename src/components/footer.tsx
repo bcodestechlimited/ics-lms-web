@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="grid grid-cols-4 gap-12">
           {/* logo */}
           <div>
-            <img src="/assets/image/logo.svg" alt="Footer logo of Ics L&D" />
+            <img src="/assets/image/logo.svg" alt="Footer logo of Logira LMS" />
           </div>
 
           {/* company */}
@@ -65,8 +65,8 @@ export default function Footer() {
         <div className="mt-12">
           <article className="flex items-center justify-center gap-x-1 text-[12px] font-medium">
             <p>
-              Copyright © {new Date().getUTCFullYear()} ICS L&D. All rights
-              reserved.
+              Copyright © {new Date().getUTCFullYear()}{" "}
+              {import.meta.env.VITE_APP_NAME}. All rights reserved.
             </p>
             <p>|</p>
             <p>Developed and Managed by BCT Limited</p>

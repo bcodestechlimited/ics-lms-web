@@ -31,7 +31,7 @@ export default function CoursesPage() {
         <div className="container mx-auto">
           <img
             src="/assets/image/course-hero.png"
-            className="hero-banner"
+            className="w-full h-auto object-cover hero-banner rounded-lg max-h-[300px] sm:max-h-[400px] md:max-h-[500px] lg:max-h-[600px]"
             alt="course hero banner"
           />
         </div>

@@ -12,7 +12,7 @@ export default function AboutUsPage() {
         <img
           src="/assets/image/about-us-hero.webp"
           alt="About us hero banner"
-          className="w-full h-auto rounded-lg"
+          className="w-full h-auto object-cover rounded-lg max-h-[300px] sm:max-h-[400px] md:max-h-[500px] lg:max-h-[600px]"
         />
 
         {/* Main Heading */}
@@ -23,11 +23,11 @@ export default function AboutUsPage() {
           <p className="text-justify">
             Imagine a world where every individual, no matter where they are or
             what their circumstances might be, has the power to unlock their
-            potential through education. At ICS Sourcing Academy, we’re not just
-            imagining that world—we are building it, one learner at a time. We
-            believe that learning is more than a pathway to knowledge; it is a
-            catalyst for transformation, a bridge to opportunity, and a key to
-            creating a brighter future.
+            potential through education. At {import.meta.env.VITE_APP_NAME}{" "}
+            Sourcing Academy, we’re not just imagining that world—we are
+            building it, one learner at a time. We believe that learning is more
+            than a pathway to knowledge; it is a catalyst for transformation, a
+            bridge to opportunity, and a key to creating a brighter future.
           </p>
         </div>
 
@@ -35,23 +35,23 @@ export default function AboutUsPage() {
         <div className="space-y-4">
           <h3 className="text-[24px] font-semibold">Our Story</h3>
           <p className="text-justify">
-            Our journey begins with ICS Outsourcing, Nigeria’s foremost HR and
-            workforce solutions provider. For years, we’ve been at the heart of
-            connecting people with meaningful employment, witnessing firsthand
-            the profound impact that skills and knowledge can have on lives and
-            communities. But we also saw a challenge: not everyone had equal
-            access to the education needed to thrive in today’s fast-evolving
-            world. That realization sparked a bold idea—to extend our expertise
-            into the realm of learning and make high-quality education
-            accessible to all.
+            Our journey begins with {import.meta.env.VITE_APP_NAME} Outsourcing,
+            Nigeria’s foremost HR and workforce solutions provider. For years,
+            we’ve been at the heart of connecting people with meaningful
+            employment, witnessing firsthand the profound impact that skills and
+            knowledge can have on lives and communities. But we also saw a
+            challenge: not everyone had equal access to the education needed to
+            thrive in today’s fast-evolving world. That realization sparked a
+            bold idea—to extend our expertise into the realm of learning and
+            make high-quality education accessible to all.
           </p>
           <p className="text-justify">
-            And so, ICS Sourcing Academy was born. As an innovative online
-            platform, we set out to democratize education, breaking down
-            barriers of distance, time, and resources. What started as a vision
-            has grown into a movement, one that empowers individuals and
-            organizations alike to adapt, grow, and succeed in a dynamic global
-            landscape.
+            And so, {import.meta.env.VITE_APP_NAME} Sourcing Academy was born.
+            As an innovative online platform, we set out to democratize
+            education, breaking down barriers of distance, time, and resources.
+            What started as a vision has grown into a movement, one that
+            empowers individuals and organizations alike to adapt, grow, and
+            succeed in a dynamic global landscape.
           </p>
         </div>
 
@@ -74,11 +74,12 @@ export default function AboutUsPage() {
         <div className="space-y-4">
           <h3 className="text-[24px] font-semibold">What We Offer</h3>
           <p className="text-justify">
-            At ICS Sourcing Academy, we provide a diverse and ever-growing
-            catalog of courses designed to meet the demands of today’s world.
-            From technology and business to leadership, entrepreneurship, and
-            personal development, our offerings are as varied as the aspirations
-            of our learners. Each course is:
+            At {import.meta.env.VITE_APP_NAME} Sourcing Academy, we provide a
+            diverse and ever-growing catalog of courses designed to meet the
+            demands of today’s world. From technology and business to
+            leadership, entrepreneurship, and personal development, our
+            offerings are as varied as the aspirations of our learners. Each
+            course is:
           </p>
           <ul className="list-disc list-inside text-justify space-y-2">
             <li>
@@ -99,7 +100,8 @@ export default function AboutUsPage() {
             business, a professional aiming to pivot into a new career, or
             someone simply eager to explore a new passion, we have got you
             covered. Our platform is built to be intuitive and user-friendly,
-            ensuring that your focus remains on learning, not logistics.
+            ensuring that your focus remains on learning, not logist
+            {import.meta.env.VITE_APP_NAME}.
           </p>
         </div>
 
@@ -112,9 +114,10 @@ export default function AboutUsPage() {
           </p>
           <ul className="list-disc list-inside text-justify space-y-2">
             <li>
-              <strong>Rooted in Expertise:</strong> As part of ICS Outsourcing,
-              we bring decades of insight into workforce trends and skills gaps,
-              ensuring our courses are always relevant and forward-thinking.
+              <strong>Rooted in Expertise:</strong> As part of{" "}
+              {import.meta.env.VITE_APP_NAME} Outsourcing, we bring decades of
+              insight into workforce trends and skills gaps, ensuring our
+              courses are always relevant and forward-thinking.
             </li>
           </ul>
           <p className="text-justify">
@@ -149,8 +152,9 @@ export default function AboutUsPage() {
         <div className="space-y-4">
           <h3 className="text-[24px] font-semibold">Why Learn With Us?</h3>
           <p className="text-justify">
-            Learning with ICS Sourcing Academy is not just about gaining
-            knowledge—it is about changing your life. Our courses offer:
+            Learning with {import.meta.env.VITE_APP_NAME} Sourcing Academy is
+            not just about gaining knowledge—it is about changing your life. Our
+            courses offer:
           </p>
           <ul className="list-disc list-inside text-justify space-y-2">
             <li>
@@ -177,16 +181,16 @@ export default function AboutUsPage() {
         <div className="space-y-4 pb-8">
           <h3 className="text-[24px] font-semibold">Join Us on the Journey</h3>
           <p className="text-justify">
-            At ICS Sourcing Academy, we’re not just offering courses—we are
-            inviting you to be part of something bigger. A community of
-            dreamers, doers, and changemakers. A place where your growth becomes
-            our legacy.
+            At {import.meta.env.VITE_APP_NAME} Sourcing Academy, we’re not just
+            offering courses—we are inviting you to be part of something bigger.
+            A community of dreamers, doers, and changemakers. A place where your
+            growth becomes our legacy.
           </p>
           <p className="text-justify">
             Take the first step today. Explore our courses, connect with our
             community, and discover how learning can transform your life. With
-            ICS Sourcing Academy, the possibilities are endless, and your future
-            is waiting.
+            {import.meta.env.VITE_APP_NAME} Sourcing Academy, the possibilities
+            are endless, and your future is waiting.
           </p>
         </div>
       </div>

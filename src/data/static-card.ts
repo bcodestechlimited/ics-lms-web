@@ -68,7 +68,7 @@ export const testimonials = [
     // src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    quote: "ICS Learning Academy’s interface is super user-friendly.",
+    quote: "Logira LMS Learning Academy’s interface is super userdly.",
     name: "Damilare Ahmod, Lagos",
     designation: "Engineering Lead",
     src: "https://i.imghippo.com/files/hpWL9158NUA.jpg",
@@ -76,7 +76,7 @@ export const testimonials = [
   },
   {
     quote:
-      "The ICS Learning Academy platform is so easy to use! I navigated courses effortlessly on my phone during breaks",
+      "The Logira LMS Learning Academy platform is so easy to use! Igated courses effortlessly on my phone during breaks",
     name: "Pelumi Falana, Lagos",
     designation: "VP of Technology",
     src: "https://i.imghippo.com/files/ZfEy6770nDo.jpg",
@@ -87,9 +87,9 @@ export const testimonials = [
 export const faqItems = [
   {
     id: "faq-1",
-    question: "What is Leverage by ICS?",
+    question: "What is Logira by LMS?",
     answer:
-      "Leverage by ICS is a modern, user-friendly Learning Management System (LMS) designed to help individuals and organisations access high-quality, interactive courses across a wide range of disciplines. Whether you're advancing your career, upskilling your team, or learning something new, Leverage offers flexible and accessible education at your fingertips.",
+      "Logira by ics LMS is a modern, user-friendly Learningement System (LMS) designed to help individuals and organisations access high-quality, interactive courses across a wide range of disciplines. Whether you're advancing your career, upskilling your team, or learning something new, Leverage offers flexible and accessible education at your fingertips.",
   },
   {
     id: "faq-2",

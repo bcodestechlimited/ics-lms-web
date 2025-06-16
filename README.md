@@ -1,6 +1,6 @@
 # React + TypeScript
 
-This is ICS LMS(client) web code.
+This is Logira LMS(client) web code.
 
 ## Step-by-Step Guide
 
@@ -15,7 +15,7 @@ This is ICS LMS(client) web code.
 
 #### Step 3: 🏃‍♂️ Running the Project
 
-- Development Mode: `bun run dev`  local server @http://localhost:3000
+- Development Mode: `bun run dev`  local server @http://localhost:5173
 - Building: `bun run build`
 
 #### Step 4: 🚀 Deployment

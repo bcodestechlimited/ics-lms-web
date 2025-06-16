@@ -7,13 +7,14 @@ const PrivacyPolicyPage: React.FC = () => {
     <div>
       <div className="container mx-auto max-w-6xl px-4 py-8">
         <h1 className="text-4xl text-left font-bold mb-6">
-          ICS Academy Privacy Policy
+          {import.meta.env.VITE_APP_NAME} Academy Privacy Policy
         </h1>
         <p className="text-base leading-relaxed mb-8 text-justify">
-          At ICS Academy, we are committed to protecting your privacy and
-          ensuring the responsible handling of your personal information. This
-          Privacy Policy outlines how we collect, use, and manage your Personal
-          Data when you engage with our learning platform.
+          At {import.meta.env.VITE_APP_NAME} Academy, we are committed to
+          protecting your privacy and ensuring the responsible handling of your
+          personal information. This Privacy Policy outlines how we collect,
+          use, and manage your Personal Data when you engage with our learning
+          platform.
         </p>
 
         {/* Section 1: Data Controller */}
@@ -23,15 +24,17 @@ const PrivacyPolicyPage: React.FC = () => {
             <p className="mb-3 text-justify">
               Unless otherwise specified (e.g., where you are enrolled in a
               degree or certification program administered by a partnering
-              institution), ICS Academy is the data controller of the Personal
-              Data collected through our platform. This means ICS Academy
-              determines the purposes and means of processing your data.
+              institution), {import.meta.env.VITE_APP_NAME} Academy is the data
+              controller of the Personal Data collected through our platform.
+              This means {import.meta.env.VITE_APP_NAME} Academy determines the
+              purposes and means of processing your data.
             </p>
             <p className="text-justify">
               In certain cases - such as when you enroll in a program managed
-              directly by an academic or professional institution, ICS Academy
-              may act as a data processor, processing your information on behalf
-              of that institution in accordance with their instructions.
+              directly by an academic or professional institution,{" "}
+              {import.meta.env.VITE_APP_NAME} Academy may act as a data
+              processor, processing your information on behalf of that
+              institution in accordance with their instructions.
             </p>
           </CardContent>
         </Card>
@@ -128,8 +131,8 @@ const PrivacyPolicyPage: React.FC = () => {
               </li>
               <li>
                 Service providers and third-party tools that support platform
-                functionality, analytics, payment processing, customer support,
-                and communication.
+                functionality, analyt{import.meta.env.VITE_APP_NAME}, payment
+                processing, customer support, and communication.
               </li>
               <li>
                 Regulatory authorities, when required by law or in response to
