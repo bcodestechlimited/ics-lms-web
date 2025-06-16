@@ -76,29 +76,33 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {courses.map((course: CourseInterface) => (
-                  <div>
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {courses.map((course: CourseInterface) => (
                     <div>
-                      <CourseCard
-                        key={course._id + course.updatedAt}
-                        description={course.description}
-                        updatedAt={course.updatedAt}
-                        image={course.image}
-                        title={course.title}
-                        instructor="L&D Team"
-                        _id={course._id}
-                        summary={course.summary}
-                      />
+                      <div>
+                        <CourseCard
+                          key={course._id + course.updatedAt}
+                          description={course.description}
+                          updatedAt={course.updatedAt}
+                          image={course.image}
+                          title={course.title}
+                          instructor="L&D Team"
+                          _id={course._id}
+                          summary={course.summary}
+                        />
+                      </div>
                     </div>
-                    <div className="flex justify-center">
-                      <Button onClick={() => navigate("/courses")}>
-                        Show more
-                      </Button>
-                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-start">
+                  <div className="flex justify-center">
+                    <Button onClick={() => navigate("/courses")}>
+                      Show more
+                    </Button>
                   </div>
-                ))}
-              </div>
+                </div>
+              </>
             )}
           </div>
         </section>
