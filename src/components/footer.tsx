@@ -45,14 +45,38 @@ export default function Footer() {
           {/* social */}
           <div className="space-y-4">
             <div className="flex items-center gap-x-4">
-              <img src="/assets/image/web-icon.svg" alt="web icon" />
-              <img src="/assets/image/x-icon.svg" alt="twitter icon" />
-              <img src="/assets/image/linkedin-icon.svg" alt="linkedin icon" />
-              <img src="/assets/image/facebook-icon.svg" alt="facebook icon" />
-              <img
-                src="/assets/image/instagram-icon.svg"
-                alt="instagram icon"
-              />
+              <a
+                href="https://www.linkedin.com/company/ics-outsourcing-nigeria-limited/"
+                target="_blank"
+                referrerPolicy="no-referrer"
+              >
+                <img
+                  src="/assets/image/linkedin-icon.svg"
+                  alt="linkedin icon"
+                />
+              </a>
+
+              <a
+                href="https://www.facebook.com/share/16JJYfeoF4/"
+                target="_blank"
+                referrerPolicy="no-referrer"
+              >
+                <img
+                  src="/assets/image/facebook-icon.svg"
+                  alt="facebook icon"
+                />
+              </a>
+
+              <a
+                href="https://www.instagram.com/icsoutsourcinglimited?igsh=bHlzdzRlMmo3anJ6"
+                target="_blank"
+                referrerPolicy="no-referrer"
+              >
+                <img
+                  src="/assets/image/instagram-icon.svg"
+                  alt="instagram icon"
+                />
+              </a>
             </div>
             <div>
               <p className="text-sm">
