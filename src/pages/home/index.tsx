@@ -95,13 +95,15 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="flex justify-start">
-                  <div className="flex justify-center">
-                    <Button onClick={() => navigate("/courses")}>
-                      Show more
-                    </Button>
+                {courses.length > 0 && (
+                  <div className="flex justify-start">
+                    <div className="flex justify-center">
+                      <Button onClick={() => navigate("/courses")}>
+                        Show more
+                      </Button>
+                    </div>
                   </div>
-                </div>
+                )}
               </>
             )}
           </div>
