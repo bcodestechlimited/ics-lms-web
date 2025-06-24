@@ -11,7 +11,11 @@ export default function Footer() {
         <div className="grid grid-cols-4 gap-12">
           {/* logo */}
           <div>
-            <img src="/assets/image/logo.svg" alt="Footer logo of Logira LMS" />
+            <img
+              src="/assets/image/logo-black.png"
+              alt="Footer logo of Logira LMS"
+              className="h-14"
+            />
           </div>
 
           {/* company */}
@@ -89,7 +93,7 @@ export default function Footer() {
         <div className="mt-12">
           <article className="flex items-center justify-center gap-x-1 text-[12px] font-medium">
             <p>
-              Copyright © {new Date().getUTCFullYear()}{" "}
+              Copyright &copy; {new Date().getUTCFullYear()}{" "}
               {import.meta.env.VITE_APP_NAME}. All rights reserved.
             </p>
             <p>|</p>

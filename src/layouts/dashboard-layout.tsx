@@ -7,25 +7,6 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const {session} = useSession();
-  // // const navigate = useNavigate();
-  // const [cookies] = useCookies<"accessToken", CookieValues>(["accessToken"]);
-
-  // console.log({cookies});
-  // console.log("from dashboard", {session});
-
-  // if (session.status === "pending") {
-  //   console.log("inside the pending", {session});
-  //   return <PageLoader />;
-  // } else if (session.status === "unauthenticated") {
-  //   // navigate("/auth/login");
-  //   console.log(
-  //     {session},
-  //     "inside the unauthenticated, should navigate if session npt found"
-  //   );
-  //   return;
-  // }
-
   return (
     <SidebarProvider>
       <AppSidebar />

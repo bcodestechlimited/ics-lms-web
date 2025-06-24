@@ -40,10 +40,14 @@ export function Navbar() {
 
 
   return (
-    <nav className="py-1 border-b">
+    <nav className="py-4 border-b">
       <div className="flex items-center justify-between container mx-auto">
         <Link to={"/"}>
-          <img src="/assets/image/logo.svg" alt="Logo" />
+          <img
+            src="/assets/image/logo-black.png"
+            alt="Logo"
+            className="h-14 w-auto"
+          />
         </Link>
 
         <NavBar items={navItems} className="" />

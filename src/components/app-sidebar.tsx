@@ -48,7 +48,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel className="mb-8">
             <Link to={"/"}>
-              <img src="/assets/image/logo.svg" className="h-[70px]" />
+              <img src="/assets/image/logo-black.png" className="h-14 " />
             </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent>
