@@ -6,7 +6,7 @@ export default function DisplayMarkupContent({ content }: { content: string }) {
     <>
       <div
         className="space-y-4 font-normal"
-        dangerouslySetInnerHTML={{__html: sanitizedHTML}}
+        dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
       />
     </>
   );
@@ -21,7 +21,7 @@ export function DisplayCourseHighlights({ content }: { content: string }) {
   tempElement.innerHTML = sanitizedHTML;
   const listItems = Array.from(tempElement.querySelectorAll("li"))
     .map((li) => li.innerHTML)
-    .slice(0, 5);
+    .slice(0, 2);
 
   return (
     <ul className="space-y-2">
@@ -34,6 +34,10 @@ export function DisplayCourseHighlights({ content }: { content: string }) {
           />
         </li>
       ))}
+      <li className="flex items-start gap-x-2">
+        💠
+        <span>and more...</span>
+      </li>
     </ul>
   );
 }

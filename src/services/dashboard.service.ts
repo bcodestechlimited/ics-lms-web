@@ -2,17 +2,17 @@ import apiClient from "@/lib/api-client";
 
 class DashboardService {
   public async getUserService() {
-    const {data} = await apiClient.get("/user");
+    const { data } = await apiClient.get("/user");
     return data;
   }
 
   public async getEnrolledCoursesService() {
-    const {data} = await apiClient.get("/user/my-enrolled-courses");
+    const { data } = await apiClient.get("/user/my-enrolled-courses");
     return data;
   }
 
   public async getAssignedCoursesService() {
-    const {data} = await apiClient.get("/user/my-assigned-courses");
+    const { data } = await apiClient.get("/user/my-assigned-courses");
     return data;
   }
 

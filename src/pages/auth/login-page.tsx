@@ -32,7 +32,7 @@ export default function LoginPage() {
             </Button>
           </Link>
         </div>
-        <Card className="max-w-lg w-lg mx-auto border rounded-lg">
+        <Card className="max-w-lg w-lg mx-auto border rounded-lg shadow-none">
           <CardHeader>
             <h1 className="text-3xl font-bold">Welcome back!</h1>
             <p>Sign in to continue learning</p>

@@ -42,7 +42,7 @@ export default function CourseSlugPage() {
 
   return (
     <div className="relative">
-      <div className="h-[400px] bg-[#134587]">
+      <div className="h-[600px] bg-[#134587]">
         <div className="container mx-auto grid grid-cols-12 py-20 h-full">
           <header className="space-y-4 col-start-1 col-end-6 text-white">
             <h1 className="text-[32px] font-bold leading-normal">

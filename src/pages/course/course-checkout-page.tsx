@@ -81,7 +81,12 @@ export default function CourseCheckoutPage() {
           setCouponDiscount(Number(couponDiscount));
           return "Coupon applied!";
         },
-        error: (err) => err.message || "Failed to apply coupon",
+        error: (err) => {
+          console.log("err", err);
+          return (
+            err?.response?.data?.message || "Coupon was not applied, Try again!"
+          );
+        },
       }
     );
   };
@@ -291,7 +296,10 @@ export default function CourseCheckoutPage() {
           <div className="mt-8 text-center text-sm text-gray-600">
             <p>
               By completing your purchase you agree to our{" "}
-              <a href="#" className="text-primary hover:underline">
+              <a
+                href="/terms-and-condition"
+                className="text-primary hover:underline"
+              >
                 Terms of Service
               </a>
             </p>

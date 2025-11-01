@@ -94,11 +94,11 @@ export function ForgotPasswordForm() {
             )}
           />
 
-          <Button className="bg-[#134587] w-full" disabled={isLoading}>
+          <Button className="w-full" disabled={isLoading}>
             {isLoading ? (
               <Loader2 className="animate-spin text-white" />
             ) : (
-              "Login"
+              "Send Email"
             )}
           </Button>
         </form>

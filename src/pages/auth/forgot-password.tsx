@@ -1,31 +1,26 @@
 import {ForgotPasswordForm} from "@/components/forgot-password-shell";
-import {Home} from "lucide-react";
-import {Link} from "react-router";
+import {GenericNavbar} from "@/components/navbar";
 
 export default function ForgotPasswordPage() {
   return (
-    <div className="relative">
-      <Link
-        to="/"
-        className="absolute top-4 right-4 flex items-center gap-1 text-sm text-blue-600 hover:text-gray-900 transition-colors"
-      >
-        <Home className="h-4 w-4" />
-        <span>Home</span>
-      </Link>
-      <div className="h-screen w-full flex items-center justify-center">
-        <div className="border rounded-xl max-w-[500px] space-y-8 p-4">
-          <div className="space-y-4">
-            <h1 className="text-3xl font-bold text-center">Forgot Password</h1>
-            <p className="text-center">
-              Enter your email address and we will send you a link to reset your
-              password
+    <div className="min-h-screen flex flex-col overflow-hidden bg-gray-50">
+      <GenericNavbar />
+
+      <main className="flex-1 grid place-items-center overflow-hidden">
+        <div className="w-full max-w-md rounded-lg border bg-white p-4 md:p-6">
+          <div className="space-y-2 text-center">
+            <h1 className="text-2xl font-semibold">Forgot Password</h1>
+            <p className="text-sm text-muted-foreground">
+              Enter your email address and we’ll send you a link to reset your
+              password.
             </p>
           </div>
-          <div>
+
+          <div className="mt-6">
             <ForgotPasswordForm />
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

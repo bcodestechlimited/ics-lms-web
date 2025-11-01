@@ -73,3 +73,28 @@ export function Navbar() {
     </nav>
   );
 }
+
+export const GenericNavbar = () => {
+  return (
+    <nav className="py-4 border-b">
+      <div className="flex items-center justify-between container mx-auto">
+        <Link to={"/"}>
+          <img
+            src="/assets/image/logo-black.png"
+            alt="Logo"
+            className="h-14 w-auto"
+          />
+        </Link>
+
+        <div className="flex items-center gap-x-4">
+          <Link to="/auth/login">
+            <Button variant="ghost">Sign In</Button>
+          </Link>
+          <Link to="/auth/signup">
+            <Button variant="default">Sign Up</Button>
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
+};
