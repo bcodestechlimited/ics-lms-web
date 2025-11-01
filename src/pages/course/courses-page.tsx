@@ -1,16 +1,16 @@
 import AllCoursesContent from "@/components/all-courses";
-import { FilterComponent } from "@/components/filter-component";
+import {FilterComponent} from "@/components/filter-component";
 import Footer from "@/components/footer";
 import NoCoursesFound from "@/components/no-course-found";
 import PagePagination from "@/components/pagination";
-import { useGetAllCourses } from "@/hooks/use-course";
-import { useCourseFilterStore } from "@/store/course-filter.store";
-import { useEffect } from "react";
-import { useSearchParams } from "react-router";
+import {useGetAllCourses} from "@/hooks/use-course";
+import {useCourseFilterStore} from "@/store/course-filter.store";
+import {useEffect} from "react";
+import {useSearchParams} from "react-router";
 
 export default function CoursesPage() {
   const [searchParams] = useSearchParams();
-  const { data, isLoading } = useGetAllCourses();
+  const {data, isLoading} = useGetAllCourses();
   const setCategory = useCourseFilterStore((state) => state.setCategory);
   const {page, setPage} = useCourseFilterStore();
   const courses = (!isLoading && data?.responseObject?.docs) || [];
@@ -46,7 +46,7 @@ export default function CoursesPage() {
         </div>
         <div className="grid grid-cols-12">
           {/* filter component will go here */}
-          <div className="col-start-1 col-end-3 p-2 border rounded-lg">
+          <div className="col-start-1 col-end-3 p-2 border rounded-lg hidden lg:block h-fit">
             <FilterComponent />
           </div>
           <div className="col-start-4 col-end-13">

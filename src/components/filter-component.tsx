@@ -16,7 +16,6 @@ import useDebounce from "@/hooks/use-debounce";
 export function FilterComponent() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Local state for inputs, initialized from URL
   const [localSearch, setLocalSearch] = useState(
     searchParams.get("search") || ""
   );
