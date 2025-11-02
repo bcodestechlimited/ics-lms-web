@@ -17,7 +17,7 @@ export default function Home() {
   const navigate = useNavigate();
   const {data, isLoading} = useGetHomePageCourses();
 
-  const courses = (!isLoading && data?.responseObject?.docs) || [];
+  const courses = (!isLoading && data?.data?.courses) || [];
 
   return (
     <div>

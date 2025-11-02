@@ -93,7 +93,7 @@ export function CourseCard({
       {...getReferenceProps()}
     >
       <Card
-        className="w-full border-none shadow-none max-w-[374px] h-full max-h-[350px] p-2 rounded-lg hover:shadow-lg transition-shadow pb-7 cursor-pointer"
+        className="w-full border-none shadow-none max-w-[374px] h-full max-h-[350px] p-2 rounded-lg transition-shadow pb-7 cursor-pointer"
         onClick={() => {
           handleViewCourse(_id as string);
         }}

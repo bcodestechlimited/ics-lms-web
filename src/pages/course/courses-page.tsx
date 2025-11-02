@@ -13,8 +13,8 @@ export default function CoursesPage() {
   const {data, isLoading} = useGetAllCourses();
   const setCategory = useCourseFilterStore((state) => state.setCategory);
   const {page, setPage} = useCourseFilterStore();
-  const courses = (!isLoading && data?.responseObject?.docs) || [];
-  const totalPages = (!isLoading && data?.responseObject?.totalPages) || 1;
+  const courses = (!isLoading && data?.data.courses) || [];
+  const totalPages = (!isLoading && data?.data?.pagination?.totalPages) || 1;
 
   useEffect(() => {
     const categoryFromUrl = searchParams.get("category");

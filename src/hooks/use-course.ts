@@ -13,23 +13,7 @@ export const useGetHomePageCourses = () => {
   });
 };
 
-// export const useGetAllCourses = () => {
-//   const {search, rating, topic, page, limit} = useCourseFilterStore();
 
-//   return useQuery({
-//     queryFn: () => {
-//       if (search) params.search = search;
-//       if (rating) params.rating = rating;
-//       if (topic) params.category = topic;
-
-//       params.page = page ? page.toString() : "1";
-//       params.limit = limit ? limit.toString() : "20";
-
-//       return courseService.getAllPublishedCourses(params);
-//     },
-//     queryKey: ["courses", {search, rating, topic, page, limit}],
-//   });
-// };
 
 export const useGetAllCourses = () => {
   const {search, rating, category, page, limit} = useCourseFilterStore();
@@ -37,10 +21,8 @@ export const useGetAllCourses = () => {
   return useQuery({
     queryKey: ["courses", {search, rating, category, page, limit}],
     queryFn: () => {
-      // 1) Start with a brand-new params object on each call
       const params: Record<string, string> = {};
 
-      // 2) Only add filters when they’re non-empty
       if (search) {
         params.search = search;
       }
@@ -48,17 +30,14 @@ export const useGetAllCourses = () => {
         params.rating = rating.toString();
       }
       if (category) {
-        // backend expects 'category', not 'category'
         params.category = category;
       }
 
-      // 3) Always include pagination
       params.page = page?.toString() ?? "1";
       params.limit = limit?.toString() ?? "20";
 
       return courseService.getAllPublishedCourses(params);
     },
-    // keepPreviousData: true,
   });
 };
 
@@ -72,7 +51,6 @@ export const useGetAllPublishedCourses = () => {
       if (rating) params.rating = rating;
       if (category) params.category = category;
 
-      // set pagination parameters with default limit of 20
       params.page = page ? page.toString() : "1";
       params.limit = limit ? limit.toString() : "20";
 
