@@ -1,8 +1,8 @@
 // src/pages/CourseCheckoutPage.tsx
-import {CourseCheckoutSkeleton} from "@/components/course-card-skeleton";
+import { CourseCheckoutSkeleton } from "@/components/course-card-skeleton";
 import CourseCheckoutSuccessfulDialog from "@/components/course-checkout-successful-dialog";
-import {Button} from "@/components/ui/button";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -11,25 +11,25 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {Input} from "@/components/ui/input";
-import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
-import {Separator} from "@/components/ui/separator";
-import {useCouponCheckout, useGetACourseById} from "@/hooks/use-course";
-import {useCourseCheckout} from "@/hooks/use-payment";
-import {CheckoutSchema} from "@/schema/payment.schema";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {CreditCardIcon, LockIcon, ShieldIcon, TicketIcon} from "lucide-react";
-import {useState} from "react";
-import {useForm} from "react-hook-form";
-import {useParams} from "react-router";
-import {toast} from "sonner";
-import {z} from "zod";
+import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Separator } from "@/components/ui/separator";
+import { useCouponCheckout, useGetACourseById } from "@/hooks/use-course";
+import { useCourseCheckout } from "@/hooks/use-payment";
+import { CheckoutSchema } from "@/schema/payment.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CreditCardIcon, LockIcon, ShieldIcon, TicketIcon } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useParams } from "react-router";
+import { toast } from "sonner";
+import { z } from "zod";
 
 type FormValues = z.infer<typeof CheckoutSchema>;
 
 export default function CourseCheckoutPage() {
-  const params = useParams<{id: string}>();
-  const {data, isLoading} = useGetACourseById(params.id);
+  const params = useParams<{ id: string }>();
+  const { data, isLoading } = useGetACourseById(params.id);
   const course = data?.responseObject?.data;
 
   // ── derive original price safely ──
@@ -74,20 +74,17 @@ export default function CourseCheckoutPage() {
       {
         loading: "Applying coupon…",
         success: (res) => {
-          if (!res.success) throw new Error(res.message);
-          const {discountedPrice, couponDiscount} = res.responseObject.data;
+          if (!res.success) throw new Error("Invalid coupon code");
+          const { discountedPrice, couponDiscount } = res.responseObject.data;
           setIsCouponApplied(true);
           setTotalPrice(Number(discountedPrice));
           setCouponDiscount(Number(couponDiscount));
           return "Coupon applied!";
         },
         error: (err) => {
-          console.log("err", err);
-          return (
-            err?.response?.data?.message || "Coupon was not applied, Try again!"
-          );
+          return "Coupon was not applied, Try again!";
         },
-      }
+      },
     );
   };
 
@@ -116,8 +113,8 @@ export default function CourseCheckoutPage() {
           setModal(true);
           return "Enrolled successfully!";
         },
-        error: (err) => err.message || "Payment failed",
-      }
+        error: (err) => "Payment failed",
+      },
     );
   };
 
@@ -166,7 +163,7 @@ export default function CourseCheckoutPage() {
                     <FormField
                       control={form.control}
                       name="paymentMethod"
-                      render={({field}) => (
+                      render={({ field }) => (
                         <FormItem className="space-y-4">
                           <FormLabel className="text-lg font-semibold">
                             Payment Method
@@ -210,7 +207,7 @@ export default function CourseCheckoutPage() {
                       <FormField
                         control={form.control}
                         name="couponCode"
-                        render={({field}) => (
+                        render={({ field }) => (
                           <FormItem>
                             <FormLabel>Coupon Code</FormLabel>
                             <div className="flex gap-2">

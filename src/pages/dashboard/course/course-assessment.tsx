@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Assessment, {Question} from "@/components/assessment";
-import {CourseAssessmentSkeleton} from "@/components/course-card-skeleton";
-import {Button} from "@/components/ui/button";
+import Assessment, { Question } from "@/components/assessment";
+import { CourseAssessmentSkeleton } from "@/components/course-card-skeleton";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -17,9 +17,9 @@ import {
   useSubmitCourseAssessment,
 } from "@/hooks/use-course";
 import DashboardLayout from "@/layouts/dashboard-layout";
-import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router";
-import {toast} from "sonner";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 
 interface SubmitResponse {
   passed: boolean;
@@ -36,8 +36,8 @@ interface SubmitResponse {
 }
 
 export default function DashboardCourseAssessmentPage() {
-  const {id: courseId} = useParams<{id: string}>();
-  const {data, isLoading} = useGetCourseAssessments(courseId!);
+  const { id: courseId } = useParams<{ id: string }>();
+  const { data, isLoading } = useGetCourseAssessments(courseId!);
   const questions: Question[] =
     !isLoading && data?.responseObject?.data ? data.responseObject.data : [];
   const [selectedAnswers, setSelectedAnswers] = useState<
@@ -71,7 +71,7 @@ export default function DashboardCourseAssessmentPage() {
     questions.every((q) => selectedAnswers[q._id] !== undefined);
 
   const handleOptionChange = (questionId: string, optionId: number) => {
-    setSelectedAnswers((p) => ({...p, [questionId]: optionId}));
+    setSelectedAnswers((p) => ({ ...p, [questionId]: optionId }));
   };
 
   const handleSubmit = async () => {
@@ -89,7 +89,7 @@ export default function DashboardCourseAssessmentPage() {
       ([questionId, selectedOptionId]) => ({
         questionId,
         selectedOptionId,
-      })
+      }),
     );
 
     try {
@@ -104,14 +104,14 @@ export default function DashboardCourseAssessmentPage() {
             if (!data.success) {
               return data.message || "Submission failed";
             }
-          
+
             if (data?.responseObject?.data?.passed) {
               setIsDialogOpen(true);
             }
             return "Assessment submitted!";
           },
-          error: (err: any) => err.message || "Submission error",
-        }
+          error: (err: any) => "Submission error",
+        },
       );
     } catch {
       setError("An error occurred while submitting the assessment.");
@@ -144,7 +144,7 @@ export default function DashboardCourseAssessmentPage() {
                 <div className="w-full h-2 bg-gray-200 rounded overflow-hidden">
                   <div
                     className="h-full bg-green-500"
-                    style={{width: `${progress?.progressPercentage}%`}}
+                    style={{ width: `${progress?.progressPercentage}%` }}
                   />
                 </div>
 
@@ -222,8 +222,8 @@ export default function DashboardCourseAssessmentPage() {
                 {result
                   ? "Assessment Submitted"
                   : submitting
-                  ? "Submitting..."
-                  : "Complete Assessment"}
+                    ? "Submitting..."
+                    : "Complete Assessment"}
               </Button>
 
               {!result && (

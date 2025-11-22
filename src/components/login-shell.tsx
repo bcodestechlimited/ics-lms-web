@@ -1,14 +1,14 @@
-import {useLogin} from "@/hooks/useAuth";
-import {loginSchema} from "@/schema/auth.schema";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {Loader2} from "lucide-react";
-import {useState} from "react";
-import {useForm} from "react-hook-form";
-import {useLocation, useNavigate} from "react-router";
-import {toast} from "sonner";
-import {z} from "zod";
+import { useLogin } from "@/hooks/useAuth";
+import { loginSchema } from "@/schema/auth.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router";
+import { toast } from "sonner";
+import { z } from "zod";
 import PasswordInput from "./password-input-field";
-import {Button} from "./ui/button";
+import { Button } from "./ui/button";
 import {
   Form,
   FormControl,
@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import {Input} from "./ui/input";
+import { Input } from "./ui/input";
 
 const token = import.meta.env.VITE_AUTH_TOKEN || "accessToken";
 
@@ -63,7 +63,7 @@ export function LoginForm() {
         },
         error: (res) => {
           setIsLoading(false);
-          return res?.message || "Login failed, invalid credentials.";
+          return "Login failed, invalid credentials.";
         },
       });
     } catch {
@@ -78,7 +78,7 @@ export function LoginForm() {
         <FormField
           control={form.control}
           name="email"
-          render={({field}) => (
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
@@ -92,7 +92,7 @@ export function LoginForm() {
         <FormField
           control={form.control}
           name="password"
-          render={({field}) => (
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>

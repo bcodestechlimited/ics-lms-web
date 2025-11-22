@@ -1,17 +1,17 @@
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {Button} from "@/components/ui/button";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
-import {ProfileInfoSkeleton} from "@/components/user-profile-skeleton";
-import {useUpdatePassword, useUpdateUserProfile} from "@/hooks/use-user";
-import {useValidateUser} from "@/hooks/useAuth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ProfileInfoSkeleton } from "@/components/user-profile-skeleton";
+import { useUpdatePassword, useUpdateUserProfile } from "@/hooks/use-user";
+import { useValidateUser } from "@/hooks/useAuth";
 import DashboardLayout from "@/layouts/dashboard-layout";
 import {
   UpdateUserPasswordSchema,
   UpdateUserProfileSchema,
 } from "@/schema/auth.schema";
-import {zodResolver} from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CameraIcon,
   Eye,
@@ -20,13 +20,13 @@ import {
   LockIcon,
   UserIcon,
 } from "lucide-react";
-import {useEffect, useRef, useState} from "react";
-import {useForm} from "react-hook-form";
-import {toast} from "sonner";
-import {z} from "zod";
+import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
 export function UserProfileDashboard() {
-  const {data, isLoading} = useValidateUser();
+  const { data, isLoading } = useValidateUser();
   const fileInputRef = useRef(null);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -65,7 +65,7 @@ export function UserProfileDashboard() {
   }, [avatarFile]);
 
   const handleProfileSubmit = (
-    values: z.infer<typeof UpdateUserProfileSchema>
+    values: z.infer<typeof UpdateUserProfileSchema>,
   ) => {
     if (!data?._id) {
       toast("User not found");
@@ -95,7 +95,7 @@ export function UserProfileDashboard() {
             setIsProfileLoading(false);
             return err?.message || "Failed to update profile";
           },
-        }
+        },
       );
     } catch {
       setIsProfileLoading(false);
@@ -104,7 +104,7 @@ export function UserProfileDashboard() {
   };
 
   const handlePasswordSubmit = (
-    values: z.infer<typeof UpdateUserPasswordSchema>
+    values: z.infer<typeof UpdateUserPasswordSchema>,
   ) => {
     if (!values.currentPassword || !values.newPassword) return;
     setIsPwdLoading(true);
@@ -122,13 +122,13 @@ export function UserProfileDashboard() {
             passwordForm.reset();
             return "Password updated!";
           }
-          throw new Error(res.message);
+          throw new Error("Error updating password");
         },
         error: (err) => {
           setIsPwdLoading(false);
-          return err?.message || "Failed to update password";
+          return "Failed to update password";
         },
-      }
+      },
     );
   };
 
