@@ -110,7 +110,7 @@ export default function DashboardCourseAssessmentPage() {
             }
             return "Assessment submitted!";
           },
-          error: (err: any) => "Submission error",
+          error: () => "Submission error",
         },
       );
     } catch {

@@ -124,7 +124,7 @@ export function UserProfileDashboard() {
           }
           throw new Error("Error updating password");
         },
-        error: (err) => {
+        error: () => {
           setIsPwdLoading(false);
           return "Failed to update password";
         },

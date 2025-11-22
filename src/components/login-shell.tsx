@@ -61,7 +61,7 @@ export function LoginForm() {
           window.location.reload();
           return "Login successful";
         },
-        error: (res) => {
+        error: () => {
           setIsLoading(false);
           return "Login failed, invalid credentials.";
         },

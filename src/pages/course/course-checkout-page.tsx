@@ -81,7 +81,7 @@ export default function CourseCheckoutPage() {
           setCouponDiscount(Number(couponDiscount));
           return "Coupon applied!";
         },
-        error: (err) => {
+        error: () => {
           return "Coupon was not applied, Try again!";
         },
       },
@@ -113,7 +113,7 @@ export default function CourseCheckoutPage() {
           setModal(true);
           return "Enrolled successfully!";
         },
-        error: (err) => "Payment failed",
+        error: () => "Payment failed",
       },
     );
   };
