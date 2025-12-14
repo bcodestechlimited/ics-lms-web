@@ -1,4 +1,4 @@
-import {GenericNavbar} from "@/components/navbar";
+import { GenericNavbar } from "@/components/navbar";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -7,8 +7,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import {Button} from "@/components/ui/button";
-import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -17,16 +22,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {Input} from "@/components/ui/input";
-import {useResetPassword} from "@/hooks/useAuth";
-import {ResetPasswordSchema} from "@/schema/auth.schema";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {Eye, EyeOff} from "lucide-react";
-import {useState} from "react";
-import {useForm} from "react-hook-form";
-import {useSearchParams} from "react-router";
-import {toast} from "sonner";
-import {z} from "zod";
+import { Input } from "@/components/ui/input";
+import { useResetPassword } from "@/hooks/useAuth";
+import { ResetPasswordSchema } from "@/schema/auth.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useSearchParams } from "react-router";
+import { toast } from "sonner";
+import { z } from "zod";
 
 const ResetPasswordPage = () => {
   const [searchParams] = useSearchParams();
@@ -61,7 +66,8 @@ const ResetPasswordPage = () => {
         setResetSuccess(true);
         return "Password reset successfully";
       },
-      error: () => {
+      error: (err) => {
+        console.log("error", err);
         return "An error occured! Try again.";
       },
     });
@@ -87,7 +93,7 @@ const ResetPasswordPage = () => {
                 <FormField
                   control={form.control}
                   name="newPassword"
-                  render={({field}) => (
+                  render={({ field }) => (
                     <FormItem>
                       <FormLabel>New Password</FormLabel>
                       <FormControl>
@@ -123,7 +129,7 @@ const ResetPasswordPage = () => {
                 <FormField
                   control={form.control}
                   name="confirmPassword"
-                  render={({field}) => (
+                  render={({ field }) => (
                     <FormItem>
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>

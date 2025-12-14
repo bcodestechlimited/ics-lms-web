@@ -1,4 +1,4 @@
-import {z} from "zod";
+import { z } from "zod";
 
 export const loginSchema = z.object({
   email: z.string().email(),
@@ -6,8 +6,8 @@ export const loginSchema = z.object({
 });
 
 const PasswordSchema = z
-  .string({message: "Password is required"})
-  .min(6, {message: "Password must be at least 6 characters long"})
+  .string({ message: "Password is required" })
+  .min(6, { message: "Password must be at least 6 characters long" })
   .refine((val) => /[!@#$%^&*(),.?":{}|<>]/.test(val), {
     message: "Password must contain at least one special character",
   })
@@ -17,16 +17,16 @@ const PasswordSchema = z
 
 export const registerSchema = z.object({
   email: z
-    .string({message: "Email is required"})
-    .email({message: "Invalid email format"}),
+    .string({ message: "Email is required" })
+    .email({ message: "Invalid email format" }),
   telephone: z
-    .string({message: "Telephone is required"})
-    .min(10, {message: "Telephone number must be 11 digits"}),
-  firstName: z.string().nonempty({message: "Firstname is required"}),
-  lastName: z.string().nonempty({message: "Lastname is required"}),
+    .string({ message: "Telephone is required" })
+    .min(10, { message: "Telephone number must be 11 digits" }),
+  firstName: z.string().nonempty({ message: "Firstname is required" }),
+  lastName: z.string().nonempty({ message: "Lastname is required" }),
   password: z
-    .string({message: "Password is required"})
-    .min(6, {message: "Password must be at least 6 characters long"})
+    .string({ message: "Password is required" })
+    .min(6, { message: "Password must be at least 6 characters long" })
     .refine((val) => /[!@#$%^&*(),.?":{}|<>]/.test(val), {
       message: "Password must contain at least one special character",
     })
@@ -69,12 +69,12 @@ export const ResetPasswordSchema = z
   });
 
 export const ForgotPasswordSchema = z.object({
-  email: z.string().nonempty({message: "Email is required"}).email(),
+  email: z.string().nonempty({ message: "Email is required" }).email(),
 });
 
 export const UpdateUserProfileSchema = z.object({
-  firstName: z.string().nonempty({message: "Firstname is required"}),
-  lastName: z.string().nonempty({message: "Lastname is required"}),
+  firstName: z.string().nonempty({ message: "Firstname is required" }),
+  lastName: z.string().nonempty({ message: "Lastname is required" }),
   avatar: z.any().optional(),
 });
 

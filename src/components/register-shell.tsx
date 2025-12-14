@@ -18,6 +18,15 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "./ui/alert-dialog";
 
 export function RegisterShell() {
   const form = useForm<z.infer<typeof registerSchema>>({
@@ -33,114 +42,137 @@ export function RegisterShell() {
   const register = useRegister();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
-  function onSubmit(values: z.infer<typeof registerSchema>) {
+  async function onSubmit(values: z.infer<typeof registerSchema>) {
     setIsLoading(true);
+    const payload = {
+      email: values.email.toLowerCase().trim(),
+      firstName: values.firstName,
+      lastName: values.lastName,
+      password: values.password,
+      telephone: values.telephone,
+    };
+
     try {
-      const payload = {
-        email: values.email.toLowerCase().trim(),
-        firstName: values.firstName,
-        lastName: values.lastName,
-        password: values.password,
-        telephone: values.telephone,
-      };
-      toast.promise(register.mutateAsync(payload), {
-        loading: "Creating account...",
-        success: (res) => {
-          if (!res.success) return "Invalid credentials";
-          setIsLoading(false);
-          navigate("/auth/login");
-          return "Account created successfully. Please verify your email.";
-        },
-        error: (err) => {
-          setIsLoading(false);
-          return (
-            err.response.data.message || "Account creation failed, Try again."
-          );
-        },
-      });
+      const res = await register.mutateAsync(payload);
+      if (res.success) {
+        setIsLoading(false);
+        setShowSuccessDialog(true);
+        form.reset();
+      } else {
+        setIsLoading(false);
+        toast.error("Invalid credentials provided");
+      }
     } catch {
       setIsLoading(false);
     }
   }
+
+  const handleLoginRedirect = () => {
+    setShowSuccessDialog(false);
+    navigate("/auth/login");
+  };
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="firstName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>First Name</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="First Name" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="lastName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Last Name</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Last Name" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="Email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="telephone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone Number</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Telephone" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>First Name</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="First Name" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Last Name" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="Email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="telephone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone Number</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Telephone" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <PasswordInput {...field} label="" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <PasswordInput {...field} label="" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <Button className="bg-[#134587] w-full" disabled={isLoading}>
-          {isLoading ? (
-            <Loader2 className="animate-spin text-white" />
-          ) : (
-            "Create Account"
-          )}
-        </Button>
-      </form>
-    </Form>
+          <Button className="bg-[#134587] w-full" disabled={isLoading}>
+            {isLoading ? (
+              <Loader2 className="animate-spin text-white" />
+            ) : (
+              "Create Account"
+            )}
+          </Button>
+        </form>
+      </Form>
+
+      <AlertDialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Account Created Successfully</AlertDialogTitle>
+            <AlertDialogDescription>
+              Your account has been created. Please check your email to verify
+              your account before logging in.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction
+              onClick={handleLoginRedirect}
+              className="bg-[#134587]"
+            >
+              Continue to Login
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
