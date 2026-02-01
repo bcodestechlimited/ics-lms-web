@@ -1,4 +1,3 @@
-// src/pages/CourseCheckoutPage.tsx
 import { CourseCheckoutSkeleton } from "@/components/course-card-skeleton";
 import CourseCheckoutSuccessfulDialog from "@/components/course-checkout-successful-dialog";
 import { Button } from "@/components/ui/button";
@@ -32,11 +31,9 @@ export default function CourseCheckoutPage() {
   const { data, isLoading } = useGetACourseById(params.id);
   const course = data?.responseObject?.data;
 
-  // ── derive original price safely ──
   const rawPriceObj = course?.course_price;
   const originalPrice = Number(rawPriceObj?.price?.coursePricing ?? 0);
 
-  // ── coupon state ──
   const [isCouponApplied, setIsCouponApplied] = useState(false);
   const [couponDiscount, setCouponDiscount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(originalPrice);
@@ -45,7 +42,6 @@ export default function CourseCheckoutPage() {
   const courseCheckout = useCourseCheckout();
   const [modal, setModal] = useState(false);
 
-  // ── react-hook-form ──
   const form = useForm<FormValues>({
     resolver: zodResolver(CheckoutSchema),
     defaultValues: {
@@ -75,14 +71,18 @@ export default function CourseCheckoutPage() {
         loading: "Applying coupon…",
         success: (res) => {
           if (!res.success) throw new Error("Invalid coupon code");
-          const { discountedPrice, couponDiscount } = res.responseObject.data;
+          console.log("res", res);
+          const { discountedPrice, couponDiscount } = res.responseObject;
           setIsCouponApplied(true);
           setTotalPrice(Number(discountedPrice));
           setCouponDiscount(Number(couponDiscount));
           return "Coupon applied!";
         },
-        error: () => {
-          return "Coupon was not applied, Try again!";
+        error: (error) => {
+          console.log("error", error);
+          const errorMessage =
+            error.response.data.message || "Coupon was not applied, Try again!";
+          return errorMessage;
         },
       },
     );
@@ -129,7 +129,7 @@ export default function CourseCheckoutPage() {
             >
               {/* ── Left: Checkout Card ── */}
               <div className="flex-1 space-y-6">
-                <Card>
+                <Card className="shadow-none">
                   <CardHeader>
                     <CardTitle>Complete Your Purchase</CardTitle>
                   </CardHeader>
@@ -238,8 +238,8 @@ export default function CourseCheckoutPage() {
 
               {/* ── Right: Order Summary ── */}
               <div className="md:w-96 space-y-6">
-                <Card className="sticky top-8">
-                  <CardContent className="pt-6 space-y-4">
+                <Card className="sticky top-8  shadow-none">
+                  <CardContent className="pt-2 space-y-4">
                     <h3 className="text-lg font-semibold">Order Summary</h3>
 
                     <div className="space-y-2">
@@ -280,9 +280,9 @@ export default function CourseCheckoutPage() {
                     </p>
 
                     <div className="flex justify-center gap-4">
-                      <LockIcon className="w-5 h-5 text-gray-500" />
-                      <ShieldIcon className="w-5 h-5 text-gray-500" />
-                      <CreditCardIcon className="w-5 h-5 text-gray-500" />
+                      <LockIcon className="w-5 h-5 text-gray-400" />
+                      <ShieldIcon className="w-5 h-5 text-gray-400" />
+                      <CreditCardIcon className="w-5 h-5 text-gray-400" />
                     </div>
                   </CardContent>
                 </Card>
