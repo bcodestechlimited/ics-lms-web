@@ -77,7 +77,7 @@ export default function DashboardCourseOverview() {
 
   const handleMark = () => {
     if (!module?._id) return;
-    toast.promise(markCompleted(module._id), {
+    toast.promise(markCompleted(module?._id), {
       loading: "Marking module as completed…",
       success: () => "Module marked!",
       error: () => "Failed to mark module",
@@ -125,7 +125,7 @@ export default function DashboardCourseOverview() {
             {/* Module Content */}
             {!loadingModule && module ? (
               module.contentSections.map((section: any) => (
-                <ModuleContentSection section={section} key={section._id} />
+                <ModuleContentSection section={section} key={section?._id} />
               ))
             ) : (
               <div className="w-full mx-auto space-y-8">
