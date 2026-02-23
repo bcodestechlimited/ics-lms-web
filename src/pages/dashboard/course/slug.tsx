@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {CourseModuleSkeleton} from "@/components/course-card-skeleton";
+import { CourseModuleSkeleton } from "@/components/course-card-skeleton";
 import ModuleContentSection from "@/components/module-content-section";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   useGetCourseModuleByModuleId,
   useGetCourseProgress,
   useMarkModuleCompleted,
 } from "@/hooks/use-course";
 import DashboardLayout from "@/layouts/dashboard-layout";
-import {Check} from "lucide-react";
-import {useEffect} from "react";
-import {useNavigate, useParams} from "react-router";
-import {toast} from "sonner";
+import { Check } from "lucide-react";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 
 export default function DashboardCourseOverview() {
-  const {id: courseId, moduleId} = useParams<{
+  const { id: courseId, moduleId } = useParams<{
     id: string;
     moduleId: string;
   }>();
@@ -46,15 +46,15 @@ export default function DashboardCourseOverview() {
   const allModulesCompleted = doneModules === totalModules;
 
   const currentIndex =
-    progress?.modules.findIndex((m: any) => m.module._id === moduleId) ?? -1;
+    progress?.modules.findIndex((m: any) => m?.module?._id === moduleId) ?? -1;
 
   const moduleProgress = progress?.modules.find(
-    (m: any) => m.module._id === moduleId
+    (m: any) => m?.module?._id === moduleId,
   );
   const isModuleCompleted = moduleProgress?.completed === true;
 
   // 3) Mutation
-  const {mutateAsync: markCompleted} = useMarkModuleCompleted();
+  const { mutateAsync: markCompleted } = useMarkModuleCompleted();
 
   // Scroll to top on module change
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function DashboardCourseOverview() {
                   <div className="w-full bg-gray-200 h-2 rounded-full">
                     <div
                       className="bg-green-600 h-2 rounded-full"
-                      style={{width: `${pct}%`}}
+                      style={{ width: `${pct}%` }}
                     />
                   </div>
                 </>
@@ -155,7 +155,7 @@ export default function DashboardCourseOverview() {
                     variant="outline"
                     onClick={() =>
                       navigate(
-                        `/dashboard/courses/${courseId}/modules/${prevId}/overview`
+                        `/dashboard/courses/${courseId}/modules/${prevId}/overview`,
                       )
                     }
                   >
