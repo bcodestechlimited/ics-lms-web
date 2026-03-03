@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {CourseInfoCard} from "@/components/course-info-card";
+import { CourseInfoCard } from "@/components/course-info-card";
 import DisplayMarkupContent from "@/components/display-markup-content";
 import Footer from "@/components/footer";
-import {PageLoader} from "@/components/loading-spinner";
-import {useGetACourseById} from "@/hooks/use-course";
-import {useGetMyEnrolledCourses} from "@/hooks/use-dashboard";
-import {EnrolledCourse} from "@/interfaces/course.interface";
+import { PageLoader } from "@/components/loading-spinner";
+import { useGetACourseById } from "@/hooks/use-course";
+import { useGetMyEnrolledCourses } from "@/hooks/use-dashboard";
+import { EnrolledCourse } from "@/interfaces/course.interface";
 import {
   Globe,
   RefreshCw,
@@ -17,20 +17,20 @@ import {
   Star,
   ChevronRight,
 } from "lucide-react";
-import {useEffect} from "react";
-import {useParams} from "react-router";
+import { useEffect } from "react";
+import { useParams } from "react-router";
 
 export default function CourseSlugPage() {
   // const [isScrolled, setIsScrolled] = useState(false);
   const params = useParams();
-  const {data, isLoading} = useGetACourseById(params?.id);
-  const {data: enrolledCourses, isLoading: enrolledCoursesLoading} =
+  const { data, isLoading } = useGetACourseById(params?.id);
+  const { data: enrolledCourses, isLoading: enrolledCoursesLoading } =
     useGetMyEnrolledCourses();
 
   const isEnrolled =
     !enrolledCoursesLoading &&
     enrolledCourses?.responseObject?.data?.some(
-      (course: EnrolledCourse) => course._id === params?.id
+      (course: EnrolledCourse) => course._id === params?.id,
     );
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function CourseSlugPage() {
               <div className="space-y-3">
                 <p
                   className={`
-                    text-lg text-blue-100 leading-relaxed 
+                    text-lg text-blue-100 leading-relaxed
                     line-clamp-3
                   `}
                 >
@@ -186,6 +186,7 @@ export default function CourseSlugPage() {
               <h2 className="text-3xl font-bold text-[#0B2239] mb-6">
                 What you'll learn
               </h2>
+
               <DisplayMarkupContent content={course?.description} />
             </section>
 

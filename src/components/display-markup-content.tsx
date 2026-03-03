@@ -5,7 +5,7 @@ export default function DisplayMarkupContent({ content }: { content: string }) {
   return (
     <>
       <div
-        className="space-y-4 font-normal"
+        className="space-y-4 font-normal max-w-fit"
         dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
       />
     </>
