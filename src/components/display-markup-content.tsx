@@ -5,7 +5,10 @@ export default function DisplayMarkupContent({ content }: { content: string }) {
   return (
     <>
       <div
-        className="space-y-4 font-normal max-w-[350px]"
+        className=" space-y-4 font-normal max-w-[350px]
+               break-all
+               [overflow-wrap:anywhere]
+               [word-break:break-word]"
         dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
       />
     </>

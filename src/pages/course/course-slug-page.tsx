@@ -187,7 +187,7 @@ export default function CourseSlugPage() {
                 What you'll learn
               </h2>
 
-              <div className="space-y-4 font-normal max-w-fit">
+              <div className="space-y-4 font-normal w-full max-w-full">
                 <DisplayMarkupContent content={course?.description} />
               </div>
             </section>
