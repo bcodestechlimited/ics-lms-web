@@ -83,7 +83,7 @@ export function CourseCard({
 
   return (
     <div
-      className="inline-block"
+      className="w-full flex justify-center h-full"
       ref={(node) => {
         refs.setReference(node);
         if (cardRef.current !== node) {
@@ -93,25 +93,25 @@ export function CourseCard({
       {...getReferenceProps()}
     >
       <Card
-        className="w-full border-none shadow-none max-w-[374px] h-full max-h-[350px] p-2 rounded-lg transition-shadow pb-7 cursor-pointer"
+        className="w-full max-w-[374px] border border-border/50 shadow-sm hover:shadow-md rounded-xl transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between h-full bg-card"
         onClick={() => {
           handleViewCourse(_id as string);
         }}
       >
-        <CardHeader className="rounded-lg p-0">
+        <CardHeader className="rounded-t-xl p-0">
           <img
             src={image || "/assets/image/Leadership.png"}
             alt={title || "Leadership"}
-            className="max-h-[166px] h-[166px] object-cover rounded-lg"
+            className="w-full h-[180px] sm:h-[166px] object-cover rounded-t-xl"
           />
         </CardHeader>
-        <CardDescription className="space-y-4 p-0 text-[#0B2239]">
+        <CardDescription className="space-y-4 p-4 text-[#0B2239] flex-1 flex flex-col justify-between">
           <CardContent className="p-0 text-[#0B2239]">
             <div className="mb-2">
-              <h2 className="leading-normal text-[15px] font-bold">{title}</h2>
-              <p className="text-gray-500 text-sm font-medium">{instructor}</p>
+              <h2 className="leading-snug text-base font-bold line-clamp-1">{title}</h2>
+              <p className="text-gray-500 text-xs sm:text-sm font-medium">{instructor}</p>
             </div>
-            <p className="line-clamp-2 text-sm">{summary}</p>
+            <p className="line-clamp-2 text-xs sm:text-sm text-gray-600 leading-relaxed">{summary}</p>
           </CardContent>
           <CardFooter className="p-0"></CardFooter>
         </CardDescription>
@@ -125,7 +125,7 @@ export function CourseCard({
             zIndex: 50,
           }}
           {...getFloatingProps()}
-          className="z-50 w-96 bg-white rounded-lg shadow-lg border border-gray-200 p-4"
+          className="hidden md:block z-50 w-80 sm:w-96 max-w-[calc(100vw-32px)] bg-white rounded-lg shadow-xl border border-gray-200 p-4"
         >
           <FloatingArrow ref={arrowRef} context={context} fill="white" />
 

@@ -40,32 +40,33 @@ export function Navbar() {
 
 
   return (
-    <nav className="py-4 border-b">
-      <div className="flex items-center justify-between container mx-auto">
-        <Link to={"/"}>
+    <nav className="py-3 sm:py-4 border-b bg-background sticky top-0 z-40">
+      <div className="flex items-center justify-between container mx-auto px-4 sm:px-6 lg:px-8">
+        <Link to={"/"} className="flex-shrink-0">
           <img
             src="/assets/image/logo-black.png"
             alt="Logo"
-            className="h-14 w-auto"
+            className="h-10 sm:h-12 md:h-14 w-auto object-contain"
           />
         </Link>
 
         <NavBar items={navItems} className="" />
 
         {session?._id ? (
-          <div className="flex items-center gap-4">
-            {/* <Link to="/dashboard">
-              <Button>Dashboard</Button>
-            </Link> */}
+          <div className="flex items-center gap-2 sm:gap-4">
             <UserDropdown />
           </div>
         ) : (
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center gap-x-2 sm:gap-x-4">
             <Link to="/auth/login">
-              <Button variant="ghost">Sign In</Button>
+              <Button variant="ghost" size="sm" className="sm:text-sm text-xs px-2.5 sm:px-4">
+                Sign In
+              </Button>
             </Link>
             <Link to="/auth/signup">
-              <Button variant="default">Sign Up</Button>
+              <Button variant="default" size="sm" className="sm:text-sm text-xs px-2.5 sm:px-4">
+                Sign Up
+              </Button>
             </Link>
           </div>
         )}
@@ -76,22 +77,26 @@ export function Navbar() {
 
 export const GenericNavbar = () => {
   return (
-    <nav className="py-4 border-b">
-      <div className="flex items-center justify-between container mx-auto">
-        <Link to={"/"}>
+    <nav className="py-3 sm:py-4 border-b bg-background sticky top-0 z-40">
+      <div className="flex items-center justify-between container mx-auto px-4 sm:px-6 lg:px-8">
+        <Link to={"/"} className="flex-shrink-0">
           <img
             src="/assets/image/logo-black.png"
             alt="Logo"
-            className="h-14 w-auto"
+            className="h-10 sm:h-12 md:h-14 w-auto object-contain"
           />
         </Link>
 
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-2 sm:gap-x-4">
           <Link to="/auth/login">
-            <Button variant="ghost">Sign In</Button>
+            <Button variant="ghost" size="sm" className="sm:text-sm text-xs px-2.5 sm:px-4">
+              Sign In
+            </Button>
           </Link>
           <Link to="/auth/signup">
-            <Button variant="default">Sign Up</Button>
+            <Button variant="default" size="sm" className="sm:text-sm text-xs px-2.5 sm:px-4">
+              Sign Up
+            </Button>
           </Link>
         </div>
       </div>

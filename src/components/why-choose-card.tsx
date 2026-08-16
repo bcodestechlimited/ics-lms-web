@@ -31,12 +31,12 @@ export function WhyChooseCard({
   text: string;
 }) {
   return (
-    <Card className="w-full shadow-none p-6 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg border border-white/10">
-      <div className="flex items-center gap-4">
-        <span className="w-12 h-12 flex items-center justify-center rounded-xl backdrop-blur-md bg-white/20">
+    <Card className="w-full shadow-sm p-4 sm:p-6 rounded-2xl transition-all duration-300 hover:scale-[1.01] sm:hover:scale-[1.02] hover:shadow-md border border-border/60 bg-card">
+      <div className="flex items-center gap-3 sm:gap-4">
+        <span className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center rounded-xl bg-primary/10 text-primary">
           {icon}
         </span>
-        <p className="text-lg font-medium text-[#222]">{text}</p>
+        <p className="text-sm sm:text-base md:text-lg font-medium text-foreground">{text}</p>
       </div>
     </Card>
   );

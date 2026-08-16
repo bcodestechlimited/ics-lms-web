@@ -7,13 +7,8 @@ export const loginSchema = z.object({
 
 const PasswordSchema = z
   .string({ message: "Password is required" })
-  .min(6, { message: "Password must be at least 6 characters long" })
-  .refine((val) => /[!@#$%^&*(),.?":{}|<>]/.test(val), {
-    message: "Password must contain at least one special character",
-  })
-  .refine((val) => /\d/.test(val), {
-    message: "Password must contain at least one number",
-  });
+  .min(8, { message: "Password must be at least 8 characters long" })
+
 
 export const registerSchema = z.object({
   email: z
@@ -26,13 +21,8 @@ export const registerSchema = z.object({
   lastName: z.string().nonempty({ message: "Lastname is required" }),
   password: z
     .string({ message: "Password is required" })
-    .min(6, { message: "Password must be at least 6 characters long" })
-    .refine((val) => /[!@#$%^&*(),.?":{}|<>]/.test(val), {
-      message: "Password must contain at least one special character",
-    })
-    .refine((val) => /\d/.test(val), {
-      message: "Password must contain at least one number",
-    }),
+    .min(8, { message: "Password must be at least 8 characters long" })
+
 });
 
 export const passwordSchema = z
@@ -40,11 +30,7 @@ export const passwordSchema = z
     currentPassword: z.string().min(1, "Current password is required"),
     newPassword: z
       .string()
-      .min(8, "Password must be at least 8 characters")
-      .regex(/[A-Z]/, "Must contain at least one uppercase letter")
-      .regex(/[a-z]/, "Must contain at least one lowercase letter")
-      .regex(/[0-9]/, "Must contain at least one number")
-      .regex(/[^a-zA-Z0-9]/, "Must contain at least one special character"),
+      .min(8, "Password must be at least 8 characters") ,
     confirmPassword: z.string(),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
