@@ -1,26 +1,22 @@
 import Footer from "@/components/footer";
 
-const styles = {
-  header: `leading-normal font-bold`,
-};
-
 export default function AboutUsPage() {
   return (
-    <div className="">
-      <div className="container mx-auto pt-[43px] text-[#0B2239] space-y-8">
+    <div className="min-h-screen flex flex-col bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 text-[#0B2239] space-y-8 sm:space-y-12">
         {/* Hero Image */}
         <img
           src="/assets/image/about-us-hero.webp"
           alt="About us hero banner"
-          className="w-full h-auto object-cover rounded-lg max-h-[300px] sm:max-h-[400px] md:max-h-[500px] lg:max-h-[600px]"
+          className="w-full h-auto object-cover rounded-xl shadow-md max-h-[250px] sm:max-h-[350px] md:max-h-[450px] lg:max-h-[550px]"
         />
 
         {/* Main Heading */}
-        <h2 className={`${styles.header} text-[32px]`}>About Us</h2>
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">About Us</h2>
 
         {/* About Us Intro */}
         <div className="space-y-4">
-          <p className="text-justify">
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             Imagine a world where every individual, no matter where they are or
             what their circumstances might be, has the power to unlock their
             potential through education. At {import.meta.env.VITE_APP_NAME}{" "}
@@ -33,8 +29,8 @@ export default function AboutUsPage() {
 
         {/* Our Story */}
         <div className="space-y-4">
-          <h3 className="text-[24px] font-semibold">Our Story</h3>
-          <p className="text-justify">
+          <h3 className="text-xl sm:text-2xl font-semibold text-[#0B2239]">Our Story</h3>
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             Our journey begins with {import.meta.env.VITE_APP_NAME} Outsourcing,
             Nigeria’s foremost HR and workforce solutions provider. For years,
             we’ve been at the heart of connecting people with meaningful
@@ -45,7 +41,7 @@ export default function AboutUsPage() {
             bold idea—to extend our expertise into the realm of learning and
             make high-quality education accessible to all.
           </p>
-          <p className="text-justify">
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             And so, {import.meta.env.VITE_APP_NAME} Sourcing LMS was born. As an
             innovative online platform, we set out to democratize education,
             breaking down barriers of distance, time, and resources. What
@@ -57,10 +53,10 @@ export default function AboutUsPage() {
 
         {/* Mission and Vision */}
         <div className="space-y-4">
-          <h3 className="text-[24px] font-semibold">
+          <h3 className="text-xl sm:text-2xl font-semibold text-[#0B2239]">
             Our Mission &amp; Vision
           </h3>
-          <p className="text-justify">
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             Our vision is clear: to create a world where every person has the
             opportunity to reach their full potential through learning. Our
             mission is to make that vision a reality by delivering cutting-edge,
@@ -72,8 +68,8 @@ export default function AboutUsPage() {
 
         {/* What We Offer */}
         <div className="space-y-4">
-          <h3 className="text-[24px] font-semibold">What We Offer</h3>
-          <p className="text-justify">
+          <h3 className="text-xl sm:text-2xl font-semibold text-[#0B2239]">What We Offer</h3>
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             At {import.meta.env.VITE_APP_NAME} Sourcing LMS, we provide a
             diverse and ever-growing catalog of courses designed to meet the
             demands of today’s world. From technology and business to
@@ -81,7 +77,7 @@ export default function AboutUsPage() {
             offerings are as varied as the aspirations of our learners. Each
             course is:
           </p>
-          <ul className="list-disc list-inside text-justify space-y-2">
+          <ul className="list-disc list-inside text-sm sm:text-base text-gray-700 space-y-2 pl-2 sm:pl-4">
             <li>
               <strong>Expertly Crafted:</strong> Designed by industry leaders
               and taught by passionate, experienced instructors.
@@ -95,24 +91,23 @@ export default function AboutUsPage() {
               anywhere, on any device, so you can learn on your terms.
             </li>
           </ul>
-          <p className="text-justify">
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             Whether you are an aspiring entrepreneur looking to launch a
             business, a professional aiming to pivot into a new career, or
             someone simply eager to explore a new passion, we have got you
             covered. Our platform is built to be intuitive and user-friendly,
-            ensuring that your focus remains on learning, not logist
-            {import.meta.env.VITE_APP_NAME}.
+            ensuring that your focus remains on learning.
           </p>
         </div>
 
         {/* What Sets Us Apart */}
         <div className="space-y-4">
-          <h3 className="text-[24px] font-semibold">What Sets Us Apart</h3>
-          <p className="text-justify">
+          <h3 className="text-xl sm:text-2xl font-semibold text-[#0B2239]">What Sets Us Apart</h3>
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             We are more than just an online learning platform—we are a partner
             in your transformation. Here is what makes us unique:
           </p>
-          <ul className="list-disc list-inside text-justify space-y-2">
+          <ul className="list-disc list-inside text-sm sm:text-base text-gray-700 space-y-2 pl-2 sm:pl-4">
             <li>
               <strong>Rooted in Expertise:</strong> As part of{" "}
               {import.meta.env.VITE_APP_NAME} Outsourcing, we bring decades of
@@ -120,10 +115,10 @@ export default function AboutUsPage() {
               courses are always relevant and forward-thinking.
             </li>
           </ul>
-          <p className="text-justify">
-            <strong>Core Principles:</strong>
+          <p className="text-sm sm:text-base text-gray-700 font-semibold pt-2">
+            Core Principles:
           </p>
-          <ul className="list-disc list-inside text-justify space-y-2">
+          <ul className="list-disc list-inside text-sm sm:text-base text-gray-700 space-y-2 pl-2 sm:pl-4">
             <li>
               <strong>Accessibility:</strong> Education should know no
               boundaries. We are here for everyone, everywhere.
@@ -141,7 +136,7 @@ export default function AboutUsPage() {
               and leaders who inspire and support one another.
             </li>
           </ul>
-          <p className="text-justify">
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed pt-2">
             <strong>A Focus on Transformation:</strong> We don’t just teach; we
             empower. Every course is a step toward a bigger goal, a better you,
             and a stronger future.
@@ -150,13 +145,13 @@ export default function AboutUsPage() {
 
         {/* Why Learn With Us */}
         <div className="space-y-4">
-          <h3 className="text-[24px] font-semibold">Why Learn With Us?</h3>
-          <p className="text-justify">
+          <h3 className="text-xl sm:text-2xl font-semibold text-[#0B2239]">Why Learn With Us?</h3>
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             Learning with {import.meta.env.VITE_APP_NAME} Sourcing LMS is not
             just about gaining knowledge—it is about changing your life. Our
             courses offer:
           </p>
-          <ul className="list-disc list-inside text-justify space-y-2">
+          <ul className="list-disc list-inside text-sm sm:text-base text-gray-700 space-y-2 pl-2 sm:pl-4">
             <li>
               <strong>Flexibility:</strong> Study when and where it suits you,
               fitting education into your busy life.
@@ -170,7 +165,7 @@ export default function AboutUsPage() {
               with resources and guidance at every turn.
             </li>
           </ul>
-          <p className="text-justify">
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             We have seen learners go from uncertainty to confidence, from ideas
             to action, from jobs to careers. That’s the power of education, and
             it’s what drives us every day.
@@ -178,17 +173,17 @@ export default function AboutUsPage() {
         </div>
 
         {/* Join Us on the Journey */}
-        <div className="space-y-4 pb-8">
-          <h3 className="text-[24px] font-semibold">Join Us on the Journey</h3>
-          <p className="text-justify">
+        <div className="space-y-4 pb-8 sm:pb-12">
+          <h3 className="text-xl sm:text-2xl font-semibold text-[#0B2239]">Join Us on the Journey</h3>
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             At {import.meta.env.VITE_APP_NAME} Sourcing LMS, we’re not just
             offering courses—we are inviting you to be part of something bigger.
             A community of dreamers, doers, and changemakers. A place where your
             growth becomes our legacy.
           </p>
-          <p className="text-justify">
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
             Take the first step today. Explore our courses, connect with our
-            community, and discover how learning can transform your life. With
+            community, and discover how learning can transform your life. With{" "}
             {import.meta.env.VITE_APP_NAME} Sourcing LMS, the possibilities are
             endless, and your future is waiting.
           </p>

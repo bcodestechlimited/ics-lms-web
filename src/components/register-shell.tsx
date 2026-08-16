@@ -77,55 +77,59 @@ export function RegisterShell() {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>First Name</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="First Name" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Last Name</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Last Name" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs sm:text-sm font-medium">First Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="First Name" className="h-10 text-sm" />
+                  </FormControl>
+                  <FormMessage className="text-xs" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs sm:text-sm font-medium">Last Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Last Name" className="h-10 text-sm" />
+                  </FormControl>
+                  <FormMessage className="text-xs" />
+                </FormItem>
+              )}
+            />
+          </div>
+
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-xs sm:text-sm font-medium">Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="Email" {...field} />
+                  <Input placeholder="name@example.com" {...field} className="h-10 text-sm" />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="telephone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number</FormLabel>
+                <FormLabel className="text-xs sm:text-sm font-medium">Phone Number</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Telephone" />
+                  <Input {...field} placeholder="Telephone" className="h-10 text-sm" />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
@@ -135,18 +139,18 @@ export function RegisterShell() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-xs sm:text-sm font-medium">Password</FormLabel>
                 <FormControl>
-                  <PasswordInput {...field} label="" />
+                  <PasswordInput {...field} label="" placeholder="Create a password" />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
 
-          <Button className="bg-[#134587] w-full" disabled={isLoading}>
+          <Button className="bg-[#134587] hover:bg-[#0e3568] w-full h-10 text-sm font-medium mt-2" disabled={isLoading}>
             {isLoading ? (
-              <Loader2 className="animate-spin text-white" />
+              <Loader2 className="animate-spin text-white h-4 w-4" />
             ) : (
               "Create Account"
             )}

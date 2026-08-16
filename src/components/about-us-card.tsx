@@ -1,41 +1,37 @@
 import { NumberTickerComp } from "./number-ticker-comp";
 
-const styles = {
-  list: `flex flex-col items-center justify-center w-full`,
-  counter: `flex items-center gap-x-1`,
-};
 export default function AboutUsCard() {
   return (
-    <div className="flex gap-x-[15px] w-full">
-      <div className="bg-[#134587] w-full h-[200px]">
-        <div className="flex w-full text-white divide-x h-full">
-          <div className={`${styles.list} border-b`}>
-            <div className={styles.counter}>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#134587] w-full rounded-2xl py-8 sm:py-10 px-4 sm:px-8 shadow-lg">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-white divide-y-0 md:divide-x divide-white/20">
+          <div className="flex flex-col items-center justify-center p-2 text-center">
+            <div className="flex items-center justify-center gap-x-1 font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
               <NumberTickerComp value={45} />
-              <p className="text-6xl">+</p>
+              <span>+</span>
             </div>
-            <span>Courses</span>
+            <span className="text-xs sm:text-sm md:text-base font-medium text-white/90 mt-2 tracking-wider">Courses</span>
           </div>
-          <div className={`${styles.list} border-b w-full`}>
-            <div className={styles.counter}>
+          <div className="flex flex-col items-center justify-center p-2 text-center md:pl-6">
+            <div className="flex items-center justify-center gap-x-1 font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
               <NumberTickerComp value={100} />
-              <p className="text-6xl">+</p>
+              <span>+</span>
             </div>
-            <span>Videos</span>
+            <span className="text-xs sm:text-sm md:text-base font-medium text-white/90 mt-2 tracking-wider">Videos</span>
           </div>
-          <div className={`${styles.list} border-b`}>
-            <div className={styles.counter}>
+          <div className="flex flex-col items-center justify-center p-2 text-center md:pl-6">
+            <div className="flex items-center justify-center gap-x-1 font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
               <NumberTickerComp value={500} />
-              <p className="text-6xl">+</p>
+              <span>+</span>
             </div>
-            <span>Hours</span>
+            <span className="text-xs sm:text-sm md:text-base font-medium text-white/90 mt-2 tracking-wider">Hours</span>
           </div>
-          <div className={`${styles.list}`}>
-            <div className={styles.counter}>
+          <div className="flex flex-col items-center justify-center p-2 text-center md:pl-6">
+            <div className="flex items-center justify-center gap-x-1 font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
               <NumberTickerComp value={120} />
-              <p className="text-6xl">+</p>
+              <span>+</span>
             </div>
-            <span>Students</span>
+            <span className="text-xs sm:text-sm md:text-base font-medium text-white/90 mt-2 tracking-wider">Students</span>
           </div>
         </div>
       </div>

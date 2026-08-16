@@ -56,39 +56,34 @@ export default function CourseSlugPage() {
   };
 
   return (
-    <div className="relative bg-gray-50 min-h-screen">
+    <div className="relative bg-gray-50 min-h-screen flex flex-col">
       <div className="relative bg-gradient-to-br from-[#134587] via-[#1a5a9f] to-[#0f3666] overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-6 lg:px-12 py-16 lg:py-20 relative">
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-7 text-white space-y-6">
-              <div className="flex items-center gap-2 text-sm text-blue-200">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-14 lg:py-20 relative">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div className="lg:col-span-7 text-white space-y-4 sm:space-y-6">
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-blue-200">
                 <span>Courses</span>
                 <span>/</span>
-                <span>Professional Development</span>
+                <span className="truncate">Professional Development</span>
               </div>
 
-              <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
                 {course?.title}
               </h1>
 
               <div className="space-y-3">
-                <p
-                  className={`
-                    text-lg text-blue-100 leading-relaxed
-                    line-clamp-3
-                  `}
-                >
+                <p className="text-sm sm:text-base md:text-lg text-blue-100 leading-relaxed line-clamp-3">
                   {course?.summary}
                 </p>
                 <button
                   type="button"
                   onClick={handleReadMoreClick}
-                  className="group inline-flex items-center gap-1 text-sm font-semibold text-white/90 hover:text-white"
+                  className="group inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-white/90 hover:text-white"
                   aria-label="Read more about this course"
                 >
                   Read more
@@ -97,7 +92,7 @@ export default function CourseSlugPage() {
               </div>
 
               {/* Stats Row */}
-              <div className="flex flex-wrap gap-6 pt-4">
+              <div className="flex flex-wrap gap-4 pt-2">
                 <div className="flex items-center gap-2">
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
@@ -110,16 +105,16 @@ export default function CourseSlugPage() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-blue-400/30">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4 sm:pt-6 border-t border-blue-400/30 text-xs sm:text-sm">
                 <div>
-                  <p className="text-sm text-blue-200">Created by</p>
-                  <p className="font-semibold">L&D LMS</p>
+                  <p className="text-blue-200">Created by</p>
+                  <p className="font-semibold text-sm sm:text-base">L&D LMS</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RefreshCw className="h-5 w-5" />
+                  <RefreshCw className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
                   <div>
-                    <p className="text-sm text-blue-200">Last Updated</p>
-                    <p className="font-semibold">
+                    <p className="text-blue-200">Last Updated</p>
+                    <p className="font-semibold text-sm sm:text-base">
                       {course?.updatedAt
                         ? new Date(course.updatedAt).toLocaleDateString()
                         : "—"}
@@ -127,10 +122,10 @@ export default function CourseSlugPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Globe className="h-5 w-5" />
+                  <Globe className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
                   <div>
-                    <p className="text-sm text-blue-200">Language</p>
-                    <p className="font-semibold">English</p>
+                    <p className="text-blue-200">Language</p>
+                    <p className="font-semibold text-sm sm:text-base">English</p>
                   </div>
                 </div>
               </div>
@@ -143,7 +138,7 @@ export default function CourseSlugPage() {
                 title={course?.title}
                 description=""
                 summary={course?.summary}
-                moduleId={course?.course_modules[0]}
+                moduleId={course?.course_modules?.[0]}
                 isEnrolled={isEnrolled}
               />
             </div>
@@ -151,92 +146,90 @@ export default function CourseSlugPage() {
         </div>
       </div>
 
-      {/* Sticky Card on Scroll */}
-      {/* {isScrolled && (
-        <div className="hidden lg:block fixed top-6 right-12 z-50 transition-all duration-300 ">
-          <CourseInfoCard
-            _id={course?._id}
-            image={course?.image}
-            title={course?.title}
-            description=""
-            summary={course?.summary}
-            moduleId={course?.course_modules[0]}
-            isEnrolled={isEnrolled}
-          />
-        </div>
-      )} */}
-
       {/* Main Content */}
-      <main className="container mx-auto px-6 lg:px-12 py-16">
-        <div className="grid lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-7 space-y-12">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-12 py-8 sm:py-12 lg:py-16 flex-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          {/* Mobile CourseInfoCard displayed at top of content on mobile screens */}
+          <div className="lg:hidden w-full flex justify-center">
+            <CourseInfoCard
+              _id={course?._id}
+              image={course?.image}
+              title={course?.title}
+              description=""
+              summary={course?.summary}
+              moduleId={course?.course_modules?.[0]}
+              isEnrolled={isEnrolled}
+            />
+          </div>
+
+          <div className="lg:col-span-7 space-y-8 sm:space-y-12">
             <section
               id="course-overview"
-              className="bg-white rounded-xl p-8  border border-gray-200 scroll-mt-24"
+              className="bg-white rounded-2xl p-5 sm:p-8 border border-gray-200/80 shadow-sm scroll-mt-24"
             >
-              <h2 className="text-3xl font-bold text-[#0B2239] mb-4">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#0B2239] mb-3 sm:mb-4">
                 Overview
               </h2>
-              <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+              <p className="text-sm sm:text-base text-gray-700 leading-relaxed whitespace-pre-line">
                 {course?.summary}
               </p>
             </section>
 
-            <section className="bg-white rounded-xl p-8  border border-gray-200">
-              <h2 className="text-3xl font-bold text-[#0B2239] mb-6">
+            <section className="bg-white rounded-2xl p-5 sm:p-8 border border-gray-200/80 shadow-sm">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#0B2239] mb-4 sm:mb-6">
                 What you'll learn
               </h2>
 
-              <div className="space-y-4 font-normal w-full max-w-full">
+              <div className="space-y-4 font-normal w-full max-w-full text-sm sm:text-base leading-relaxed">
                 <DisplayMarkupContent content={course?.description} />
               </div>
             </section>
 
-            <section className="bg-white rounded-xl p-8  border border-gray-200">
-              <h2 className="text-3xl font-bold text-[#0B2239] mb-6">
+            <section className="bg-white rounded-2xl p-5 sm:p-8 border border-gray-200/80 shadow-sm">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#0B2239] mb-4 sm:mb-6">
                 Course Content
               </h2>
               <div className="space-y-3">
                 {course?.course_modules?.map((module: any, index: number) => (
                   <div
                     key={module._id ?? index}
-                    className="flex items-start gap-4 p-4 rounded-lg border border-gray-200 hover:border-[#134587] hover:shadow-md transition-all cursor-pointer"
+                    className="flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl border border-gray-200 hover:border-[#134587] hover:shadow-md transition-all cursor-pointer bg-gray-50/50 hover:bg-white"
                   >
-                    <div className="flex-shrink-0 w-10 h-10 bg-[#134587] text-white rounded-full flex items-center justify-center font-bold">
+                    <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-[#134587] text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm">
                       {index + 1}
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900 mb-1">
+                      <h3 className="font-semibold text-gray-900 text-sm sm:text-base mb-0.5">
                         {module.title}
                       </h3>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-xs text-gray-500">
                         Updated{" "}
                         {module.updatedAt
                           ? new Date(module.updatedAt).toLocaleDateString()
                           : "—"}
                       </p>
                     </div>
-                    <CheckCircle2 className="h-5 w-5 text-gray-300" />
+                    <CheckCircle2 className="h-5 w-5 text-gray-300 flex-shrink-0 mt-0.5" />
                   </div>
                 ))}
               </div>
             </section>
 
-            <section className="bg-white rounded-xl p-8  border border-gray-200">
-              <h2 className="text-3xl font-bold text-[#0B2239] mb-6">
+            <section className="bg-white rounded-2xl p-5 sm:p-8 border border-gray-200/80 shadow-sm">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#0B2239] mb-4 sm:mb-6">
                 Requirements
               </h2>
-              <ul className="space-y-3 text-gray-700">
+              <ul className="space-y-3 text-sm sm:text-base text-gray-700">
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                   <span>No prior experience required</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                   <span>Willingness to learn and adapt</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                   <span>Access to a computer with internet connection</span>
                 </li>
               </ul>
@@ -244,49 +237,37 @@ export default function CourseSlugPage() {
           </div>
 
           <div className="lg:col-span-5 space-y-6">
-            <div className="lg:hidden">
-              <CourseInfoCard
-                _id={course?._id}
-                image={course?.image}
-                title={course?.title}
-                description=""
-                summary={course?.summary}
-                moduleId={course?.course_modules[0]}
-                isEnrolled={isEnrolled}
-              />
-            </div>
-
-            <div className="bg-white rounded-xl p-6  border border-gray-200">
-              <h3 className="font-bold text-xl mb-4">This course includes:</h3>
-              <ul className="space-y-3 text-gray-700">
+            <div className="bg-white rounded-2xl p-5 sm:p-6 border border-gray-200/80 shadow-sm">
+              <h3 className="font-bold text-lg sm:text-xl text-[#0B2239] mb-4">This course includes:</h3>
+              <ul className="space-y-3.5 text-xs sm:text-sm text-gray-700">
                 <li className="flex items-center gap-3">
-                  <BookOpen className="h-5 w-5 text-[#134587]" />
+                  <BookOpen className="h-5 w-5 text-[#134587] flex-shrink-0" />
                   <span>
-                    {course?.course_modules?.length} comprehensive modules
+                    {course?.course_modules?.length || 0} comprehensive modules
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Award className="h-5 w-5 text-[#134587]" />
+                  <Award className="h-5 w-5 text-[#134587] flex-shrink-0" />
                   <span>Certificate of completion</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Clock className="h-5 w-5 text-[#134587]" />
+                  <Clock className="h-5 w-5 text-[#134587] flex-shrink-0" />
                   <span>Lifetime access</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Users className="h-5 w-5 text-[#134587]" />
+                  <Users className="h-5 w-5 text-[#134587] flex-shrink-0" />
                   <span>Expert instructor support</span>
                 </li>
               </ul>
             </div>
 
             {coursePrice && (
-              <div className="bg-gradient-to-br from-[#134587] to-[#0f3666] rounded-xl p-6 text-white">
-                <h3 className="font-bold text-xl mb-2">Course Price</h3>
-                <p className="text-4xl font-bold mb-4">
+              <div className="bg-gradient-to-br from-[#134587] to-[#0f3666] rounded-2xl p-6 text-white shadow-md">
+                <h3 className="font-bold text-lg sm:text-xl mb-2">Course Price</h3>
+                <p className="text-3xl sm:text-4xl font-bold mb-3">
                   ₦{coursePrice.toLocaleString()}
                 </p>
-                <p className="text-sm text-blue-100">
+                <p className="text-xs sm:text-sm text-blue-100">
                   One-time payment • Lifetime access
                 </p>
               </div>

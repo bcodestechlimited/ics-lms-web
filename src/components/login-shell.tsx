@@ -80,11 +80,11 @@ export function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-xs sm:text-sm font-medium">Email Address</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <Input placeholder="name@example.com" {...field} className="h-10 text-sm" />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-xs" />
             </FormItem>
           )}
         />
@@ -94,7 +94,7 @@ export function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="text-xs sm:text-sm font-medium">Password</FormLabel>
               <FormControl>
                 <PasswordInput
                   {...field}
@@ -102,14 +102,14 @@ export function LoginForm() {
                   placeholder="Enter your password"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-xs" />
             </FormItem>
           )}
         />
 
-        <Button className="bg-[#134587] w-full" disabled={isLoading}>
+        <Button className="bg-[#134587] hover:bg-[#0e3568] w-full h-10 text-sm font-medium mt-2" disabled={isLoading}>
           {isLoading ? (
-            <Loader2 className="animate-spin text-white" />
+            <Loader2 className="animate-spin text-white h-4 w-4" />
           ) : (
             "Login"
           )}

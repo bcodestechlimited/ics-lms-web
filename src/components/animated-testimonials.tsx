@@ -53,13 +53,13 @@ export const AnimatedTestimonials = ({
   return (
     <div
       className={cn(
-        "max-w-sm md:max-w-4xl mx-auto px-4 md:px-8 lg:px-12 py-20",
+        "w-full max-w-full sm:max-w-xl md:max-w-4xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-14 md:py-20",
         className
       )}
     >
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
+      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 lg:gap-20 items-center">
         <div>
-          <div className="relative h-80 w-full">
+          <div className="relative h-64 sm:h-80 w-full max-w-sm mx-auto md:max-w-none">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
                 <motion.div
@@ -105,7 +105,7 @@ export const AnimatedTestimonials = ({
             </AnimatePresence>
           </div>
         </div>
-        <div className="flex justify-between flex-col py-4">
+        <div className="flex justify-between flex-col py-2 sm:py-4">
           <motion.div
             key={active}
             initial={{
@@ -125,13 +125,13 @@ export const AnimatedTestimonials = ({
               ease: "easeInOut",
             }}
           >
-            <h3 className="text-2xl font-bold text-foreground">
+            <h3 className="text-xl sm:text-2xl font-bold text-foreground">
               {testimonials[active].name}
             </h3>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               {testimonials[active].designation}
             </p>
-            <motion.p className="text-lg text-muted-foreground mt-8 text-justify">
+            <motion.p className="text-base sm:text-lg text-muted-foreground mt-4 sm:mt-6 text-left leading-relaxed">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -150,23 +150,25 @@ export const AnimatedTestimonials = ({
                     ease: "easeInOut",
                     delay: 0.02 * index,
                   }}
-                  className="inline-block text-justify"
+                  className="inline-block"
                 >
                   {word}&nbsp;
                 </motion.span>
               ))}
             </motion.p>
           </motion.div>
-          <div className="flex gap-4 pt-12 md:pt-0">
+          <div className="flex gap-4 pt-6 sm:pt-8 md:pt-0">
             <button
               onClick={handlePrev}
-              className="h-7 w-7 rounded-full bg-secondary flex items-center justify-center group/button z-50 cursor-pointer"
+              className="h-9 w-9 sm:h-8 sm:w-8 rounded-full bg-secondary flex items-center justify-center group/button z-50 cursor-pointer hover:bg-secondary/80"
+              aria-label="Previous testimonial"
             >
               <ChevronLeftIcon className="h-5 w-5 text-foreground group-hover/button:rotate-12 transition-transform duration-300" />
             </button>
             <button
               onClick={handleNext}
-              className="h-7 w-7 rounded-full bg-secondary flex items-center justify-center group/button z-50 cursor-pointer"
+              className="h-9 w-9 sm:h-8 sm:w-8 rounded-full bg-secondary flex items-center justify-center group/button z-50 cursor-pointer hover:bg-secondary/80"
+              aria-label="Next testimonial"
             >
               <ChevronRightIcon className="h-5 w-5 text-foreground group-hover/button:-rotate-12 transition-transform duration-300" />
             </button>
