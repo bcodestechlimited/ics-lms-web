@@ -7,17 +7,27 @@ import Footer from "@/components/footer";
 import { SparklesTextComp } from "@/components/sparkle-paragraph";
 import { Faq3 } from "@/components/support";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import WhyChooseUs from "@/components/why-choose-card";
 import { catalogue, faqItems } from "@/data/static-card";
 import { useGetHomePageCourses } from "@/hooks/use-course";
 import { CourseInterface } from "@/interfaces/course.interface";
+import { BookOpen, Search, Sparkles, X } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 export default function Home() {
   const navigate = useNavigate();
   const { data, isLoading } = useGetHomePageCourses();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const courses = (!isLoading && data?.data?.courses) || [];
+
+  const filteredCatalogue = catalogue.filter(
+    (item) =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -46,22 +56,76 @@ export default function Home() {
 
       <main className="space-y-16 sm:space-y-24 pt-10 sm:pt-14">
         {/* Course Catalogue Section */}
-        <section className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0B2239] text-center">
-            View Our Course Catalogue
-          </h2>
+        <section className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
+          {/* Header & Subtitle */}
+          <div className="flex flex-col items-center text-center space-y-3 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-wider uppercase">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Explore Learning Tracks</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0B2239] tracking-tight">
+              View Our Course Catalogue
+            </h2>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              Discover industry-vetted career tracks designed to build practical, job-ready skills in technology, business, design, and beyond.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-            {catalogue.map((category) => {
-              return (
+          {/* Search & Quick Filter Bar */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 max-w-4xl mx-auto bg-muted/40 p-2 sm:p-3 rounded-2xl border border-border/60">
+            <div className="relative w-full sm:max-w-xs group">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+              <Input
+                type="text"
+                placeholder="Filter categories..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-9 h-10 text-xs sm:text-sm rounded-xl border-border/80 bg-background focus-visible:ring-2 focus-visible:ring-primary/30"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
+            <div className="flex items-center gap-3 text-xs text-muted-foreground font-medium self-end sm:self-center">
+              <span>Showing <strong>{filteredCatalogue.length}</strong> of <strong>{catalogue.length}</strong> categories</span>
+            </div>
+          </div>
+
+          {/* Catalogue Grid / Empty State */}
+          {filteredCatalogue.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+              {filteredCatalogue.map((category) => (
                 <CatalogCard
                   title={category.title}
                   category={category.category}
                   key={category.title}
                 />
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 px-4 rounded-2xl bg-muted/30 border border-dashed border-border space-y-3 max-w-md mx-auto">
+              <BookOpen className="w-10 h-10 text-muted-foreground mx-auto" />
+              <h3 className="font-bold text-base text-foreground">No categories found</h3>
+              <p className="text-xs text-muted-foreground">
+                We couldn't find any category matching "{searchQuery}".
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSearchQuery("")}
+                className="rounded-full text-xs"
+              >
+                Clear Search
+              </Button>
+            </div>
+          )}
         </section>
 
         {/* Featured Courses */}
