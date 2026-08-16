@@ -1,6 +1,6 @@
-import {CourseInterface} from "@/interfaces/course.interface";
-import {CourseCard} from "./course-card";
-import {CourseCardSkeleton} from "./course-card-skeleton";
+import { CourseInterface } from "@/interfaces/course.interface";
+import { CourseCard } from "./course-card";
+import { CourseCardSkeleton } from "./course-card-skeleton";
 
 export default function AllCoursesContent({
   courses,
@@ -10,10 +10,10 @@ export default function AllCoursesContent({
   isLoading: boolean;
 }) {
   return (
-    <div>
-      <div className="grid grid-cols-3 gap-8">
+    <div className="w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 justify-items-center sm:justify-items-stretch">
         {isLoading
-          ? [1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
+          ? [1, 2, 3, 4, 5, 6].map((index) => (
               <CourseCardSkeleton key={index} />
             ))
           : courses.map((course: CourseInterface) => {

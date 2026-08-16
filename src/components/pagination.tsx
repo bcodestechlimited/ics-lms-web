@@ -1,4 +1,5 @@
 import { Button } from "./ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PagePaginationProps {
   page: number;
@@ -11,24 +12,35 @@ export default function PagePagination({
   setPage,
   totalPages,
 }: PagePaginationProps) {
+  if (totalPages <= 1) return null;
+
   return (
-    <div className="flex items-center mt-8 gap-x-8 w-max">
+    <div className="flex items-center justify-between sm:justify-center gap-3 sm:gap-6 mt-8 sm:mt-12 py-4 w-full border-t border-border/60">
       <Button
-        disabled={page === 1}
+        variant="outline"
+        size="sm"
+        disabled={page <= 1}
         onClick={() => setPage(page - 1)}
-        className="px-4 py-2 disabled:opacity-50"
+        className="rounded-xl px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-medium gap-1.5 shadow-xs"
       >
-        Previous
+        <ChevronLeft className="w-4 h-4" />
+        <span>Previous</span>
       </Button>
-      <span>
-        Page {page} of {totalPages}
-      </span>
+
+      <div className="text-xs sm:text-sm font-medium text-muted-foreground px-2 text-center">
+        Page <span className="font-bold text-foreground">{page}</span> of{" "}
+        <span className="font-bold text-foreground">{totalPages}</span>
+      </div>
+
       <Button
-        disabled={page === totalPages}
+        variant="outline"
+        size="sm"
+        disabled={page >= totalPages}
         onClick={() => setPage(page + 1)}
-        className="px-4 py-2 disabled:opacity-50"
+        className="rounded-xl px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-medium gap-1.5 shadow-xs"
       >
-        Next
+        <span>Next</span>
+        <ChevronRight className="w-4 h-4" />
       </Button>
     </div>
   );
